@@ -1,6 +1,6 @@
 {
     "name": "advinser/php-fattura-elettronica-xml",
-    "description": "Fattura Elettronica Xml",
+    "description": "Fattura Elettronica Xml Php",
     "version": "v1.0-dev",
     "type": "library",
     "require": {
