@@ -16,7 +16,7 @@ class FatturaElettronicaBody
      */
     private $DatiGenerali;
     /**
-     * @var DatiGenerali|null
+     * @var DatiBeniServizi|null
      */
     private $DatiBeniServizi;
     /**
@@ -51,18 +51,18 @@ class FatturaElettronicaBody
     }
 
     /**
-     * @return DatiGenerali|null
+     * @return DatiBeniServizi|null
      */
-    public function getDatiBeniServizi(): ?DatiGenerali
+    public function getDatiBeniServizi(): ?DatiBeniServizi
     {
         return $this->DatiBeniServizi;
     }
 
     /**
-     * @param DatiGenerali|null $DatiBeniServizi
+     * @param DatiBeniServizi|null $DatiBeniServizi
      * @return FatturaElettronicaBody
      */
-    public function setDatiBeniServizi(?DatiGenerali $DatiBeniServizi): FatturaElettronicaBody
+    public function setDatiBeniServizi(?DatiBeniServizi $DatiBeniServizi): FatturaElettronicaBody
     {
         $this->DatiBeniServizi = $DatiBeniServizi;
         return $this;
