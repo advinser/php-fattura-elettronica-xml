@@ -7,9 +7,10 @@
 
 namespace FatturaElettronicaXml\Body;
 
+use FatturaElettronicaXml\AbsModels;
 use FatturaElettronicaXml\FatturaElettronicaException;
 
-class FatturaElettronicaBody
+class FatturaElettronicaBody extends AbsModels
 {
     /**
      * @var DatiGenerali|null
@@ -157,7 +158,7 @@ class FatturaElettronicaBody
             $array['Allegati'] = $this->getAllegati()->toArray();
         }
 
-        return array_filter($array);
+        return $this->clean_array($array);
 
     }
 

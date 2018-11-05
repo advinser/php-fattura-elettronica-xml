@@ -7,7 +7,9 @@
 namespace FatturaElettronicaXml\Header;
 
 
-class FatturaElettronicaHeader
+use FatturaElettronicaXml\AbsModels;
+
+class FatturaElettronicaHeader extends AbsModels
 {
     /**
      * @var DatiTrasmissione
@@ -178,8 +180,7 @@ class FatturaElettronicaHeader
         if($this->getTerzoIntermediarioOSoggettoEmittente() instanceof TerzoIntermediarioOSoggettoEmittente){
             $array['TerzoIntermediarioOSoggettoEmittente'] = $this->getTerzoIntermediarioOSoggettoEmittente()->toArray();
         }
-
-        return array_filter($array);
+        return $this->clean_array($array);
     }
 
 

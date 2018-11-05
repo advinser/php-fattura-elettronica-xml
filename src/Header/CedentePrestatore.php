@@ -523,6 +523,9 @@ class CedentePrestatore
         $array['DatiAnagrafici']['StabileOrganizzazione'] = null;
         if($this->getStabileOrganizzazione() instanceof Indirizzo){
             $array['DatiAnagrafici']['StabileOrganizzazione'] = $this->getStabileOrganizzazione()->toArray();
+            if(empty($array['DatiAnagrafici']['StabileOrganizzazione'])){
+                $array['DatiAnagrafici']['StabileOrganizzazione'] = null;
+            }
         }
 
         $array['DatiAnagrafici']['IscrizioneREA'] = null;
