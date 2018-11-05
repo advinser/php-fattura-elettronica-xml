@@ -2,7 +2,7 @@
 /**
  * Created by    Gabriel Andrei gabrielandrei79@gmail.com
  * Date:         05/11/2018
- * Time:         17:26
+ * Time:         18:26
  */
 
 namespace FatturaElettronicaXml;
