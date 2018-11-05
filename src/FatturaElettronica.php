@@ -4,8 +4,12 @@
  * Date:         03/11/2018
  * Time:         18:56
  */
+
 namespace FatturaElettronicaXml;
+
 use FatturaElettronicaXml\Body\FatturaElettronicaBody;
+use FatturaElettronicaXml\Header\CedentePrestatore;
+use FatturaElettronicaXml\Header\CessionarioCommittente;
 use FatturaElettronicaXml\Header\FatturaElettronicaHeader;
 
 
@@ -35,11 +39,49 @@ class FatturaElettronica
         $this->header = $header;
         $this->body = $body;
 
-        if($header instanceof FatturaElettronicaHeader){
+        if ($header instanceof FatturaElettronicaHeader) {
             $this->versione = $header->getDatiTrasmissione()->getFormatoTrasmissione();
         }
     }
 
+    /**
+     * @return Structures\Fiscale|null
+     */
+    public function getPivaCedente()
+    {
+        if ($this->getHeader() instanceof FatturaElettronicaHeader) {
+            if ($this->getHeader()->getCedentePrestatore() instanceof CedentePrestatore) {
+                return $this->getHeader()->getCedentePrestatore()->getIdFiscaleIVA();
+            }
+        }
+        return null;
+    }
+
+    /**
+     * @return Structures\Fiscale|null
+     */
+    public function getPivaCommittente()
+    {
+        if ($this->getHeader() instanceof FatturaElettronicaHeader) {
+            if ($this->getHeader()->getCessionarioCommittente() instanceof CessionarioCommittente) {
+                return $this->getHeader()->getCessionarioCommittente()->getIdFiscaleIVA();
+            }
+        }
+        return null;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getCodiceDestinatario()
+    {
+        if ($this->getHeader() instanceof FatturaElettronicaHeader) {
+            if ($this->getHeader()->getCessionarioCommittente() instanceof CessionarioCommittente) {
+                return $this->getHeader()->getDatiTrasmissione()->getCodiceDestinatario();
+            }
+        }
+        return null;
+    }
 
     /**
      * @return FatturaElettronicaHeader
@@ -78,12 +120,16 @@ class FatturaElettronica
         return $this;
     }
 
+    /**
+     * @return array
+     * @throws FatturaElettronicaException
+     */
     public function toArray()
     {
-        if(!$this->header instanceof FatturaElettronicaHeader){
+        if (!$this->header instanceof FatturaElettronicaHeader) {
             throw new FatturaElettronicaException("missed istance of FatturaElettronicaHeader");
         }
-        if(!$this->body instanceof FatturaElettronicaBody){
+        if (!$this->body instanceof FatturaElettronicaBody) {
             throw new FatturaElettronicaException("missed istance of FatturaElettronicaBody");
 
         }
@@ -101,14 +147,16 @@ class FatturaElettronica
     /**
      * @param array $array
      * @return FatturaElettronica
+     * @throws FatturaElettronicaException
      */
-    public static function fromArray(array $array){
+    public static function fromArray(array $array)
+    {
         $o = new FatturaElettronica();
 
-        if(!empty($array['FatturaElettronicaHeader'])){
+        if (!empty($array['FatturaElettronicaHeader'])) {
             $o->setHeader(FatturaElettronicaHeader::fromArray($array['FatturaElettronicaHeader']));
         }
-        if(!empty($array['FatturaElettronicaBody'])){
+        if (!empty($array['FatturaElettronicaBody'])) {
             $o->setBody(FatturaElettronicaBody::fromArray($array['FatturaElettronicaBody']));
         }
 
