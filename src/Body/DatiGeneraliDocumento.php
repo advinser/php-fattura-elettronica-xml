@@ -6,10 +6,7 @@
  */
 
 namespace FatturaElettronicaXml\Body;
-
-
 use FatturaElettronicaXml\FatturaElettronicaException;
-use phpDocumentor\Reflection\Types\Boolean;
 
 class DatiGeneraliDocumento
 {
@@ -574,18 +571,18 @@ class DatiGeneraliDocumento
     }
 
     /**
-     * @return Boolean
+     * @return boolean
      */
-    public function getArt73(): Boolean
+    public function getArt73(): bool
     {
         return $this->Art73;
     }
 
     /**
-     * @param Boolean $Art73
+     * @param boolean $Art73
      * @return DatiGeneraliDocumento
      */
-    public function setArt73(Boolean $Art73): DatiGeneraliDocumento
+    public function setArt73(bool $Art73): DatiGeneraliDocumento
     {
         $this->Art73 = $Art73;
         return $this;
