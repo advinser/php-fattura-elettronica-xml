@@ -11,7 +11,7 @@ namespace FatturaElettronicaXml\Body;
 class DatiBeniServizi
 {
     /**
-     * @var  DettaglioLinea[]
+     * @var  DettaglioLinea[] | null
      */
     private $DettaglioLinee;
 
@@ -54,23 +54,31 @@ class DatiBeniServizi
     private $RiferimentoNormativo;
 
     /**
-     * @return DettaglioLinea[]
+     * @return DettaglioLinea[]|null
      */
-    public function getDettaglioLinee(): array
+    public function getDettaglioLinee(): ?array
     {
         return $this->DettaglioLinee;
     }
 
     /**
-     * @param DettaglioLinea[] $DettaglioLinee
+     * @param DettaglioLinea[]|null $DettaglioLinee
+     * @return DatiBeniServizi
      */
-    public function setDettaglioLinee(array $DettaglioLinee): void
+    public function setDettaglioLinee(?array $DettaglioLinee): DatiBeniServizi
     {
         $this->DettaglioLinee = $DettaglioLinee;
+        return $this;
     }
 
-    public function addDettaglioLinea(DettaglioLinea $dettaglioLinea){
+    /**
+     * @param DettaglioLinea $dettaglioLinea
+     * @return DatiBeniServizi
+     */
+    public function addDettaglioLinea(DettaglioLinea $dettaglioLinea):DatiBeniServizi
+    {
         $this->DettaglioLinee[] = $dettaglioLinea;
+        return $this;
     }
 
     /**
