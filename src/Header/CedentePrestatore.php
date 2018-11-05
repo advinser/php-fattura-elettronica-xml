@@ -516,49 +516,46 @@ class CedentePrestatore
             'RegimeFiscale' => $this->getRegimeFiscale(),
         ];
 
-        $array['DatiAnagrafici']['Sede'] = null;
+        $array['Sede'] = null;
         if($this->getSede() instanceof Indirizzo){
-            $array['DatiAnagrafici']['Sede'] = $this->getSede()->toArray();
+            $array['Sede'] = $this->getSede()->toArray();
         }
-        $array['DatiAnagrafici']['StabileOrganizzazione'] = null;
+        $array['StabileOrganizzazione'] = null;
         if($this->getStabileOrganizzazione() instanceof Indirizzo){
-            $array['DatiAnagrafici']['StabileOrganizzazione'] = $this->getStabileOrganizzazione()->toArray();
-            if(empty($array['DatiAnagrafici']['StabileOrganizzazione'])){
-                $array['DatiAnagrafici']['StabileOrganizzazione'] = null;
-            }
+            $array['StabileOrganizzazione'] = $this->getStabileOrganizzazione()->toArray();
         }
 
-        $array['DatiAnagrafici']['IscrizioneREA'] = null;
+        $array['IscrizioneREA'] = null;
         if(!empty($this->getUfficio())){
-            $array['DatiAnagrafici']['IscrizioneREA']['Ufficio'] = $this->getUfficio();
+            $array['IscrizioneREA']['Ufficio'] = $this->getUfficio();
         }
         if(!empty($this->getNumeroREA())){
-            $array['DatiAnagrafici']['IscrizioneREA']['NumeroREA'] = $this->getNumeroREA();
+            $array['IscrizioneREA']['NumeroREA'] = $this->getNumeroREA();
         }
         if(!empty($this->getCapitaleSociale())){
-            $array['DatiAnagrafici']['IscrizioneREA']['CapitaleSociale'] = $this->getCapitaleSociale();
+            $array['IscrizioneREA']['CapitaleSociale'] = $this->getCapitaleSociale();
         }
         if(!empty($this->getSocioUnico())){
-            $array['DatiAnagrafici']['IscrizioneREA']['SocioUnico'] = $this->getSocioUnico();
+            $array['IscrizioneREA']['SocioUnico'] = $this->getSocioUnico();
         }
         if(!empty($this->getStatoLiquidazione())){
-            $array['DatiAnagrafici']['IscrizioneREA']['StatoLiquidazione'] = $this->getStatoLiquidazione();
+            $array['IscrizioneREA']['StatoLiquidazione'] = $this->getStatoLiquidazione();
         }
 
-        $array['DatiAnagrafici']['Contatti'] = null;
+        $array['Contatti'] = null;
         if(!empty($this->getTelefono())){
-            $array['DatiAnagrafici']['Contatti']['Telefono'] = $this->getTelefono();
+            $array['Contatti']['Telefono'] = $this->getTelefono();
         }
         if(!empty($this->getFax())){
-            $array['DatiAnagrafici']['Contatti']['Fax'] = $this->getFax();
+            $array['Contatti']['Fax'] = $this->getFax();
         }
         if(!empty($this->getEmail())){
-            $array['DatiAnagrafici']['Contatti']['Email'] = $this->getEmail();
+            $array['Contatti']['Email'] = $this->getEmail();
         }
 
-        $array['DatiAnagrafici']['RiferimentoAmministrazione'] = null;
+        $array['RiferimentoAmministrazione'] = null;
         if(!empty($this->getRiferimentoAmministrazione())){
-            $array['DatiAnagrafici']['RiferimentoAmministrazione'] = $this->getRiferimentoAmministrazione();
+            $array['RiferimentoAmministrazione'] = $this->getRiferimentoAmministrazione();
         }
 
         return $array;

@@ -14,15 +14,15 @@ use FatturaElettronicaXml\FatturaElettronicaException;
 class DatiTrasmissione
 {
     /**
-     * @var Fiscale
+     * @var Fiscale|null
      */
     private $IdTrasmittente;
     /**
-     * @var string
+     * @var string|null
      */
     private $ProgressivoInvio;
     /**
-     * @var string
+     * @var string|null
      */
     private $FormatoTrasmissione;
     /**
@@ -30,15 +30,15 @@ class DatiTrasmissione
      */
     private $CodiceDestinatario = '0000000';
     /**
-     * @var string
+     * @var string|null
      */
     private $Telefono;
     /**
-     * @var string
+     * @var string|null
      */
     private $Email;
     /**
-     * @var string
+     * @var string|null
      */
     private $PECDestinatario;
 
@@ -51,9 +51,9 @@ class DatiTrasmissione
 
 
     /**
-     * @return Fiscale
+     * @return Fiscale|null
      */
-    public function getIdTrasmittente(): Fiscale
+    public function getIdTrasmittente(): ?Fiscale
     {
         return $this->IdTrasmittente;
     }
@@ -69,9 +69,9 @@ class DatiTrasmissione
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getProgressivoInvio(): string
+    public function getProgressivoInvio(): ?string
     {
         return $this->ProgressivoInvio;
     }
@@ -91,9 +91,9 @@ class DatiTrasmissione
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getFormatoTrasmissione(): string
+    public function getFormatoTrasmissione(): ?string
     {
         return $this->FormatoTrasmissione;
     }
@@ -119,9 +119,9 @@ class DatiTrasmissione
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getCodiceDestinatario(): string
+    public function getCodiceDestinatario(): ?string
     {
         return $this->CodiceDestinatario;
     }
@@ -137,9 +137,9 @@ class DatiTrasmissione
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getTelefono(): string
+    public function getTelefono(): ?string
     {
         return $this->Telefono;
     }
@@ -155,9 +155,9 @@ class DatiTrasmissione
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getEmail(): string
+    public function getEmail(): ?string
     {
         return $this->Email;
     }
@@ -173,9 +173,9 @@ class DatiTrasmissione
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getPECDestinatario(): string
+    public function getPECDestinatario(): ?string
     {
         return $this->PECDestinatario;
     }
