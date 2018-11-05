@@ -561,7 +561,7 @@ class CedentePrestatore
             $array['DatiAnagrafici']['RiferimentoAmministrazione'] = $this->getRiferimentoAmministrazione();
         }
 
-        return array_filter($array);
+        return $array;
     }
 
 

@@ -206,7 +206,7 @@ class DatiTrasmissione
             'PECDestinatario'=>$this->getPECDestinatario(),
         ];
 
-        return array_filter($array);
+        return $array;
     }
 
 

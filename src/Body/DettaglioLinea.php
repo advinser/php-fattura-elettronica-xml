@@ -556,7 +556,7 @@ class DettaglioLinea
 
 
 
-        return array_filter($array);
+        return $array;
     }
 
 }

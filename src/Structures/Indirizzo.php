@@ -155,7 +155,7 @@ class Indirizzo
      */
     public function toArray()
     {
-        return array_filter(
+        return
             [
                 'Indirizzo' => $this->getIndirizzo(),
                 'NumeroCivico' => $this->getNumeroCivico(),
@@ -163,8 +163,7 @@ class Indirizzo
                 'Comune' => $this->getComune(),
                 'Provincia' => $this->getProvincia(),
                 'Nazione' => $this->getNazione()
-            ]
-        );
+            ];
     }
 
 

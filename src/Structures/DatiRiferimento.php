@@ -182,6 +182,6 @@ class DatiRiferimento
         ];
 
 
-        return array_filter($array);
+        return $array;
     }
 }

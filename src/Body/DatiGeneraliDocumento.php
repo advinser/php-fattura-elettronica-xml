@@ -714,7 +714,7 @@ class DatiGeneraliDocumento
 
 
 
-        return array_filter($array);
+        return $array;
     }
 
 }

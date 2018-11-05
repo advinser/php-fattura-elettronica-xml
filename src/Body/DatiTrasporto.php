@@ -534,9 +534,6 @@ class DatiTrasporto
             }
         }
 
-        $array['DatiAnagraficiVettore'] = (!empty($array['DatiAnagraficiVettore']))? array_filter($array['DatiAnagraficiVettore']) : null;
-        $array['IndirizzoResa'] = (!empty($array['IndirizzoResa']))? array_filter($array['IndirizzoResa']) : null;
-
-        return array_filter($array);
+        return $array;
     }
 }

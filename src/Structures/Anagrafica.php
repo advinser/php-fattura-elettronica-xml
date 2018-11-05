@@ -142,13 +142,13 @@ class Anagrafica
 
 
     public function toArray(){
-        return array_filter([
+        return [
             'Denominazione'=>$this->getDenominazione(),
             'Nome'=>$this->getNome(),
             'Cognome'=>$this->getCognome(),
             'Titolo'=>$this->getTitolo(),
             'CodEORI'=>$this->getCodEORI(),
-        ]);
+        ];
     }
 
 

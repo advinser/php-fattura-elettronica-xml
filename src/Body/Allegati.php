@@ -134,7 +134,7 @@ class Allegati
             'DescrizioneAttachment' => $this->getDescrizioneAttachment(),
             'Attachment' => $this->getAttachment(),
         ];
-        return array_filter($array);
+        return $array;
     }
 
 }

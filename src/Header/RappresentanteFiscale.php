@@ -91,7 +91,7 @@ class RappresentanteFiscale
             'Anagrafica' => $this->getAnagrafica()->toArray(),
         ];
 
-        return array_filter($array);
+        return $array;
     }
 
 

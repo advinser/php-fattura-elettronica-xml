@@ -494,7 +494,7 @@ class DatiPagamento
                 'CodicePagamento' => $this->getCodicePagamento(),
             ]
         ];
-        return array_filter($array);
+        return $array;
     }
 
 }

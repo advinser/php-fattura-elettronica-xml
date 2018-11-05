@@ -271,8 +271,7 @@ class DatiBeniServizi
         }
 
 
-        $array['DatiRiepilogo'] = array_filter($array['DatiRiepilogo']);
-        return array_filter($array);
+        return $array;
     }
 
 }

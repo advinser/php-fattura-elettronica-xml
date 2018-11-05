@@ -65,7 +65,7 @@ class DatiVeicoli
             'TotalePercorso'=>$this->getTotalePercorso(),
         ];
 
-        return array_filter($array);
+        return $array;
     }
 
 }

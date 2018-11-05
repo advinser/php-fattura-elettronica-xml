@@ -380,7 +380,7 @@ class DatiGenerali
             $array['FatturaPrincipale']['DataFatturaPrincipale'] = $this->getDataFatturaPrincipale();
         }
 
-        return array_filter($array);
+        return $array;
     }
 
 }

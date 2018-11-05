@@ -451,6 +451,6 @@ class CessionarioCommittente
             $array['DatiAnagrafici']['RappresentanteFiscale']['Cognome'] = $this->getRappresentanteFiscaleCognome();
         }
 
-        return array_filter($array);
+        return $array;
     }
 }
