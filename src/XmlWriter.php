@@ -36,7 +36,7 @@ class XmlWriter
      * @throws FatturaElettronicaException
      */
     public function encodeXml(){
-        return trim($this->xmlEncoder->encode($this->fatturaElettronica->toArray(), 'xml', ['xml_root_node_name' => $this->rootXml]));
+        return trim($this->xmlEncoder->encode($this->fatturaElettronica->toArray(), 'xml', ['xml_root_node_name' => $this->rootXml,'xml_encoding' => 'UTF-8']));
     }
 
     /**

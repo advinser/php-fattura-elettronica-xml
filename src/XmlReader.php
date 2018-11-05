@@ -6,9 +6,30 @@
  */
 
 namespace FatturaElettronicaXml;
-
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
 
 class XmlReader
 {
-//todo implent reader from xml
+    /**
+     * @var XmlEncoder
+     */
+    private $xmlEncoder;
+
+    /**
+     * XmlReader constructor.
+     */
+    public function __construct()
+    {
+        $this->xmlEncoder = new XmlEncoder();
+    }
+
+    /**
+     * @param $source
+     * @return FatturaElettronica
+     */
+    public function decodeXml($source){
+        $fattura = new FatturaElettronica();
+
+        return $fattura;
+    }
 }
