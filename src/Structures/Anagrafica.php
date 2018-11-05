@@ -142,6 +142,7 @@ class Anagrafica
 
 
     public function toArray(){
+        //todo aggiungere validazione
         return [
             'Denominazione'=>$this->getDenominazione(),
             'Nome'=>$this->getNome(),

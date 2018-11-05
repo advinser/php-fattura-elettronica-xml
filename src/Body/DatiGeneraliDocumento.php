@@ -640,10 +640,10 @@ class DatiGeneraliDocumento
             $array['DatiRitenuta']['TipoRitenuta'] = $this->getTipoRitenuta();
         }
         if(!empty($this->getImportoRitenuta())){
-            $array['DatiRitenuta']['ImportoRitenuta'] = $this->getImportoRitenuta();
+            $array['DatiRitenuta']['ImportoRitenuta'] = number_format($this->getImportoRitenuta(),2,'.','');
         }
         if(!empty($this->getAliquotaRitenuta())){
-            $array['DatiRitenuta']['AliquotaRitenuta'] = $this->getAliquotaRitenuta();
+            $array['DatiRitenuta']['AliquotaRitenuta'] = number_format($this->getAliquotaRitenuta(),2,'.','');
         }
         if(!empty($this->getCausalePagamento())){
             $array['DatiRitenuta']['CausalePagamento'] = $this->getCausalePagamento();
@@ -654,7 +654,7 @@ class DatiGeneraliDocumento
             $array['DatiBollo']['BolloVirtuale'] = $this->getBolloVirtuale();
         }
         if(!empty($this->getImportoBollo())){
-            $array['DatiBollo']['ImportoBollo'] = $this->getImportoBollo();
+            $array['DatiBollo']['ImportoBollo'] = number_format($this->getImportoBollo(),2,'.','');
         }
 
 
@@ -668,10 +668,10 @@ class DatiGeneraliDocumento
             $array['DatiCassaPrevidenziale']['ImportoContributoCassa'] = $this->getImportoContributoCassa();
         }
         if(!empty($this->getImponibileCassa())){
-            $array['DatiCassaPrevidenziale']['ImponibileCassa'] = $this->getImponibileCassa();
+            $array['DatiCassaPrevidenziale']['ImponibileCassa'] = number_format($this->getImponibileCassa(),2,'.','');
         }
         if(!empty($this->getAliquotaIVA())){
-            $array['DatiCassaPrevidenziale']['AliquotaIVA'] = $this->getAliquotaIVA();
+            $array['DatiCassaPrevidenziale']['AliquotaIVA'] = number_format($this->getAliquotaIVA(),2,'.','');
         }
         if(!empty($this->getRitenuta())){
             $array['DatiCassaPrevidenziale']['Ritenuta'] = $this->getRitenuta();
@@ -688,21 +688,21 @@ class DatiGeneraliDocumento
             $array['ScontoMaggiorazione']['Tipo'] = $this->getScontoTipo();
         }
         if(!empty($this->getScontoPercentuale())){
-            $array['ScontoMaggiorazione']['Percentuale'] = $this->getScontoPercentuale();
+            $array['ScontoMaggiorazione']['Percentuale'] = number_format($this->getScontoPercentuale(),2,'.','');
         }
         if(!empty($this->getScontoImporto())){
-            $array['ScontoMaggiorazione']['Importo'] = $this->getScontoImporto();
+            $array['ScontoMaggiorazione']['Importo'] = number_format($this->getScontoImporto(),2,'.','');
         }
 
         if($this->getImportoTotaleDocumento() === null){
             $array['ImportoTotaleDocumento'] = '0.0';
         }else{
-            $array['ImportoTotaleDocumento'] = $this->getImportoTotaleDocumento();
+            $array['ImportoTotaleDocumento'] = number_format($this->getImportoTotaleDocumento(),2,'.','');
         }
         if($this->getArrotondamento() === null){
-            $array['Arrotondamento'] = '0.0';
+            $array['Arrotondamento'] = '0.00';
         }else{
-            $array['Arrotondamento'] = $this->getArrotondamento();
+            $array['Arrotondamento'] = number_format($this->getArrotondamento(),2,'.','');
         }
         if(!empty($this->getCausale())){
             $array['Causale'] = $this->getCausale();

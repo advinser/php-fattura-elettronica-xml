@@ -243,25 +243,25 @@ class DatiBeniServizi
         }
 
         if($this->getAliquotaIVA()===null){
-            $array['DatiRiepilogo']['AliquotaIVA'] = '0.0';
+            $array['DatiRiepilogo']['AliquotaIVA'] = '0.00';
         }else{
-            $array['DatiRiepilogo']['AliquotaIVA'] = $this->getAliquotaIVA();
+            $array['DatiRiepilogo']['AliquotaIVA'] = number_format($this->getAliquotaIVA(),2,'.','');
         }
 
         if(!empty($this->getNatura())){
             $array['DatiRiepilogo']['Natura'] = $this->getNatura();
         }
         if(!empty($this->getSpeseAccessorie())){
-            $array['DatiRiepilogo']['SpeseAccessorie'] = $this->getSpeseAccessorie();
+            $array['DatiRiepilogo']['SpeseAccessorie'] = number_format(floatval($this->getSpeseAccessorie()),2,'.','');
         }
         if(!empty($this->getArrotondamento())){
-            $array['DatiRiepilogo']['Arrotondamento'] = $this->getArrotondamento();
+            $array['DatiRiepilogo']['Arrotondamento'] = number_format(floatval($this->getArrotondamento()),2,'.','');
         }
         if(!empty($this->getImponibileImporto())){
-            $array['DatiRiepilogo']['ImponibileImporto'] = $this->getImponibileImporto();
+            $array['DatiRiepilogo']['ImponibileImporto'] = number_format(floatval($this->getImponibileImporto()),2,'.','');
         }
         if(!empty($this->getImposta())){
-            $array['DatiRiepilogo']['Imposta'] = $this->getImposta();
+            $array['DatiRiepilogo']['Imposta'] = number_format(floatval($this->getImposta()),2,'.','');
         }
         if(!empty($this->getEsigibilitaIVA())){
             $array['DatiRiepilogo']['EsigibilitaIVA'] = $this->getEsigibilitaIVA();

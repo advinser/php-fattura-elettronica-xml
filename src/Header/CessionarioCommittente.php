@@ -425,30 +425,30 @@ class CessionarioCommittente
         $array['DatiAnagrafici'] = [
             'IdFiscaleIVA' => ($this->getIdFiscaleIVA() instanceof Fiscale) ? $this->getIdFiscaleIVA()->toArray() : null,
             'CodiceFiscale' => $this->getCodiceFiscale(),
-            'Anagrafica' => ($this->getAnagrafica() instanceof Indirizzo) ? $this->getAnagrafica()->toArray() : null,
+            'Anagrafica' => ($this->getAnagrafica() instanceof Anagrafica) ? $this->getAnagrafica()->toArray() : null,
         ];
 
-        $array['DatiAnagrafici']['Sede'] = null;
+        $array['Sede'] = null;
         if($this->getSede() instanceof Indirizzo){
-            $array['DatiAnagrafici']['Sede'] = $this->getSede()->toArray();
+            $array['Sede'] = $this->getSede()->toArray();
         }
-        $array['DatiAnagrafici']['StabileOrganizzazione'] = null;
+        $array['StabileOrganizzazione'] = null;
         if($this->getStabileOrganizzazione() instanceof Indirizzo){
-            $array['DatiAnagrafici']['StabileOrganizzazione'] = $this->getStabileOrganizzazione()->toArray();
+            $array['StabileOrganizzazione'] = $this->getStabileOrganizzazione()->toArray();
         }
 
-        $array['DatiAnagrafici']['RappresentanteFiscale'] = null;
+        $array['RappresentanteFiscale'] = null;
         if($this->getRappresentanteFiscaleIdFiscaleIVA() instanceof Fiscale){
-            $array['DatiAnagrafici']['RappresentanteFiscale']['IdFiscaleIVA'] = $this->getRappresentanteFiscaleIdFiscaleIVA()->toArray();
+            $array['RappresentanteFiscale']['IdFiscaleIVA'] = $this->getRappresentanteFiscaleIdFiscaleIVA()->toArray();
         }
         if(!empty($this->getRappresentanteFiscaleDenominazione())){
-            $array['DatiAnagrafici']['RappresentanteFiscale']['Denominazione'] = $this->getRappresentanteFiscaleDenominazione();
+            $array['RappresentanteFiscale']['Denominazione'] = $this->getRappresentanteFiscaleDenominazione();
         }
         if(!empty($this->getRappresentanteFiscaleNome())){
-            $array['DatiAnagrafici']['RappresentanteFiscale']['Nome'] = $this->getRappresentanteFiscaleNome();
+            $array['RappresentanteFiscale']['Nome'] = $this->getRappresentanteFiscaleNome();
         }
         if(!empty($this->getRappresentanteFiscaleCognome())){
-            $array['DatiAnagrafici']['RappresentanteFiscale']['Cognome'] = $this->getRappresentanteFiscaleCognome();
+            $array['RappresentanteFiscale']['Cognome'] = $this->getRappresentanteFiscaleCognome();
         }
 
         return $array;

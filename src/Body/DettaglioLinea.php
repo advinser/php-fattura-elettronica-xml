@@ -496,7 +496,6 @@ class DettaglioLinea
     }
 
 
-
     public function toArray()
     {
         //todo aggiungere validazione
@@ -505,14 +504,14 @@ class DettaglioLinea
             'TipoCessionePrestazione' => $this->getTipoCessionePrestazione(),
             'CodiceArticolo' => null,
             'Descrizione' => $this->getDescrizione(),
-            'Quantita' => $this->getQuantita(),
+            'Quantita' => !empty($this->getQuantita()) ? number_format(floatval($this->getQuantita()),2,'.','') : null,
             'UnitaMisura' => $this->getUnitaMisura(),
             'DataInizioPeriodo' => $this->getDataInizioPeriodo(),
             'DataFinePeriodo' => $this->getDataFinePeriodo(),
-            'PrezzoUnitario' => $this->getPrezzoUnitario(),
+            'PrezzoUnitario' => number_format(floatval($this->getPrezzoUnitario()),2,'.',''),
             'ScontoMaggiorazione' => null,
-            'PrezzoTotale' => $this->getPrezzoTotale(),
-            'AliquotaIVA' => $this->getAliquotaIVA(),
+            'PrezzoTotale' => number_format(floatval($this->getPrezzoTotale()),2,'.',''),
+            'AliquotaIVA' => number_format(floatval($this->getAliquotaIVA()),2,'.',''),
             'Ritenuta' => $this->getRitenuta(),
             'Natura' => $this->getNatura(),
             'RiferimentoAmministrazione' => $this->getRiferimentoAmministrazione(),
@@ -524,36 +523,34 @@ class DettaglioLinea
             ]
         ];
 
-        if(!empty($this->getCodiceTipo())){
+        if (!empty($this->getCodiceTipo())) {
             $array['CodiceArticolo']['CodiceTipo'] = $this->getCodiceTipo();
         }
-        if(!empty($this->getCodiceValore())){
+        if (!empty($this->getCodiceValore())) {
             $array['CodiceArticolo']['CodiceValore'] = $this->getCodiceValore();
         }
-        if(!empty($this->getScontoTipo())){
+        if (!empty($this->getScontoTipo())) {
             $array['ScontoMaggiorazione']['Tipo'] = $this->getScontoTipo();
         }
-        if(!empty($this->getScontoPercentuale())){
+        if (!empty($this->getScontoPercentuale())) {
             $array['ScontoMaggiorazione']['Percentuale'] = $this->getScontoPercentuale();
         }
-        if(!empty($this->getScontoImporto())){
-            $array['ScontoMaggiorazione']['Importo'] = $this->getScontoImporto();
+        if (!empty($this->getScontoImporto())) {
+            $array['ScontoMaggiorazione']['Importo'] = number_format(floatval($this->getScontoImporto()),2,'.','');
         }
 
-        if(!empty($this->getTipoDato())){
+        if (!empty($this->getTipoDato())) {
             $array['AltriDatiGestionali']['TipoDato'] = $this->getTipoDato();
         }
-        if(!empty($this->getRiferimentoTesto())){
+        if (!empty($this->getRiferimentoTesto())) {
             $array['AltriDatiGestionali']['RiferimentoTesto'] = $this->getRiferimentoTesto();
         }
-        if(!empty($this->getRiferimentoNumero())){
+        if (!empty($this->getRiferimentoNumero())) {
             $array['AltriDatiGestionali']['RiferimentoNumero'] = $this->getRiferimentoNumero();
         }
-        if(!empty($this->getRiferimentoData())){
+        if (!empty($this->getRiferimentoData())) {
             $array['AltriDatiGestionali']['RiferimentoData'] = $this->getRiferimentoData();
         }
-
-
 
 
         return $array;
