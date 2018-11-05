@@ -11,5 +11,10 @@
         "phpunit/phpunit": "^7.5@dev"
     },
     "license": "GPL-3.0-or-later",
-    "minimum-stability": "dev"
+    "minimum-stability": "dev",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "v1.0-dev"
+        }
+    }
 }
