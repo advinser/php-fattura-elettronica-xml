@@ -20,6 +20,5 @@
         "symfony/serializer": "^4.1"
     },
     "require-dev": {
-        "phpunit/phpunit": "^5.4"
     }
 }
