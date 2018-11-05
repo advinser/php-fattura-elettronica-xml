@@ -3,6 +3,7 @@
     "description": "Fattura Elettronica Xml",
     "keywords": [],
     "homepage": "http://advinser.it",
+    "version": "v1.0",
     "type": "library",
     "autoload": {
         "psr-4": {
