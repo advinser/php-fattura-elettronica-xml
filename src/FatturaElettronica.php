@@ -98,5 +98,22 @@ class FatturaElettronica
         ];
     }
 
+    /**
+     * @param array $array
+     * @return FatturaElettronica
+     */
+    public static function fromArray(array $array){
+        $o = new FatturaElettronica();
+
+        if(!empty($array['FatturaElettronicaHeader'])){
+            $o->setHeader(FatturaElettronicaHeader::fromArray($array['FatturaElettronicaHeader']));
+        }
+        if(!empty($array['FatturaElettronicaBody'])){
+            $o->setBody(FatturaElettronicaBody::fromArray($array['FatturaElettronicaBody']));
+        }
+
+        return $o;
+    }
+
 
 }

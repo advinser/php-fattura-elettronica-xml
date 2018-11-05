@@ -501,39 +501,78 @@ class DatiTrasporto
             'DataOraConsegna' => null,
         ];
 
-        if(!empty($this->getResaIndirizzo())){
+        if (!empty($this->getResaIndirizzo())) {
             $array['IndirizzoResa']['Indirizzo'] = $this->getResaIndirizzo();
         }
-        if(!empty($this->getResaNumeroCivico())){
+        if (!empty($this->getResaNumeroCivico())) {
             $array['IndirizzoResa']['NumeroCivico'] = $this->getResaNumeroCivico();
         }
-        if(!empty($this->getResaCAP())){
+        if (!empty($this->getResaCAP())) {
             $array['IndirizzoResa']['CAP'] = $this->getResaCAP();
         }
-        if(!empty($this->getResaComune())){
+        if (!empty($this->getResaComune())) {
             $array['IndirizzoResa']['Comune'] = $this->getResaComune();
         }
-        if(!empty($this->getResaProvincia())){
+        if (!empty($this->getResaProvincia())) {
             $array['IndirizzoResa']['Provincia'] = $this->getResaProvincia();
         }
-        if(!empty($this->getResaNazione())){
+        if (!empty($this->getResaNazione())) {
             $array['IndirizzoResa']['Nazione'] = $this->getResaNazione();
         }
 
-        if($this->getIdFiscaleIVA() instanceof Fiscale){
+        if ($this->getIdFiscaleIVA() instanceof Fiscale) {
             $array['DatiAnagraficiVettore']['IdFiscaleIVA'] = $this->getIdFiscaleIVA()->toArray();
-            if(empty($array['DatiAnagraficiVettore']['IdFiscaleIVA'])){
+            if (empty($array['DatiAnagraficiVettore']['IdFiscaleIVA'])) {
                 $array['DatiAnagraficiVettore']['IdFiscaleIVA'] = null;
             }
         }
 
-        if($this->getAnagrafica() instanceof Anagrafica){
+        if ($this->getAnagrafica() instanceof Anagrafica) {
             $array['DatiAnagraficiVettore']['Anagrafica'] = $this->getAnagrafica()->toArray();
-            if(empty($array['DatiAnagraficiVettore']['Anagrafica'])){
+            if (empty($array['DatiAnagraficiVettore']['Anagrafica'])) {
                 $array['DatiAnagraficiVettore']['Anagrafica'] = null;
             }
         }
 
         return $array;
     }
+
+    /**
+     * @param array $array
+     * @return DatiTrasporto
+     */
+    public static function fromArray(array $array): DatiTrasporto
+    {
+        $o = new DatiTrasporto();
+        if (!empty($array['IndirizzoResa']['Indirizzo'])) {
+            $o->setResaIndirizzo($array['IndirizzoResa']['Indirizzo']);
+        }
+        if (!empty($array['IndirizzoResa']['NumeroCivico'])) {
+            $o->setResaNumeroCivico($array['IndirizzoResa']['NumeroCivico']);
+        }
+        if (!empty($array['IndirizzoResa']['CAP'])) {
+            $o->setResaCAP($array['IndirizzoResa']['CAP']);
+        }
+        if (!empty($array['IndirizzoResa']['Comune'])) {
+            $o->setResaComune($array['IndirizzoResa']['Comune']);
+        }
+        if (!empty($array['IndirizzoResa']['Provincia'])) {
+            $o->setResaProvincia($array['IndirizzoResa']['Provincia']);
+        }
+        if (!empty($array['IndirizzoResa']['Nazione'])) {
+            $o->setResaNazione($array['IndirizzoResa']['Nazione']);
+        }
+
+        if (empty($array['DatiAnagraficiVettore']['IdFiscaleIVA'])) {
+            $o->setIdFiscaleIVA(Fiscale::fromArray($array['DatiAnagraficiVettore']['IdFiscaleIVA']));
+        }
+
+        if (empty($array['DatiAnagraficiVettore']['Anagrafica'])) {
+            $o->setAnagrafica(Anagrafica::fromArray($array['DatiAnagraficiVettore']['Anagrafica']));
+        }
+
+        return $o;
+    }
+
+
 }

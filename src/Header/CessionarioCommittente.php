@@ -453,4 +453,43 @@ class CessionarioCommittente
 
         return $array;
     }
+
+    /**
+     * @param array $array
+     * @return CessionarioCommittente
+     */
+    public static function fromArray(array $array):CessionarioCommittente
+    {
+        $o = new CessionarioCommittente();
+        if(!empty($array['DatiAnagrafici']['IdFiscaleIVA'])){
+            $o->setIdFiscaleIVA(Fiscale::fromArray($array['DatiAnagrafici']['IdFiscaleIVA']));
+        }
+        if(!empty($array['DatiAnagrafici']['CodiceFiscale'])){
+            $o->setCodiceFiscale($array['DatiAnagrafici']['CodiceFiscale']);
+        }
+        if(!empty($array['DatiAnagrafici']['Anagrafica'])){
+            $o->setAnagrafica(Anagrafica::fromArray($array['DatiAnagrafici']['Anagrafica']));
+        }
+        if (!empty($array['Sede'])) {
+            $o->setSede(Indirizzo::fromArray($array['Sede']));
+        }
+        if (!empty($array['StabileOrganizzazione'])) {
+            $o->setStabileOrganizzazione(Indirizzo::fromArray($array['StabileOrganizzazione']));
+        }
+
+        if(!empty($array['RappresentanteFiscale']['IdFiscaleIVA'])){
+            $o->setRappresentanteFiscaleIdFiscaleIVA(Fiscale::fromArray($array['RappresentanteFiscale']['IdFiscaleIVA']));
+        }
+        if(!empty($array['RappresentanteFiscale']['Denominazione'])){
+             $o->setRappresentanteFiscaleDenominazione($array['RappresentanteFiscale']['Denominazione']);
+        }
+        if(!empty($array['RappresentanteFiscale']['Nome'])){
+            $o->setRappresentanteFiscaleNome($array['RappresentanteFiscale']['Nome']);
+        }
+        if(!empty($array['RappresentanteFiscale']['Cognome'])){
+            $o->setRappresentanteFiscaleCognome($array['RappresentanteFiscale']['Cognome']);
+        }
+        
+        return $o;
+    }
 }

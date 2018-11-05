@@ -123,9 +123,10 @@ class FatturaElettronicaBody extends AbsModels
         return $this;
     }
 
-
-
-
+    /**
+     * @return array
+     * @throws FatturaElettronicaException
+     */
     public function toArray()
     {
         $array = [
@@ -160,6 +161,31 @@ class FatturaElettronicaBody extends AbsModels
 
         return $this->clean_array($array);
 
+    }
+
+    /**
+     * @param array $array
+     * @return FatturaElettronicaBody
+     */
+    public static function fromArray(array $array):FatturaElettronicaBody{
+        $o = new FatturaElettronicaBody();
+
+        if(!empty($array['DatiGenerali'])){
+            $o->setDatiGenerali(DatiGenerali::fromArray($array['DatiGenerali']));
+        }
+        if(!empty($array['DatiBeniServizi'])){
+            $o->setDatiBeniServizi(DatiBeniServizi::fromArray($array['DatiBeniServizi']));
+        }
+        if(!empty($array['DatiVeicoli'])){
+            $o->setDatiVeicoli(DatiVeicoli::fromArray($array['DatiVeicoli']));
+        }
+        if(!empty($array['DatiPagamento'])){
+            $o->setDatiPagamento(DatiPagamento::fromArray($array['DatiPagamento']));
+        }
+        if(!empty($array['Allegati'])){
+            $o->setAllegati(Allegati::fromArray($array['Allegati']));
+        }
+        return $o;
     }
 
 

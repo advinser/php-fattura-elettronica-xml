@@ -287,10 +287,10 @@ class CedentePrestatore
     {
         if (!isset($this->regimiFiscali[$RegimeFiscale])) {
             $buffer = "";
-            foreach($this->regimiFiscali as $c=>$v){
-                $buffer.=$c."\r\n";
+            foreach ($this->regimiFiscali as $c => $v) {
+                $buffer .= $c . "\r\n";
             }
-            throw new FatturaElettronicaException("Invalid value for 'RegimeFiscale', allowed value are:\r\n".$buffer);
+            throw new FatturaElettronicaException("Invalid value for 'RegimeFiscale', allowed value are:\r\n" . $buffer);
         }
         $this->RegimeFiscale = $RegimeFiscale;
         return $this;
@@ -419,7 +419,7 @@ class CedentePrestatore
      */
     public function setStatoLiquidazione(?string $StatoLiquidazione): ?CedentePrestatore
     {
-        switch ($StatoLiquidazione){
+        switch ($StatoLiquidazione) {
             case 'LN':
             case 'LS':
                 $this->StatoLiquidazione = $StatoLiquidazione;
@@ -504,11 +504,11 @@ class CedentePrestatore
     }
 
 
-
     /**
      * @return array
      */
-    public function toArray(){
+    public function toArray()
+    {
         $array['DatiAnagrafici'] = [
             'IdFiscaleIVA' => $this->getIdFiscaleIVA()->toArray(),
             'CodiceFiscale' => $this->getCodiceFiscale(),
@@ -517,49 +517,106 @@ class CedentePrestatore
         ];
 
         $array['Sede'] = null;
-        if($this->getSede() instanceof Indirizzo){
+        if ($this->getSede() instanceof Indirizzo) {
             $array['Sede'] = $this->getSede()->toArray();
         }
         $array['StabileOrganizzazione'] = null;
-        if($this->getStabileOrganizzazione() instanceof Indirizzo){
+        if ($this->getStabileOrganizzazione() instanceof Indirizzo) {
             $array['StabileOrganizzazione'] = $this->getStabileOrganizzazione()->toArray();
         }
 
         $array['IscrizioneREA'] = null;
-        if(!empty($this->getUfficio())){
+        if (!empty($this->getUfficio())) {
             $array['IscrizioneREA']['Ufficio'] = $this->getUfficio();
         }
-        if(!empty($this->getNumeroREA())){
+        if (!empty($this->getNumeroREA())) {
             $array['IscrizioneREA']['NumeroREA'] = $this->getNumeroREA();
         }
-        if(!empty($this->getCapitaleSociale())){
+        if (!empty($this->getCapitaleSociale())) {
             $array['IscrizioneREA']['CapitaleSociale'] = $this->getCapitaleSociale();
         }
-        if(!empty($this->getSocioUnico())){
+        if (!empty($this->getSocioUnico())) {
             $array['IscrizioneREA']['SocioUnico'] = $this->getSocioUnico();
         }
-        if(!empty($this->getStatoLiquidazione())){
+        if (!empty($this->getStatoLiquidazione())) {
             $array['IscrizioneREA']['StatoLiquidazione'] = $this->getStatoLiquidazione();
         }
 
         $array['Contatti'] = null;
-        if(!empty($this->getTelefono())){
+        if (!empty($this->getTelefono())) {
             $array['Contatti']['Telefono'] = $this->getTelefono();
         }
-        if(!empty($this->getFax())){
+        if (!empty($this->getFax())) {
             $array['Contatti']['Fax'] = $this->getFax();
         }
-        if(!empty($this->getEmail())){
+        if (!empty($this->getEmail())) {
             $array['Contatti']['Email'] = $this->getEmail();
         }
 
         $array['RiferimentoAmministrazione'] = null;
-        if(!empty($this->getRiferimentoAmministrazione())){
+        if (!empty($this->getRiferimentoAmministrazione())) {
             $array['RiferimentoAmministrazione'] = $this->getRiferimentoAmministrazione();
         }
 
         return $array;
     }
 
+    /**
+     * @param $array
+     * @return CedentePrestatore
+     * @throws FatturaElettronicaException
+     */
+    public static function fromArray($array):CedentePrestatore
+    {
+        $o = new CedentePrestatore();
+
+        if(!empty($array['DatiAnagrafici']['IdFiscaleIVA'])){
+            $o->setIdFiscaleIVA(Fiscale::fromArray($array['DatiAnagrafici']['IdFiscaleIVA']));
+        }
+        if(!empty($array['DatiAnagrafici']['CodiceFiscale'])){
+            $o->setCodiceFiscale($array['DatiAnagrafici']['CodiceFiscale']);
+        }
+        if(!empty($array['DatiAnagrafici']['Anagrafica'])){
+            $o->setAnagrafica(Anagrafica::fromArray($array['DatiAnagrafici']['Anagrafica']));
+        }
+        if(!empty($array['DatiAnagrafici']['RegimeFiscale'])){
+            $o->setRegimeFiscale($array['DatiAnagrafici']['RegimeFiscale']);
+        }
+
+        if (!empty($array['Sede'])) {
+            $o->setSede(Indirizzo::fromArray($array['Sede']));
+        }
+        if (!empty($array['StabileOrganizzazione'])) {
+            $o->setStabileOrganizzazione(Indirizzo::fromArray($array['StabileOrganizzazione']));
+        }
+        if (!empty($array['IscrizioneREA']['Ufficio'])) {
+            $o->setUfficio($array['IscrizioneREA']['Ufficio']);
+        }
+        if (!empty($array['IscrizioneREA']['NumeroREA'])) {
+            $o->setNumeroREA($array['IscrizioneREA']['NumeroREA']);
+        }
+        if (!empty($array['IscrizioneREA']['CapitaleSociale'])) {
+            $o->setCapitaleSociale($array['IscrizioneREA']['CapitaleSociale']);
+        }
+        if (!empty($array['IscrizioneREA']['SocioUnico'])) {
+            $o->setSocioUnico($array['IscrizioneREA']['SocioUnico']);
+        }
+        if (!empty($array['IscrizioneREA']['StatoLiquidazione'])) {
+            $o->setStatoLiquidazione($array['IscrizioneREA']['StatoLiquidazione']);
+        }
+        if (!empty($array['Contatti']['Telefono'])) {
+            $o->setTelefono($array['Contatti']['Telefono']);
+        }
+        if (!empty($array['Contatti']['Fax'])) {
+            $o->setFax($array['Contatti']['Fax']);
+        }
+        if (!empty($array['Contatti']['Email'])) {
+            $o->setEmail($array['Contatti']['Email']);
+        }
+        if (!empty($array['RiferimentoAmministrazione'])) {
+            $o->setRiferimentoAmministrazione($array['RiferimentoAmministrazione']);
+        }
+        return $o;
+    }
 
 }

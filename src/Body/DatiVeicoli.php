@@ -68,4 +68,20 @@ class DatiVeicoli
         return $array;
     }
 
+    /**
+     * @param $array
+     * @return DatiVeicoli
+     */
+    public static function fromArray($array): DatiVeicoli
+    {
+        $o = new DatiVeicoli();
+
+        foreach ($array as $k => $v) {
+            $m = 'set' . $k;
+            $o->{$m}($v);
+        }
+
+        return $o;
+    }
+
 }

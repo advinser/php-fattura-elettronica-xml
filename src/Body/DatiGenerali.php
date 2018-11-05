@@ -383,4 +383,58 @@ class DatiGenerali
         return $array;
     }
 
+    /**
+     * @param array $array
+     * @return DatiGenerali
+     */
+    public static function fromArray(array $array) : DatiGenerali
+    {
+        $o = new DatiGenerali();
+        if (!empty($array['DatiGeneraliDocumento'])) {
+            $o->setDatiGeneraliDocumento(DatiGeneraliDocumento::fromArray($array['DatiGeneraliDocumento']));
+        }
+        if (!empty($array['DatiOrdineAcquisto'])) {
+            $o->setDatiOrdineAcquisto(DatiRiferimento::fromArray($array['DatiOrdineAcquisto']));
+        }
+        if (!empty($array['DatiContratto'])) {
+            $o->setDatiContratto(DatiRiferimento::fromArray($array['DatiContratto']));
+        }
+        if (!empty($array['DatiConvenzione'])) {
+            $o->setDatiConvenzione(DatiRiferimento::fromArray($array['DatiConvenzione']));
+        }
+        if (!empty($array['DatiRicezione'])) {
+            $o->setDatiRicezione(DatiRiferimento::fromArray($array['DatiRicezione']));
+        }
+        if (!empty($array['DatiFattureCollegate'])) {
+            $o->setDatiFattureCollegate(DatiRiferimento::fromArray($array['DatiFattureCollegate']));
+        }
+
+        if (!empty($array['DatiSAL']['RiferimentoFase'])) {
+            $o->setRiferimentoFase($array['DatiSAL']['RiferimentoFase']);
+        }
+        if (!empty($array['DatiDDT']['NumeroDDT'])) {
+            $o->setNumeroDDT($array['DatiDDT']['NumeroDDT']);
+        }
+        if (!empty($array['DatiDDT']['NumeroDDT'])) {
+            $o->setDataDDT($array['DatiDDT']['NumeroDDT']);
+        }
+        if (!empty($array['DatiDDT']['RiferimentoNumeroLinea'])) {
+             $o->setRiferimentoNumeroLinea($array['DatiDDT']['RiferimentoNumeroLinea']);
+        }
+
+        if (!empty($array['DatiTrasporto'])) {
+             $o->setDatiTrasporto(DatiTrasporto::fromArray($array['DatiTrasporto']));
+        }
+
+        if (!empty($array['FatturaPrincipale']['NumeroFatturaPrincipale'])) {
+             $o->setNumeroFatturaPrincipale($array['FatturaPrincipale']['NumeroFatturaPrincipale']);
+        }
+        if (!empty($array['FatturaPrincipale']['DataFatturaPrincipale'])) {
+            $o->setDataFatturaPrincipale($array['FatturaPrincipale']['DataFatturaPrincipale']);
+        }
+        
+        return $o;
+        
+    }
+
 }

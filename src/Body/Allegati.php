@@ -137,4 +137,16 @@ class Allegati
         return $array;
     }
 
+    public static function fromArray($array):Allegati
+    {
+        $o = new Allegati();
+
+        foreach ($array as $k => $v){
+            $m = 'set'.$k;
+            $o->{$m}($v);
+        }
+
+        return $o;
+    }
+
 }

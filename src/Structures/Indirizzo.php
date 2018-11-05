@@ -166,5 +166,21 @@ class Indirizzo
             ];
     }
 
+    /**
+     * @param $array
+     * @return Indirizzo
+     */
+    public static function fromArray($array): Indirizzo
+    {
+        $o = new Indirizzo();
+
+        foreach ($array as $k => $v) {
+            $m = 'set' . $k;
+            $o->{$m}($v);
+        }
+
+        return $o;
+    }
+
 
 }

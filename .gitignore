@@ -2,6 +2,7 @@
 /vendor/
 /composer.lock
 test.php
+test2.php
 fattura_esempio.xml
 fattura_generata.xml
 UpdatePackagist.pdf

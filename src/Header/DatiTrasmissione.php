@@ -190,7 +190,11 @@ class DatiTrasmissione
         return $this;
     }
 
-    public function toArray(){
+    /**
+     * @return array
+     */
+    public function toArray()
+    {
         $array = [
             'IdTrasmittente' => [
                 'IdPaese' => $this->getIdTrasmittente()->getIdPaese(),
@@ -200,14 +204,48 @@ class DatiTrasmissione
             'FormatoTrasmissione' => $this->getFormatoTrasmissione(),
             'CodiceDestinatario' => $this->getCodiceDestinatario(),
             'ContattiTrasmittente' => [
-                'Telefono'=>$this->getTelefono(),
-                'Email'=>$this->getEmail(),
+                'Telefono' => $this->getTelefono(),
+                'Email' => $this->getEmail(),
             ],
-            'PECDestinatario'=>$this->getPECDestinatario(),
+            'PECDestinatario' => $this->getPECDestinatario(),
         ];
 
         return $array;
     }
 
+    /**
+     * @param array $array
+     * @return DatiTrasmissione
+     * @throws FatturaElettronicaException
+     */
+    public static function fromArray(array $array): DatiTrasmissione
+    {
+        $o = new DatiTrasmissione();
+
+        if (!empty($array['IdTrasmittente'])) {
+            $o->setIdTrasmittente(new Fiscale($array['IdTrasmittente']['IdPaese'], $array['IdTrasmittente']['IdCodice']));
+        }
+
+        if (!empty($array['ProgressivoInvio'])) {
+            $o->setProgressivoInvio($array['ProgressivoInvio']);
+        }
+        if (!empty($array['FormatoTrasmissione'])) {
+            $o->setFormatoTrasmissione($array['FormatoTrasmissione']);
+        }
+        if (!empty($array['CodiceDestinatario'])) {
+            $o->setCodiceDestinatario($array['CodiceDestinatario']);
+        }
+        if (!empty($array['ContattiTrasmittente']['Telefono'])) {
+            $o->setTelefono($array['CodiceDestinatario']['Telefono']);
+        }
+        if (!empty($array['ContattiTrasmittente']['Email'])) {
+            $o->setTelefono($array['CodiceDestinatario']['Email']);
+        }
+        if (!empty($array['PECDestinatario'])) {
+            $o->setTelefono($array['PECDestinatario']);
+        }
+
+        return $o;
+    }
 
 }

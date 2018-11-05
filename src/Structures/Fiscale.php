@@ -24,7 +24,7 @@ class Fiscale
      * @param string $IdPaese
      * @param string $IdCodice
      */
-    public function __construct(string $IdPaese, string $IdCodice)
+    public function __construct(string $IdPaese = null, string $IdCodice = null)
     {
         $this->IdPaese = $IdPaese;
         $this->IdCodice = $IdCodice;
@@ -69,13 +69,28 @@ class Fiscale
     /**
      * @return array
      */
-    public function toArray(){
+    public function toArray()
+    {
         return [
-            'IdPaese'=>$this->getIdPaese(),
-            'IdCodice'=>$this->getIdCodice(),
+            'IdPaese' => $this->getIdPaese(),
+            'IdCodice' => $this->getIdCodice(),
         ];
     }
 
+    /**
+     * @param $array
+     * @return Fiscale
+     */
+    public static function fromArray($array): Fiscale
+    {
+        $o = new Fiscale();
 
+        foreach ($array as $k => $v) {
+            $m = 'set' . $k;
+            $o->{$m}($v);
+        }
+
+        return $o;
+    }
 
 }

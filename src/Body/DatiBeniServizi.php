@@ -276,4 +276,47 @@ class DatiBeniServizi
         return $array;
     }
 
+
+    public static function fromArray(array $array): DatiBeniServizi
+    {
+        $o = new DatiBeniServizi();
+
+        if(isset($array['DettaglioLinee'])){
+            if(isset($array['DettaglioLinee'][0])){
+                foreach ( $array['DettaglioLinee']as $item) {
+                    $o->addDettaglioLinea(DettaglioLinea::fromArray($item));
+                }
+            }else{
+                $o->addDettaglioLinea(DettaglioLinea::fromArray($array['DettaglioLinee']));
+            }
+        }
+
+        if(isset($array['DatiRiepilogo']['AliquotaIVA'])){
+            $o->setAliquotaIVA($array['DatiRiepilogo']['AliquotaIVA']);
+        }
+
+        if(!empty($array['DatiRiepilogo']['Natura'])){
+             $o->setNatura($array['DatiRiepilogo']['Natura']);
+        }
+        if(!empty($array['DatiRiepilogo']['SpeseAccessorie'])){
+             $o->setSpeseAccessorie($array['DatiRiepilogo']['SpeseAccessorie']);
+        }
+        if(isset($array['DatiRiepilogo']['Arrotondamento'])){
+            $o->setArrotondamento($array['DatiRiepilogo']['Arrotondamento']);
+        }
+        if(!empty($array['DatiRiepilogo']['ImponibileImporto'])){
+             $o->setImponibileImporto($array['DatiRiepilogo']['ImponibileImporto']);
+        }
+        if(!empty($array['DatiRiepilogo']['Imposta'])){
+             $o->setImposta($array['DatiRiepilogo']['Imposta']);
+        }
+        if(!empty($array['DatiRiepilogo']['EsigibilitaIVA'])){
+            $o->setEsigibilitaIVA($array['DatiRiepilogo']['EsigibilitaIVA']);
+        }
+        if(!empty($array['DatiRiepilogo']['RiferimentoNormativo'] )){
+           $o->setRiferimentoNormativo($array['DatiRiepilogo']['RiferimentoNormativo'] );
+        }
+        return $o;
+    }
+
 }

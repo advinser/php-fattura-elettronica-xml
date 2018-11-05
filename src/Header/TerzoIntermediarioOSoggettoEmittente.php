@@ -94,4 +94,24 @@ class TerzoIntermediarioOSoggettoEmittente
         ];
         return $array;
     }
+
+    /**
+     * @param array $array
+     * @return TerzoIntermediarioOSoggettoEmittente
+     */
+    public static function fromArray(array $array):TerzoIntermediarioOSoggettoEmittente
+    {
+        $o = new TerzoIntermediarioOSoggettoEmittente();
+        if(!empty($array['DatiAnagrafici']['IdFiscaleIVA'])){
+            $o->setIdFiscaleIVA(Fiscale::fromArray($array['DatiAnagrafici']['IdFiscaleIVA']));
+        }
+        if(!empty($array['DatiAnagrafici']['CodiceFiscale'])){
+            $o->setCodiceFiscale($array['DatiAnagrafici']['CodiceFiscale']);
+        }
+        if(!empty($array['DatiAnagrafici']['Anagrafica'])){
+            $o->setAnagrafica(Anagrafica::fromArray($array['DatiAnagrafici']['Anagrafica']));
+        }
+
+        return $o;
+    }
 }

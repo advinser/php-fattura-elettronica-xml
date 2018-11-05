@@ -504,14 +504,14 @@ class DettaglioLinea
             'TipoCessionePrestazione' => $this->getTipoCessionePrestazione(),
             'CodiceArticolo' => null,
             'Descrizione' => $this->getDescrizione(),
-            'Quantita' => !empty($this->getQuantita()) ? number_format(floatval($this->getQuantita()),2,'.','') : null,
+            'Quantita' => !empty($this->getQuantita()) ? number_format(floatval($this->getQuantita()), 2, '.', '') : null,
             'UnitaMisura' => $this->getUnitaMisura(),
             'DataInizioPeriodo' => $this->getDataInizioPeriodo(),
             'DataFinePeriodo' => $this->getDataFinePeriodo(),
-            'PrezzoUnitario' => number_format(floatval($this->getPrezzoUnitario()),2,'.',''),
+            'PrezzoUnitario' => number_format(floatval($this->getPrezzoUnitario()), 2, '.', ''),
             'ScontoMaggiorazione' => null,
-            'PrezzoTotale' => number_format(floatval($this->getPrezzoTotale()),2,'.',''),
-            'AliquotaIVA' => number_format(floatval($this->getAliquotaIVA()),2,'.',''),
+            'PrezzoTotale' => number_format(floatval($this->getPrezzoTotale()), 2, '.', ''),
+            'AliquotaIVA' => number_format(floatval($this->getAliquotaIVA()), 2, '.', ''),
             'Ritenuta' => $this->getRitenuta(),
             'Natura' => $this->getNatura(),
             'RiferimentoAmministrazione' => $this->getRiferimentoAmministrazione(),
@@ -536,7 +536,7 @@ class DettaglioLinea
             $array['ScontoMaggiorazione']['Percentuale'] = $this->getScontoPercentuale();
         }
         if (!empty($this->getScontoImporto())) {
-            $array['ScontoMaggiorazione']['Importo'] = number_format(floatval($this->getScontoImporto()),2,'.','');
+            $array['ScontoMaggiorazione']['Importo'] = number_format(floatval($this->getScontoImporto()), 2, '.', '');
         }
 
         if (!empty($this->getTipoDato())) {
@@ -554,6 +554,87 @@ class DettaglioLinea
 
 
         return $array;
+    }
+
+    /**
+     * @param array $array
+     * @return DettaglioLinea
+     */
+    public static function fromArray(array $array): DettaglioLinea
+    {
+        $o = new DettaglioLinea();
+
+        if (isset($array['NumeroLinea'])) {
+            $o->setNumeroLinea($array['NumeroLinea']);
+        }
+        if (isset($array['TipoCessionePrestazione'])) {
+            $o->setTipoCessionePrestazione($array['TipoCessionePrestazione']);
+        }
+        if (isset($array['Descrizione'])) {
+            $o->setDescrizione($array['Descrizione']);
+        }
+        if (isset($array['Quantita'])) {
+            $o->setQuantita($array['Quantita']);
+        }
+        if (isset($array['UnitaMisura'])) {
+            $o->setUnitaMisura($array['UnitaMisura']);
+        }
+        if (isset($array['DataInizioPeriodo'])) {
+            $o->setDataInizioPeriodo($array['DataInizioPeriodo']);
+        }
+        if (isset($array['DataFinePeriodo'])) {
+            $o->setDataFinePeriodo($array['DataFinePeriodo']);
+        }
+        if (isset($array['PrezzoUnitario'])) {
+            $o->setPrezzoUnitario($array['PrezzoUnitario']);
+        }
+        if (isset($array['PrezzoTotale'])) {
+            $o->setPrezzoTotale($array['PrezzoTotale']);
+        }
+        if (isset($array['AliquotaIVA'])) {
+            $o->setAliquotaIVA($array['AliquotaIVA']);
+        }
+        if (isset($array['Ritenuta'])) {
+            $o->setRitenuta($array['Ritenuta']);
+        }
+        if (isset($array['Natura'])) {
+            $o->setNatura($array['Natura']);
+        }
+        if (isset($array['RiferimentoAmministrazione'])) {
+            $o->setRiferimentoAmministrazione($array['RiferimentoAmministrazione']);
+        }
+
+
+        if (!empty($array['CodiceArticolo']['CodiceTipo'])) {
+            $o->setCodiceTipo($array['CodiceArticolo']['CodiceTipo']);
+        }
+        if (!empty($array['CodiceArticolo']['CodiceValore'])) {
+            $o->setCodiceValore($array['CodiceArticolo']['CodiceValore']);
+        }
+        if (!empty($array['ScontoMaggiorazione']['Tipo'])) {
+            $o->setScontoTipo($array['ScontoMaggiorazione']['Tipo']);
+        }
+        if (!empty($array['ScontoMaggiorazione']['Percentuale'])) {
+            $o->setScontoPercentuale($array['ScontoMaggiorazione']['Percentuale']);
+        }
+        if (!empty($array['ScontoMaggiorazione']['Importo'])) {
+            $o->setScontoImporto($array['ScontoMaggiorazione']['Importo']);
+        }
+
+        if (!empty($array['AltriDatiGestionali']['TipoDato'])) {
+            $o->setTipoDato($array['AltriDatiGestionali']['TipoDato']);
+        }
+        if (!empty($array['AltriDatiGestionali']['RiferimentoTesto'])) {
+            $o->setRiferimentoTesto($array['AltriDatiGestionali']['RiferimentoTesto']);
+        }
+        if (!empty($array['AltriDatiGestionali']['RiferimentoNumero'])) {
+            $o->setRiferimentoNumero($array['AltriDatiGestionali']['RiferimentoNumero']);
+        }
+        if (!empty($array['AltriDatiGestionali']['RiferimentoData'])) {
+            $o->setRiferimentoData($array['AltriDatiGestionali']['RiferimentoData']);
+        }
+
+        return $o;
     }
 
 }

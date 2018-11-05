@@ -184,4 +184,20 @@ class DatiRiferimento
 
         return $array;
     }
+
+    /**
+     * @param $array
+     * @return DatiRiferimento
+     */
+    public static function fromArray($array): DatiRiferimento
+    {
+        $o = new DatiRiferimento();
+
+        foreach ($array as $k => $v) {
+            $m = 'set' . $k;
+            $o->{$m}($v);
+        }
+
+        return $o;
+    }
 }

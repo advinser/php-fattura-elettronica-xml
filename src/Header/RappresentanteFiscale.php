@@ -94,6 +94,25 @@ class RappresentanteFiscale
         return $array;
     }
 
+    /**
+     * @param array $array
+     * @return RappresentanteFiscale
+     */
+    public static function fromArray(array $array){
+        $o = new RappresentanteFiscale();
+
+        if(!empty($array['DatiAnagrafici']['IdFiscaleIVA'])){
+            $o->setIdFiscaleIVA(Fiscale::fromArray($array['DatiAnagrafici']['IdFiscaleIVA']));
+        }
+        if(!empty($array['DatiAnagrafici']['CodiceFiscale'])){
+            $o->setCodiceFiscale($array['DatiAnagrafici']['CodiceFiscale']);
+        }
+        if(!empty($array['DatiAnagrafici']['Anagrafica'])){
+            $o->setAnagrafica(Anagrafica::fromArray($array['DatiAnagrafici']['Anagrafica']));
+        }
+
+        return $o;
+    }
 
 
 }

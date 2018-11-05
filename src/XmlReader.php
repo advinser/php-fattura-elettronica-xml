@@ -23,13 +23,35 @@ class XmlReader
         $this->xmlEncoder = new XmlEncoder();
     }
 
+
     /**
-     * @param $source
+     * @param string $source
      * @return FatturaElettronica
      */
-    public function decodeXml($source){
-        $fattura = new FatturaElettronica();
+    public function decodeXml(string $source){
+        $a = $this->xmlEncoder->decode($this->clearSignature($source),null);
+        $fattura = FatturaElettronica::fromArray($a);
 
         return $fattura;
+    }
+
+    /**
+     * @param string $filePath
+     * @return FatturaElettronica
+     */
+    public static function decodeFromFile(string $filePath){
+        $o = new XmlReader();
+        return $o->decodeXml(file_get_contents($filePath));
+    }
+
+    /**
+     * @param string $input
+     * @return string
+     */
+    public function clearSignature(string $input){
+        $input = substr($input, strpos($input, '<?xml '));
+        preg_match_all('/<\/.+?>/', $input, $matches, PREG_OFFSET_CAPTURE);
+        $lastMatch = end($matches[0]);
+        return substr($input, 0, $lastMatch[1]).$lastMatch[0];
     }
 }

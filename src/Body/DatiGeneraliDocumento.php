@@ -6,6 +6,7 @@
  */
 
 namespace FatturaElettronicaXml\Body;
+
 use FatturaElettronicaXml\FatturaElettronicaException;
 
 class DatiGeneraliDocumento
@@ -588,11 +589,9 @@ class DatiGeneraliDocumento
         return $this;
     }
 
-
-
-
     /**
      * @return array
+     * @throws FatturaElettronicaException
      */
     public function toArray()
     {
@@ -611,110 +610,210 @@ class DatiGeneraliDocumento
             'Art73' => null,
         ];
 
-        if(empty($this->getTipoDocumento())){
+        if (empty($this->getTipoDocumento())) {
             throw new FatturaElettronicaException("missing 'TipoDocumento'", 'FatturaElettronicaBody->DatiGenerali->DatiGeneraliDocumento');
-        }else{
+        } else {
             $array['TipoDocumento'] = $this->getTipoDocumento();
         }
 
-        if(empty($this->getDivisa())){
+        if (empty($this->getDivisa())) {
             throw new FatturaElettronicaException("missing 'Divisa'", 'FatturaElettronicaBody->DatiGenerali->DatiGeneraliDocumento');
-        }else{
+        } else {
             $array['Divisa'] = $this->getDivisa();
         }
 
-        if(empty($this->getData())){
+        if (empty($this->getData())) {
             throw new FatturaElettronicaException("missing 'Data'", 'FatturaElettronicaBody->DatiGenerali->DatiGeneraliDocumento');
-        }else{
+        } else {
             //todo aggiungere validatore data
             $array['Data'] = $this->getData();
         }
 
-        if(empty($this->getNumero())){
+        if (empty($this->getNumero())) {
             throw new FatturaElettronicaException("missing 'Numero'", 'FatturaElettronicaBody->DatiGenerali->DatiGeneraliDocumento');
-        }else{
+        } else {
             $array['Numero'] = $this->getNumero();
         }
 
-        if(!empty($this->getTipoRitenuta())){
+        if (!empty($this->getTipoRitenuta())) {
             $array['DatiRitenuta']['TipoRitenuta'] = $this->getTipoRitenuta();
         }
-        if(!empty($this->getImportoRitenuta())){
-            $array['DatiRitenuta']['ImportoRitenuta'] = number_format($this->getImportoRitenuta(),2,'.','');
+        if (!empty($this->getImportoRitenuta())) {
+            $array['DatiRitenuta']['ImportoRitenuta'] = number_format($this->getImportoRitenuta(), 2, '.', '');
         }
-        if(!empty($this->getAliquotaRitenuta())){
-            $array['DatiRitenuta']['AliquotaRitenuta'] = number_format($this->getAliquotaRitenuta(),2,'.','');
+        if (!empty($this->getAliquotaRitenuta())) {
+            $array['DatiRitenuta']['AliquotaRitenuta'] = number_format($this->getAliquotaRitenuta(), 2, '.', '');
         }
-        if(!empty($this->getCausalePagamento())){
+        if (!empty($this->getCausalePagamento())) {
             $array['DatiRitenuta']['CausalePagamento'] = $this->getCausalePagamento();
         }
 
 
-        if(!empty($this->getBolloVirtuale())){
+        if (!empty($this->getBolloVirtuale())) {
             $array['DatiBollo']['BolloVirtuale'] = $this->getBolloVirtuale();
         }
-        if(!empty($this->getImportoBollo())){
-            $array['DatiBollo']['ImportoBollo'] = number_format($this->getImportoBollo(),2,'.','');
+        if (!empty($this->getImportoBollo())) {
+            $array['DatiBollo']['ImportoBollo'] = number_format($this->getImportoBollo(), 2, '.', '');
         }
 
 
-        if(!empty($this->getTipoCassa())){
+        if (!empty($this->getTipoCassa())) {
             $array['DatiCassaPrevidenziale']['TipoCassa'] = $this->getTipoCassa();
         }
-        if(!empty($this->getAlCassa())){
+        if (!empty($this->getAlCassa())) {
             $array['DatiCassaPrevidenziale']['AlCassa'] = $this->getAlCassa();
         }
-        if(!empty($this->getImportoContributoCassa())){
+        if (!empty($this->getImportoContributoCassa())) {
             $array['DatiCassaPrevidenziale']['ImportoContributoCassa'] = $this->getImportoContributoCassa();
         }
-        if(!empty($this->getImponibileCassa())){
-            $array['DatiCassaPrevidenziale']['ImponibileCassa'] = number_format($this->getImponibileCassa(),2,'.','');
+        if (!empty($this->getImponibileCassa())) {
+            $array['DatiCassaPrevidenziale']['ImponibileCassa'] = number_format($this->getImponibileCassa(), 2, '.', '');
         }
-        if(!empty($this->getAliquotaIVA())){
-            $array['DatiCassaPrevidenziale']['AliquotaIVA'] = number_format($this->getAliquotaIVA(),2,'.','');
+        if (!empty($this->getAliquotaIVA())) {
+            $array['DatiCassaPrevidenziale']['AliquotaIVA'] = number_format($this->getAliquotaIVA(), 2, '.', '');
         }
-        if(!empty($this->getRitenuta())){
+        if (!empty($this->getRitenuta())) {
             $array['DatiCassaPrevidenziale']['Ritenuta'] = $this->getRitenuta();
         }
-        if(!empty($this->getNatura())){
+        if (!empty($this->getNatura())) {
             $array['DatiCassaPrevidenziale']['Natura'] = $this->getNatura();
         }
-        if(!empty($this->getRiferimentoAmministrazione())){
+        if (!empty($this->getRiferimentoAmministrazione())) {
             $array['DatiCassaPrevidenziale']['RiferimentoAmministrazione'] = $this->getRiferimentoAmministrazione();
         }
 
 
-        if(!empty($this->getScontoTipo())){
+        if (!empty($this->getScontoTipo())) {
             $array['ScontoMaggiorazione']['Tipo'] = $this->getScontoTipo();
         }
-        if(!empty($this->getScontoPercentuale())){
-            $array['ScontoMaggiorazione']['Percentuale'] = number_format($this->getScontoPercentuale(),2,'.','');
+        if (!empty($this->getScontoPercentuale())) {
+            $array['ScontoMaggiorazione']['Percentuale'] = number_format($this->getScontoPercentuale(), 2, '.', '');
         }
-        if(!empty($this->getScontoImporto())){
-            $array['ScontoMaggiorazione']['Importo'] = number_format($this->getScontoImporto(),2,'.','');
+        if (!empty($this->getScontoImporto())) {
+            $array['ScontoMaggiorazione']['Importo'] = number_format($this->getScontoImporto(), 2, '.', '');
         }
 
-        if($this->getImportoTotaleDocumento() === null){
+        if ($this->getImportoTotaleDocumento() === null) {
             $array['ImportoTotaleDocumento'] = '0.0';
-        }else{
-            $array['ImportoTotaleDocumento'] = number_format($this->getImportoTotaleDocumento(),2,'.','');
+        } else {
+            $array['ImportoTotaleDocumento'] = number_format($this->getImportoTotaleDocumento(), 2, '.', '');
         }
-        if($this->getArrotondamento() === null){
+        if ($this->getArrotondamento() === null) {
             $array['Arrotondamento'] = '0.00';
-        }else{
-            $array['Arrotondamento'] = number_format($this->getArrotondamento(),2,'.','');
+        } else {
+            $array['Arrotondamento'] = number_format($this->getArrotondamento(), 2, '.', '');
         }
-        if(!empty($this->getCausale())){
+        if (!empty($this->getCausale())) {
             $array['Causale'] = $this->getCausale();
         }
 
-        if($this->getArt73()){
+        if ($this->getArt73()) {
             $array['Art73'] = 'SI';
         }
 
 
-
         return $array;
+    }
+
+    /**
+     * @param array $array
+     * @return DatiGeneraliDocumento
+     */
+    public static function fromArray(array $array): DatiGeneraliDocumento
+    {
+        $o = new DatiGeneraliDocumento();
+
+        if (!empty($array['TipoDocumento'])) {
+            $o->setTipoDocumento($array['TipoDocumento']);
+        }
+
+        if (!empty($array['Divisa'])) {
+            $o->setDivisa($array['Divisa']);
+        }
+
+        if (!empty($array['Data'])) {
+            $o->setData($array['Data']);
+        }
+
+        if (!empty($array['Numero'])) {
+            $o->setNumero($array['Numero']);
+        }
+
+        if (!empty($array['DatiRitenuta']['TipoRitenuta'])) {
+            $o->setTipoRitenuta($array['DatiRitenuta']['TipoRitenuta']);
+        }
+        if (!empty($array['DatiRitenuta']['ImportoRitenuta'])) {
+            $o->setImportoRitenuta($array['DatiRitenuta']['ImportoRitenuta']);
+        }
+        if (!empty($array['DatiRitenuta']['AliquotaRitenuta'])) {
+            $o->setAliquotaRitenuta($array['DatiRitenuta']['AliquotaRitenuta']);
+        }
+        if (!empty($array['DatiRitenuta']['CausalePagamento'])) {
+            $o->setCausalePagamento($array['DatiRitenuta']['CausalePagamento']);
+        }
+
+
+        if (!empty($array['DatiBollo']['BolloVirtuale'])) {
+            $o->setBolloVirtuale($array['DatiBollo']['BolloVirtuale']);
+        }
+        if (!empty($array['DatiBollo']['ImportoBollo'])) {
+            $o->setImportoBollo($array['DatiBollo']['ImportoBollo']);
+        }
+
+
+        if (!empty($array['DatiCassaPrevidenziale']['TipoCassa'])) {
+            $o->setTipoCassa($array['DatiCassaPrevidenziale']['TipoCassa']);
+        }
+        if (!empty($array['DatiCassaPrevidenziale']['AlCassa'])) {
+            $o->setAlCassa($array['DatiCassaPrevidenziale']['AlCassa']);
+        }
+        if (!empty($array['DatiCassaPrevidenziale']['ImportoContributoCassa'])) {
+            $o->setImportoContributoCassa($array['DatiCassaPrevidenziale']['ImportoContributoCassa']);
+        }
+        if (!empty($array['DatiCassaPrevidenziale']['ImponibileCassa'])) {
+            $o->setImponibileCassa($array['DatiCassaPrevidenziale']['ImponibileCassa']);
+        }
+        if (!empty($array['DatiCassaPrevidenziale']['AliquotaIVA'])) {
+            $o->setAliquotaIVA($array['DatiCassaPrevidenziale']['AliquotaIVA']);
+        }
+        if (!empty($array['DatiCassaPrevidenziale']['Ritenuta'])) {
+            $o->setRitenuta($array['DatiCassaPrevidenziale']['Ritenuta']);
+        }
+        if (!empty($array['DatiCassaPrevidenziale']['Natura'])) {
+            $o->setNatura($array['DatiCassaPrevidenziale']['Natura']);
+        }
+        if (!empty($array['DatiCassaPrevidenziale']['RiferimentoAmministrazione'])) {
+            $o->setRiferimentoAmministrazione($array['DatiCassaPrevidenziale']['RiferimentoAmministrazione']);
+        }
+
+
+        if (isset($array['ScontoMaggiorazione']['Tipo'])) {
+            $o->setScontoTipo($array['ScontoMaggiorazione']['Tipo']);
+        }
+
+        if (isset($array['ScontoMaggiorazione']['Percentuale'])) {
+            $o->setScontoPercentuale($array['ScontoMaggiorazione']['Percentuale']);
+        }
+
+        if (isset($array['ScontoMaggiorazione']['Importo'])) {
+            $o->setScontoImporto($array['ScontoMaggiorazione']['Importo']);
+        }
+
+        if (isset($array['ImportoTotaleDocumento'])) {
+            $o->setImportoTotaleDocumento($array['ImportoTotaleDocumento']);
+        }
+
+        if (isset($array['Arrotondamento'])) {
+            $o->setArrotondamento($array['Arrotondamento']);
+        }
+        if (!empty($array['Causale'])) {
+            $o->setCausale($array['Causale']);
+        }
+
+        if (!empty($array['Art73']) && $array['Art73'] == 'SI') {
+            $o->setArt73(true);
+        }
+        return $o;
     }
 
 }

@@ -184,4 +184,31 @@ class FatturaElettronicaHeader extends AbsModels
     }
 
 
+    /**
+     * @param array $array
+     * @return FatturaElettronicaHeader
+     * @throws \FatturaElettronicaXml\FatturaElettronicaException
+     */
+    public static function fromArray(array $array):FatturaElettronicaHeader
+    {
+        $o = new FatturaElettronicaHeader();
+
+        if(!empty($array['DatiTrasmissione'])){
+            $o->setDatiTrasmissione(DatiTrasmissione::fromArray($array['DatiTrasmissione']));
+        }
+        if(!empty($array['CedentePrestatore'])){
+            $o->setCedentePrestatore(CedentePrestatore::fromArray($array['CedentePrestatore']));
+        }
+        if(!empty($array['RappresentanteFiscale'])){
+            $o->setRappresentanteFiscale(RappresentanteFiscale::fromArray($array['RappresentanteFiscale']));
+        }
+        if(!empty($array['CessionarioCommittente'])){
+            $o->setCessionarioCommittente(CessionarioCommittente::fromArray($array['CessionarioCommittente']));
+        }
+        if(!empty($array['TerzoIntermediarioOSoggettoEmittente'])){
+            $o->setTerzoIntermediarioOSoggettoEmittente(TerzoIntermediarioOSoggettoEmittente::fromArray($array['TerzoIntermediarioOSoggettoEmittente']));
+        }
+        return $o;
+    }
+
 }

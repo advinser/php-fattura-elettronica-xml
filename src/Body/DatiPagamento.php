@@ -497,4 +497,21 @@ class DatiPagamento
         return $array;
     }
 
+
+    public static function fromArray($array): DatiPagamento
+    {
+        $o = new DatiPagamento();
+
+        if(!empty($array['CondizioniPagamento'])){
+            $o->setCondizioniPagamento($array['CondizioniPagamento']);
+        }
+
+        foreach ($array['DettaglioPagamento'] as $k => $v) {
+            $m = 'set' . $k;
+            $o->{$m}($v);
+        }
+
+        return $o;
+    }
+
 }

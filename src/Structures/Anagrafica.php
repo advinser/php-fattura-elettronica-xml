@@ -141,15 +141,32 @@ class Anagrafica
     }
 
 
-    public function toArray(){
+    public function toArray()
+    {
         //todo aggiungere validazione
         return [
-            'Denominazione'=>$this->getDenominazione(),
-            'Nome'=>$this->getNome(),
-            'Cognome'=>$this->getCognome(),
-            'Titolo'=>$this->getTitolo(),
-            'CodEORI'=>$this->getCodEORI(),
+            'Denominazione' => $this->getDenominazione(),
+            'Nome' => $this->getNome(),
+            'Cognome' => $this->getCognome(),
+            'Titolo' => $this->getTitolo(),
+            'CodEORI' => $this->getCodEORI(),
         ];
+    }
+
+    /**
+     * @param $array
+     * @return Anagrafica
+     */
+    public static function fromArray($array): Anagrafica
+    {
+        $o = new Anagrafica();
+
+        foreach ($array as $k => $v) {
+            $m = 'set' . $k;
+            $o->{$m}($v);
+        }
+
+        return $o;
     }
 
 
