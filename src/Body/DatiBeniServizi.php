@@ -256,6 +256,8 @@ class DatiBeniServizi
         }
         if(!empty($this->getArrotondamento())){
             $array['DatiRiepilogo']['Arrotondamento'] = number_format(floatval($this->getArrotondamento()),2,'.','');
+        }else{
+            $array['DatiRiepilogo']['Arrotondamento'] = '0.00';
         }
         if(!empty($this->getImponibileImporto())){
             $array['DatiRiepilogo']['ImponibileImporto'] = number_format(floatval($this->getImponibileImporto()),2,'.','');

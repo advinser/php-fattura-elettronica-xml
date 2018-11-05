@@ -469,14 +469,14 @@ class DatiPagamento
     {
         //todo aggiungere validazione
         $array = [
-            'CondizioniPagamento' => $this->getCodicePagamento(),
+            'CondizioniPagamento' => $this->getCondizioniPagamento(),
             'DettaglioPagamento' => [
                 'Beneficiario' => $this->getBeneficiario(),
                 'ModalitaPagamento' => $this->getModalitaPagamento(),
                 'DataRiferimentoTerminiPagamento' => $this->getDataRiferimentoTerminiPagamento(),
                 'GiorniTerminiPagamento' => $this->getGiorniTerminiPagamento(),
                 'DataScadenzaPagamento' => $this->getDataScadenzaPagamento(),
-                'ImportoPagamento' => $this->getImportoPagamento(),
+                'ImportoPagamento' => !empty($this->getImportoPagamento()) ? number_format($this->getImportoPagamento(),2,'.','') : null,
                 'CodUfficioPostale' => $this->getCodUfficioPostale(),
                 'CognomeQuietanzante' => $this->CognomeQuietanzante,
                 'NomeQuietanzante' => $this->getNomeQuietanzante(),
