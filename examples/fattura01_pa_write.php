@@ -5,7 +5,7 @@
  * Time:         12:44
  */
 
-require __DIR__.'/../vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
 /**********
  *
@@ -28,7 +28,7 @@ $datiTrasmissione->setCodiceDestinatario('AAAAAA');
  */
 $prestatore = new \FatturaElettronicaXml\Header\CedentePrestatore();
 $prestatore
-    ->setIdFiscaleIVA(new \FatturaElettronicaXml\Structures\Fiscale('IT','01234567890'))
+    ->setIdFiscaleIVA(new \FatturaElettronicaXml\Structures\Fiscale('IT', '01234567890'))
     ->setCodiceFiscale('TMMMMMMMMMMMMMMMMMMMMMMMM');
 
 $anagraficaCedente = new \FatturaElettronicaXml\Structures\Anagrafica();
@@ -42,16 +42,14 @@ $sedePrestatore
     ->setCAP('07100')
     ->setComune('Sassari')
     ->setProvincia('SS')
-    ->setNazione('IT')
-;
+    ->setNazione('IT');
 $prestatore->setSede($sedePrestatore)
     ->setUfficio('SS')
     ->setNumeroREA('00000')
     ->setStatoLiquidazione('LN')
     ->setTelefono('000-00000000')
     ->setEmail('info@alpha.test')
-    ->setFax('000-00000000')
-;
+    ->setFax('000-00000000');
 
 /**
  * imposto i dati del soggetto che a cui è intestata la fattura
@@ -66,8 +64,7 @@ $sedeCommittente->setIndirizzo('VIA TORINO 38-B')
     ->setCAP('00145')
     ->setComune('ROMA')
     ->setProvincia('RM')
-    ->setNazione('IT')
-;
+    ->setNazione('IT');
 $committente->setSede($sedeCommittente);
 
 /**
@@ -138,8 +135,7 @@ $dettaglioLinea->setNumeroLinea(1)
     ->setQuantita(5)
     ->setPrezzoUnitario(1)
     ->setPrezzoTotale(5)
-    ->setAliquotaIVA(22)
-;
+    ->setAliquotaIVA(22);
 
 $beni->addDettaglioLinea($dettaglioLinea);
 
