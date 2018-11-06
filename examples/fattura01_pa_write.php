@@ -29,7 +29,7 @@ $datiTrasmissione->setCodiceDestinatario('AAAAAA');
 $prestatore = new \FatturaElettronicaXml\Header\CedentePrestatore();
 $prestatore
     ->setIdFiscaleIVA(new \FatturaElettronicaXml\Structures\Fiscale('IT','01234567890'))
-    ->setCodiceFiscale('TMMNDR82B24I726Z');
+    ->setCodiceFiscale('TMMMMMMMMMMMMMMMMMMMMMMMM');
 
 $anagraficaCedente = new \FatturaElettronicaXml\Structures\Anagrafica();
 $anagraficaCedente->setDenominazione('ALPHA SRL');
@@ -57,7 +57,7 @@ $prestatore->setSede($sedePrestatore)
  * imposto i dati del soggetto che a cui è intestata la fattura
  */
 $committente = new \FatturaElettronicaXml\Header\CessionarioCommittente();
-$committente->setCodiceFiscale('09876543210');
+$committente->setCodiceFiscale('01234567890');
 $anagraficaCommittente = new \FatturaElettronicaXml\Structures\Anagrafica();
 $anagraficaCommittente->setDenominazione('Amministrativa BETA');
 $committente->setAnagrafica($anagraficaCommittente);
