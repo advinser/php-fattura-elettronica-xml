@@ -40,7 +40,7 @@ class CedentePrestatore
      */
     protected $IdFiscaleIVA;
     /**
-     * @var string
+     * @var string|null
      */
     protected $CodiceFiscale;
 
@@ -163,18 +163,18 @@ class CedentePrestatore
     }
 
     /**
-     * @return string
+     * @return null|string
      */
-    public function getCodiceFiscale(): string
+    public function getCodiceFiscale(): ?string
     {
         return $this->CodiceFiscale;
     }
 
     /**
-     * @param string $CodiceFiscale
+     * @param null|string $CodiceFiscale
      * @return CedentePrestatore
      */
-    public function setCodiceFiscale(string $CodiceFiscale): CedentePrestatore
+    public function setCodiceFiscale(?string $CodiceFiscale): CedentePrestatore
     {
         $this->CodiceFiscale = $CodiceFiscale;
         return $this;

@@ -10,6 +10,7 @@ namespace FatturaElettronicaXml\Body;
 
 use FatturaElettronicaXml\Structures\Anagrafica;
 use FatturaElettronicaXml\Structures\Fiscale;
+use FatturaElettronicaXml\Structures\Indirizzo;
 
 class DatiTrasporto
 {
@@ -70,29 +71,10 @@ class DatiTrasporto
      */
     private $TipoResa;
     /**
-     * @var string|null
+     * @var Indirizzo|null
      */
-    private $ResaIndirizzo;
-    /**
-     * @var string|null
-     */
-    private $ResaNumeroCivico;
-    /**
-     * @var string|null
-     */
-    private $ResaCAP;
-    /**
-     * @var string|null
-     */
-    private $ResaComune;
-    /**
-     * @var string|null
-     */
-    private $ResaProvincia;
-    /**
-     * @var string|null
-     */
-    private $ResaNazione;
+    private $IndirizzoResa;
+
     /**
      * @var string|null
      */
@@ -351,112 +333,23 @@ class DatiTrasporto
     }
 
     /**
-     * @return null|string
+     * @return Indirizzo|null
      */
-    public function getResaIndirizzo(): ?string
+    public function getIndirizzoResa(): ?Indirizzo
     {
-        return $this->ResaIndirizzo;
+        return $this->IndirizzoResa;
     }
 
     /**
-     * @param null|string $ResaIndirizzo
+     * @param Indirizzo|null $IndirizzoResa
      * @return DatiTrasporto
      */
-    public function setResaIndirizzo(?string $ResaIndirizzo): DatiTrasporto
+    public function setIndirizzoResa(?Indirizzo $IndirizzoResa): DatiTrasporto
     {
-        $this->ResaIndirizzo = $ResaIndirizzo;
+        $this->IndirizzoResa = $IndirizzoResa;
         return $this;
     }
 
-    /**
-     * @return null|string
-     */
-    public function getResaNumeroCivico(): ?string
-    {
-        return $this->ResaNumeroCivico;
-    }
-
-    /**
-     * @param null|string $ResaNumeroCivico
-     * @return DatiTrasporto
-     */
-    public function setResaNumeroCivico(?string $ResaNumeroCivico): DatiTrasporto
-    {
-        $this->ResaNumeroCivico = $ResaNumeroCivico;
-        return $this;
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getResaCAP(): ?string
-    {
-        return $this->ResaCAP;
-    }
-
-    /**
-     * @param null|string $ResaCAP
-     * @return DatiTrasporto
-     */
-    public function setResaCAP(?string $ResaCAP): DatiTrasporto
-    {
-        $this->ResaCAP = $ResaCAP;
-        return $this;
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getResaComune(): ?string
-    {
-        return $this->ResaComune;
-    }
-
-    /**
-     * @param null|string $ResaComune
-     * @return DatiTrasporto
-     */
-    public function setResaComune(?string $ResaComune): DatiTrasporto
-    {
-        $this->ResaComune = $ResaComune;
-        return $this;
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getResaProvincia(): ?string
-    {
-        return $this->ResaProvincia;
-    }
-
-    /**
-     * @param null|string $ResaProvincia
-     * @return DatiTrasporto
-     */
-    public function setResaProvincia(?string $ResaProvincia): DatiTrasporto
-    {
-        $this->ResaProvincia = $ResaProvincia;
-        return $this;
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getResaNazione(): ?string
-    {
-        return $this->ResaNazione;
-    }
-
-    /**
-     * @param null|string $ResaNazione
-     * @return DatiTrasporto
-     */
-    public function setResaNazione(?string $ResaNazione): DatiTrasporto
-    {
-        $this->ResaNazione = $ResaNazione;
-        return $this;
-    }
 
     /**
      * @return null|string
@@ -501,30 +394,9 @@ class DatiTrasporto
             'DataOraConsegna' => null,
         ];
 
-        if (!empty($this->getResaIndirizzo())) {
-            $array['IndirizzoResa']['Indirizzo'] = $this->getResaIndirizzo();
-        }
-        if (!empty($this->getResaNumeroCivico())) {
-            $array['IndirizzoResa']['NumeroCivico'] = $this->getResaNumeroCivico();
-        }
-        if (!empty($this->getResaCAP())) {
-            $array['IndirizzoResa']['CAP'] = $this->getResaCAP();
-        }
-        if (!empty($this->getResaComune())) {
-            $array['IndirizzoResa']['Comune'] = $this->getResaComune();
-        }
-        if (!empty($this->getResaProvincia())) {
-            $array['IndirizzoResa']['Provincia'] = $this->getResaProvincia();
-        }
-        if (!empty($this->getResaNazione())) {
-            $array['IndirizzoResa']['Nazione'] = $this->getResaNazione();
-        }
 
         if ($this->getIdFiscaleIVA() instanceof Fiscale) {
             $array['DatiAnagraficiVettore']['IdFiscaleIVA'] = $this->getIdFiscaleIVA()->toArray();
-            if (empty($array['DatiAnagraficiVettore']['IdFiscaleIVA'])) {
-                $array['DatiAnagraficiVettore']['IdFiscaleIVA'] = null;
-            }
         }
 
         if ($this->getAnagrafica() instanceof Anagrafica) {
@@ -532,6 +404,45 @@ class DatiTrasporto
             if (empty($array['DatiAnagraficiVettore']['Anagrafica'])) {
                 $array['DatiAnagraficiVettore']['Anagrafica'] = null;
             }
+        }
+
+        if (!empty($this->getMezzoTrasporto())) {
+            $array['MezzoTrasporto'] = $this->getMezzoTrasporto();
+        }
+        if (!empty($this->getCausaleTrasporto())) {
+            $array['CausaleTrasporto'] = $this->getCausaleTrasporto();
+        }
+        if (!empty($this->getNumeroColli())) {
+            $array['NumeroColli'] = $this->getNumeroColli();
+        }
+        if (!empty($this->getDescrizione())) {
+            $array['Descrizione'] = $this->getDescrizione();
+        }
+        if (!empty($this->getUnitaMisuraPeso())) {
+            $array['UnitaMisuraPeso'] = $this->getUnitaMisuraPeso();
+        }
+        if (!empty($this->getPesoLordo())) {
+            $array['PesoLordo'] = $this->getPesoLordo();
+        }
+        if (!empty($this->getPesoNetto())) {
+            $array['PesoNetto'] = $this->getPesoNetto();
+        }
+        if (!empty($this->getDataOraRitiro())) {
+            $array['DataOraRitiro'] = $this->getDataOraRitiro();
+        }
+        if (!empty($this->getDataInizioTrasporto())) {
+            $array['DataInizioTrasporto'] = $this->getDataInizioTrasporto();
+        }
+        if (!empty($this->getTipoResa())) {
+            $array['TipoResa'] = $this->getTipoResa();
+        }
+
+        if ($this->getIndirizzoResa() instanceof Indirizzo) {
+            $array['IndirizzoResa'] = $this->getIndirizzoResa()->toArray();
+        }
+
+        if (!empty($this->getDataOraConsegna())) {
+            $array['DataOraConsegna'] = $this->getDataOraConsegna();
         }
 
         return $array;
@@ -544,31 +455,52 @@ class DatiTrasporto
     public static function fromArray(array $array): DatiTrasporto
     {
         $o = new DatiTrasporto();
-        if (!empty($array['IndirizzoResa']['Indirizzo'])) {
-            $o->setResaIndirizzo($array['IndirizzoResa']['Indirizzo']);
-        }
-        if (!empty($array['IndirizzoResa']['NumeroCivico'])) {
-            $o->setResaNumeroCivico($array['IndirizzoResa']['NumeroCivico']);
-        }
-        if (!empty($array['IndirizzoResa']['CAP'])) {
-            $o->setResaCAP($array['IndirizzoResa']['CAP']);
-        }
-        if (!empty($array['IndirizzoResa']['Comune'])) {
-            $o->setResaComune($array['IndirizzoResa']['Comune']);
-        }
-        if (!empty($array['IndirizzoResa']['Provincia'])) {
-            $o->setResaProvincia($array['IndirizzoResa']['Provincia']);
-        }
-        if (!empty($array['IndirizzoResa']['Nazione'])) {
-            $o->setResaNazione($array['IndirizzoResa']['Nazione']);
-        }
 
-        if (empty($array['DatiAnagraficiVettore']['IdFiscaleIVA'])) {
+
+        if (!empty($array['DatiAnagraficiVettore']['IdFiscaleIVA'])) {
             $o->setIdFiscaleIVA(Fiscale::fromArray($array['DatiAnagraficiVettore']['IdFiscaleIVA']));
         }
 
-        if (empty($array['DatiAnagraficiVettore']['Anagrafica'])) {
+        if (!empty($array['DatiAnagraficiVettore']['Anagrafica'])) {
             $o->setAnagrafica(Anagrafica::fromArray($array['DatiAnagraficiVettore']['Anagrafica']));
+        }
+
+        if (!empty($array['MezzoTrasporto'])) {
+            $o->setMezzoTrasporto($array['MezzoTrasporto']);
+        }
+        if (!empty($array['CausaleTrasporto'])) {
+            $o->setCausaleTrasporto($array['CausaleTrasporto']);
+        }
+        if (!empty($array['NumeroColli'])) {
+            $o->setNumeroColli($array['NumeroColli']);
+        }
+        if (!empty($array['Descrizione'])) {
+            $o->setDescrizione($array['Descrizione']);
+        }
+        if (!empty($array['UnitaMisuraPeso'])) {
+            $o->setUnitaMisuraPeso($array['UnitaMisuraPeso']);
+        }
+        if (!empty($array['PesoLordo'])) {
+            $o->setPesoLordo($array['PesoLordo']);
+        }
+        if (!empty($array['PesoNetto'])) {
+            $o->setPesoNetto($array['PesoNetto']);
+        }
+        if (!empty($array['DataOraRitiro'])) {
+            $o->setDataOraRitiro($array['DataOraRitiro']);
+        }
+        if (!empty($array['DataInizioTrasporto'])) {
+            $o->setDataInizioTrasporto($array['DataInizioTrasporto']);
+        }
+        if (!empty($array['TipoResa'])) {
+            $o->setTipoResa($array['TipoResa']);
+        }
+
+        if (!empty($array['IndirizzoResa'])) {
+            $o->setIndirizzoResa(Indirizzo::fromArray($array['IndirizzoResa']));
+        }
+        if (!empty($array['DataOraConsegna'])) {
+            $o->setDataOraConsegna($array['DataOraConsegna']);
         }
 
         return $o;

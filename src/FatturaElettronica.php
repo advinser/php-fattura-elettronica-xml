@@ -135,10 +135,11 @@ class FatturaElettronica
         }
 
         return [
-            '@xmlns:xsi' => 'http://www.w3.org/2001/XMLSchema',
+            '@versione' => $this->versione,
             '@xmlns:ds' => 'http://www.w3.org/2000/09/xmldsig#',
             '@xmlns:p' => 'http://ivaservizi.agenziaentrate.gov.it/docs/xsd/fatture/v1.2',
-            '@versione' => $this->versione,
+            '@xmlns:xsi' => 'http://www.w3.org/2001/XMLSchema-instance',
+            '@xsi:schemaLocation'=>'http://ivaservizi.agenziaentrate.gov.it/docs/xsd/fatture/v1.2 http://www.fatturapa.gov.it/export/fatturazione/sdi/fatturapa/v1.2/Schema_del_file_xml_FatturaPA_versione_1.2.xsd',
             'FatturaElettronicaHeader' => $this->header->toArray(),
             'FatturaElettronicaBody' => $this->body->toArray(),
         ];

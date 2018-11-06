@@ -75,7 +75,7 @@ class DatiBeniServizi
      * @param DettaglioLinea $dettaglioLinea
      * @return DatiBeniServizi
      */
-    public function addDettaglioLinea(DettaglioLinea $dettaglioLinea):DatiBeniServizi
+    public function addDettaglioLinea(DettaglioLinea $dettaglioLinea): DatiBeniServizi
     {
         $this->DettaglioLinee[] = $dettaglioLinea;
         return $this;
@@ -210,68 +210,62 @@ class DatiBeniServizi
     }
 
 
-
     /**
      * @return array
      */
     public function toArray()
     {
         $array = [
-            'DettaglioLinee'=>null,
-            'DatiRiepilogo'=>[
-                'AliquotaIVA'=>null,
-                'Natura'=>null,
-                'SpeseAccessorie'=>null,
-                'Arrotondamento'=>null,
-                'ImponibileImporto'=>null,
-                'Imposta'=>null,
-                'EsigibilitaIVA'=>null,
-                'RiferimentoNormativo'=>null,
+            'DettaglioLinee' => null,
+            'DatiRiepilogo' => [
+                'AliquotaIVA' => null,
+                'Natura' => null,
+                'SpeseAccessorie' => null,
+                'Arrotondamento' => null,
+                'ImponibileImporto' => null,
+                'Imposta' => null,
+                'EsigibilitaIVA' => null,
+                'RiferimentoNormativo' => null,
             ]
         ];
 
-        if(empty($this->getDettaglioLinee())){
-
-        }elseif(count($this->getDettaglioLinee()) === 1){
-            $array['DettaglioLinee'] = $this->getDettaglioLinee()[0]->toArray();
-        }else{
-            $a = [];
-            foreach ($this->getDettaglioLinee() as $dettaglioLinea) {
-                $a[] = $dettaglioLinea->toArray();
+        if (!empty($this->getDettaglioLinee())) {
+            if (count($this->getDettaglioLinee()) === 1) {
+                $array['DettaglioLinee'] = $this->getDettaglioLinee()[0]->toArray();
+            } else {
+                $a = [];
+                foreach ($this->getDettaglioLinee() as $dettaglioLinea) {
+                    $a[] = $dettaglioLinea->toArray();
+                }
+                $array['DettaglioLinee'] = $a;
             }
-            $array['DettaglioLinee'] = $a;
         }
 
-        if($this->getAliquotaIVA()===null){
-            $array['DatiRiepilogo']['AliquotaIVA'] = '0.00';
-        }else{
-            $array['DatiRiepilogo']['AliquotaIVA'] = number_format($this->getAliquotaIVA(),2,'.','');
+        if (!empty($this->getAliquotaIVA())){
+            $array['DatiRiepilogo']['AliquotaIVA'] = number_format($this->getAliquotaIVA(), 2, '.', '');
         }
 
-        if(!empty($this->getNatura())){
+        if (!empty($this->getNatura())) {
             $array['DatiRiepilogo']['Natura'] = $this->getNatura();
         }
-        if(!empty($this->getSpeseAccessorie())){
-            $array['DatiRiepilogo']['SpeseAccessorie'] = number_format(floatval($this->getSpeseAccessorie()),2,'.','');
+        if (!empty($this->getSpeseAccessorie())) {
+            $array['DatiRiepilogo']['SpeseAccessorie'] = number_format(floatval($this->getSpeseAccessorie()), 2, '.', '');
         }
-        if(!empty($this->getArrotondamento())){
-            $array['DatiRiepilogo']['Arrotondamento'] = number_format(floatval($this->getArrotondamento()),2,'.','');
-        }else{
-            $array['DatiRiepilogo']['Arrotondamento'] = '0.00';
+        if (!empty($this->getArrotondamento())) {
+            $array['DatiRiepilogo']['Arrotondamento'] = number_format(floatval($this->getArrotondamento()), 2, '.', '');
         }
-        if(!empty($this->getImponibileImporto())){
-            $array['DatiRiepilogo']['ImponibileImporto'] = number_format(floatval($this->getImponibileImporto()),2,'.','');
+        if (!empty($this->getImponibileImporto())) {
+            $array['DatiRiepilogo']['ImponibileImporto'] = number_format(floatval($this->getImponibileImporto()), 2, '.', '');
         }
-        if(!empty($this->getImposta())){
-            $array['DatiRiepilogo']['Imposta'] = number_format(floatval($this->getImposta()),2,'.','');
+        if (!empty($this->getImposta())) {
+            $array['DatiRiepilogo']['Imposta'] = number_format(floatval($this->getImposta()), 2, '.', '');
         }
-        if(!empty($this->getEsigibilitaIVA())){
+        if (!empty($this->getEsigibilitaIVA())) {
             $array['DatiRiepilogo']['EsigibilitaIVA'] = $this->getEsigibilitaIVA();
         }
-        if(!empty($this->getRiferimentoNormativo())){
+        if (!empty($this->getRiferimentoNormativo())) {
             $array['DatiRiepilogo']['RiferimentoNormativo'] = $this->getRiferimentoNormativo();
         }
-
 
         return $array;
     }
@@ -281,40 +275,40 @@ class DatiBeniServizi
     {
         $o = new DatiBeniServizi();
 
-        if(isset($array['DettaglioLinee'])){
-            if(isset($array['DettaglioLinee'][0])){
-                foreach ( $array['DettaglioLinee']as $item) {
+        if (isset($array['DettaglioLinee'])) {
+            if (isset($array['DettaglioLinee'][0])) {
+                foreach ($array['DettaglioLinee'] as $item) {
                     $o->addDettaglioLinea(DettaglioLinea::fromArray($item));
                 }
-            }else{
+            } else {
                 $o->addDettaglioLinea(DettaglioLinea::fromArray($array['DettaglioLinee']));
             }
         }
 
-        if(isset($array['DatiRiepilogo']['AliquotaIVA'])){
+        if (isset($array['DatiRiepilogo']['AliquotaIVA'])) {
             $o->setAliquotaIVA($array['DatiRiepilogo']['AliquotaIVA']);
         }
 
-        if(!empty($array['DatiRiepilogo']['Natura'])){
-             $o->setNatura($array['DatiRiepilogo']['Natura']);
+        if (!empty($array['DatiRiepilogo']['Natura'])) {
+            $o->setNatura($array['DatiRiepilogo']['Natura']);
         }
-        if(!empty($array['DatiRiepilogo']['SpeseAccessorie'])){
-             $o->setSpeseAccessorie($array['DatiRiepilogo']['SpeseAccessorie']);
+        if (!empty($array['DatiRiepilogo']['SpeseAccessorie'])) {
+            $o->setSpeseAccessorie($array['DatiRiepilogo']['SpeseAccessorie']);
         }
-        if(isset($array['DatiRiepilogo']['Arrotondamento'])){
+        if (isset($array['DatiRiepilogo']['Arrotondamento'])) {
             $o->setArrotondamento($array['DatiRiepilogo']['Arrotondamento']);
         }
-        if(!empty($array['DatiRiepilogo']['ImponibileImporto'])){
-             $o->setImponibileImporto($array['DatiRiepilogo']['ImponibileImporto']);
+        if (!empty($array['DatiRiepilogo']['ImponibileImporto'])) {
+            $o->setImponibileImporto($array['DatiRiepilogo']['ImponibileImporto']);
         }
-        if(!empty($array['DatiRiepilogo']['Imposta'])){
-             $o->setImposta($array['DatiRiepilogo']['Imposta']);
+        if (!empty($array['DatiRiepilogo']['Imposta'])) {
+            $o->setImposta($array['DatiRiepilogo']['Imposta']);
         }
-        if(!empty($array['DatiRiepilogo']['EsigibilitaIVA'])){
+        if (!empty($array['DatiRiepilogo']['EsigibilitaIVA'])) {
             $o->setEsigibilitaIVA($array['DatiRiepilogo']['EsigibilitaIVA']);
         }
-        if(!empty($array['DatiRiepilogo']['RiferimentoNormativo'] )){
-           $o->setRiferimentoNormativo($array['DatiRiepilogo']['RiferimentoNormativo'] );
+        if (!empty($array['DatiRiepilogo']['RiferimentoNormativo'])) {
+            $o->setRiferimentoNormativo($array['DatiRiepilogo']['RiferimentoNormativo']);
         }
         return $o;
     }

@@ -196,19 +196,24 @@ class DatiTrasmissione
     public function toArray()
     {
         $array = [
-            'IdTrasmittente' => [
-                'IdPaese' => $this->getIdTrasmittente()->getIdPaese(),
-                'IdCodice' => $this->getIdTrasmittente()->getIdCodice(),
-            ],
+            'IdTrasmittente' => null,
             'ProgressivoInvio' => $this->getProgressivoInvio(),
             'FormatoTrasmissione' => $this->getFormatoTrasmissione(),
             'CodiceDestinatario' => $this->getCodiceDestinatario(),
-            'ContattiTrasmittente' => [
-                'Telefono' => $this->getTelefono(),
-                'Email' => $this->getEmail(),
-            ],
+            'ContattiTrasmittente' => null,
             'PECDestinatario' => $this->getPECDestinatario(),
         ];
+
+        if($this->getIdTrasmittente() instanceof Fiscale){
+            $array['IdTrasmittente'] = $this->getIdTrasmittente()->toArray();
+        }
+
+        if(!empty($this->getTelefono())){
+            $array['ContattiTrasmittente']['Telefono'] = $this->getTelefono();
+        }
+        if(!empty($this->getEmail())){
+            $array['ContattiTrasmittente']['Email'] = $this->getEmail();
+        }
 
         return $array;
     }
@@ -239,10 +244,10 @@ class DatiTrasmissione
             $o->setTelefono($array['CodiceDestinatario']['Telefono']);
         }
         if (!empty($array['ContattiTrasmittente']['Email'])) {
-            $o->setTelefono($array['CodiceDestinatario']['Email']);
+            $o->setEmail($array['CodiceDestinatario']['Email']);
         }
         if (!empty($array['PECDestinatario'])) {
-            $o->setTelefono($array['PECDestinatario']);
+            $o->setPECDestinatario($array['PECDestinatario']);
         }
 
         return $o;

@@ -131,7 +131,7 @@ class DatiGeneraliDocumento
      */
     private $Arrotondamento;
     /**
-     * @var string|null;
+     * @var string[]|null;
      */
     private $Causale;
     /**
@@ -554,22 +554,32 @@ class DatiGeneraliDocumento
     }
 
     /**
-     * @return null|string
+     * @return null|string[]
      */
-    public function getCausale(): ?string
+    public function getCausale(): ?array
     {
         return $this->Causale;
     }
 
     /**
-     * @param null|string $Causale
+     * @param null|string[] $Causale
      * @return DatiGeneraliDocumento
      */
-    public function setCausale(?string $Causale): DatiGeneraliDocumento
+    public function setCausale(?array $Causale): DatiGeneraliDocumento
     {
         $this->Causale = $Causale;
         return $this;
     }
+    /**
+     * @param null|string[] $Causale
+     * @return DatiGeneraliDocumento
+     */
+    public function addCausale(string $Causale): DatiGeneraliDocumento
+    {
+        $this->Causale[] = $Causale;
+        return $this;
+    }
+
 
     /**
      * @return boolean
@@ -693,14 +703,10 @@ class DatiGeneraliDocumento
             $array['ScontoMaggiorazione']['Importo'] = number_format($this->getScontoImporto(), 2, '.', '');
         }
 
-        if ($this->getImportoTotaleDocumento() === null) {
-            $array['ImportoTotaleDocumento'] = '0.0';
-        } else {
+        if (!$this->getImportoTotaleDocumento() === null) {
             $array['ImportoTotaleDocumento'] = number_format($this->getImportoTotaleDocumento(), 2, '.', '');
         }
-        if ($this->getArrotondamento() === null) {
-            $array['Arrotondamento'] = '0.00';
-        } else {
+        if (!empty($this->getArrotondamento())) {
             $array['Arrotondamento'] = number_format($this->getArrotondamento(), 2, '.', '');
         }
         if (!empty($this->getCausale())) {
