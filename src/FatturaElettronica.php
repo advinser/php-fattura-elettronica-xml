@@ -155,6 +155,9 @@ class FatturaElettronica
     public function addBody(FatturaElettronicaBody $body): FatturaElettronica
     {
         $this->bodys[] = $body;
+        if(count($this->bodys)>1){
+            $this->setLotto(true);
+        }
         return $this;
     }
 
