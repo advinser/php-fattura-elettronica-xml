@@ -108,7 +108,8 @@ class DatiPagamento
     }
 
     /**
-     * @param mixed $CondizioniPagamento
+     * @param $CondizioniPagamento
+     * @throws FatturaElettronicaException
      */
     public function setCondizioniPagamento($CondizioniPagamento): void
     {
@@ -497,7 +498,11 @@ class DatiPagamento
         return $array;
     }
 
-
+    /**
+     * @param $array
+     * @return DatiPagamento
+     * @throws FatturaElettronicaException
+     */
     public static function fromArray($array): DatiPagamento
     {
         $o = new DatiPagamento();
