@@ -27,6 +27,7 @@ class XmlReader
     /**
      * @param string $source
      * @return FatturaElettronica
+     * @throws FatturaElettronicaException
      */
     public function decodeXml(string $source){
         $a = $this->xmlEncoder->decode($this->clearSignature($source),null);
@@ -38,6 +39,7 @@ class XmlReader
     /**
      * @param string $filePath
      * @return FatturaElettronica
+     * @throws FatturaElettronicaException
      */
     public static function decodeFromFile(string $filePath){
         $o = new XmlReader();
