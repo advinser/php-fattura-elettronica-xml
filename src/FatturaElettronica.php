@@ -289,5 +289,15 @@ class FatturaElettronica
         return $o;
     }
 
+    /**
+     * @param string $json
+     * @return FatturaElettronica
+     * @throws FatturaElettronicaException
+     */
+    public static function fromJson(string $json)
+    {
+        return FatturaElettronica::fromArray(json_decode($json,true));
+    }
+
 
 }

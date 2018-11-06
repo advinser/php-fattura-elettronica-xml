@@ -1,21 +1,26 @@
 {
-    "name": "advinser/php-fattura-elettronica-xml",
-    "description": "Fattura Elettronica Xml Php",
-    "version": "v1.0-dev",
-    "keywords": ["fatturaPa", "fattura elettronica", "fattura elettronica XML"],
-    "type": "library",
-    "require": {
-        "symfony/serializer": "^4.1",
-        "php": ">=7.2"
-    },
-    "require-dev": {
-        "phpunit/phpunit": "^7.5@dev"
-    },
-    "license": "GPL-3.0-or-later",
-    "minimum-stability": "dev",
-    "extra": {
-        "branch-alias": {
-            "dev-master": "v1.0-dev"
-        }
+  "name": "advinser/php-fattura-elettronica-xml",
+  "description": "Fattura Elettronica Xml Php",
+  "version": "v1.0-dev",
+  "keywords": [
+    "fatturaPa",
+    "fattura elettronica",
+    "fattura elettronica XML"
+  ],
+  "type": "library",
+  "require": {
+    "symfony/serializer": "^4.1",
+    "php": ">=7.2",
+    "ext-json": "*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^7.5@dev"
+  },
+  "license": "GPL-3.0-or-later",
+  "minimum-stability": "dev",
+  "extra": {
+    "branch-alias": {
+      "dev-master": "v1.0-dev"
     }
+  }
 }
