@@ -89,6 +89,74 @@ class FatturaElettronica
     }
 
     /**
+     * @return null|string
+     * @throws FatturaElettronicaException
+     */
+    public function getNumeroFattura(){
+        if($this->isLotto()){
+            throw new FatturaElettronicaException("There are multiple body, that means that is non a single 'FatturaElettronica', but a 'Lotto di fatture'. 'Numero fattura' can't be returned safely");
+        }
+        return $this->getBodys()[0]->getDatiGenerali()->getDatiGeneraliDocumento()->getNumero();
+    }
+
+    /**
+     * @return null|string
+     * @throws FatturaElettronicaException
+     */
+    public function getDataFattura(){
+        if($this->isLotto()){
+            throw new FatturaElettronicaException("There are multiple body, that means that is non a single 'FatturaElettronica', but a 'Lotto di fatture'. 'Numero fattura' can't be returned safely");
+        }
+        return $this->getBodys()[0]->getDatiGenerali()->getDatiGeneraliDocumento()->getData();
+    }
+
+    /**
+     * @return null|string
+     * @throws FatturaElettronicaException
+     */
+    public function getImportoTotaleDocumento(){
+        if($this->isLotto()){
+            throw new FatturaElettronicaException("There are multiple body, that means that is non a single 'FatturaElettronica', but a 'Lotto di fatture'. 'ImportoTotaleDocumento' can't be returned safely");
+        }
+
+        return $this->getBodys()[0]->getDatiGenerali()->getDatiGeneraliDocumento()->getImportoTotaleDocumento();
+
+    }
+
+    /**
+     * @return null|string
+     * @throws FatturaElettronicaException
+     */
+    public function getImponibileImporto(){
+        if($this->isLotto()){
+            throw new FatturaElettronicaException("There are multiple body, that means that is non a single 'FatturaElettronica', but a 'Lotto di fatture'. 'ImponibileImporto' can't be returned safely");
+        }
+        return $this->getBodys()[0]->getDatiBeniServizi()->getImponibileImporto();
+    }
+
+    /**
+     * @return null|string
+     * @throws FatturaElettronicaException
+     */
+    public function getImposta(){
+        if($this->isLotto()){
+            throw new FatturaElettronicaException("There are multiple body, that means that is non a single 'FatturaElettronica', but a 'Lotto di fatture'. 'Imposta' can't be returned safely");
+        }
+        return $this->getBodys()[0]->getDatiBeniServizi()->getImposta();
+    }
+
+    /**
+     * @return null|string
+     * @throws FatturaElettronicaException
+     */
+    public function getAliquotaIVA(){
+        if($this->isLotto()){
+            throw new FatturaElettronicaException("There are multiple body, that means that is non a single 'FatturaElettronica', but a 'Lotto di fatture'. 'AliquotaIVA' can't be returned safely");
+        }
+        return $this->getBodys()[0]->getDatiBeniServizi()->getAliquotaIVA();
+    }
+
+    /**
      * @return bool
      */
     public function isLotto(): bool
