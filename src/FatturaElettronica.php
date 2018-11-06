@@ -20,14 +20,19 @@ class FatturaElettronica
      */
     private $header;
     /**
-     * @var FatturaElettronicaBody
+     * @var FatturaElettronicaBody[]
      */
-    private $body;
+    private $bodys;
 
     /**
      * @var string
      */
     private $versione;
+
+    /**
+     * @var bool
+     */
+    private $lotto = false;
 
     /**
      * FatturaElettronica constructor.
@@ -37,7 +42,7 @@ class FatturaElettronica
     public function __construct(FatturaElettronicaHeader $header = null, FatturaElettronicaBody $body = null)
     {
         $this->header = $header;
-        $this->body = $body;
+        $this->bodys = $body;
 
         if ($header instanceof FatturaElettronicaHeader) {
             $this->versione = $header->getDatiTrasmissione()->getFormatoTrasmissione();
@@ -84,6 +89,28 @@ class FatturaElettronica
     }
 
     /**
+     * @return bool
+     */
+    public function isLotto(): bool
+    {
+        if (count($this->getBodys()) > 1) {
+            $this->lotto = true;
+        }
+        return $this->lotto;
+    }
+
+    /**
+     * @param bool $lotto
+     * @return FatturaElettronica
+     */
+    public function setLotto(bool $lotto): FatturaElettronica
+    {
+        $this->lotto = $lotto;
+        return $this;
+    }
+
+
+    /**
      * @return FatturaElettronicaHeader
      */
     public function getHeader()
@@ -103,22 +130,34 @@ class FatturaElettronica
     }
 
     /**
-     * @return FatturaElettronicaBody
+     * @return FatturaElettronicaBody[]
      */
-    public function getBody()
+    public function getBodys(): array
     {
-        return $this->body;
+        return $this->bodys;
     }
+
+    /**
+     * @param FatturaElettronicaBody[] $bodys
+     * @return FatturaElettronica
+     */
+    public function setBodys(array $bodys): FatturaElettronica
+    {
+        $this->bodys = $bodys;
+        return $this;
+    }
+
 
     /**
      * @param FatturaElettronicaBody $body
      * @return FatturaElettronica
      */
-    public function setBody($body)
+    public function addBody(FatturaElettronicaBody $body): FatturaElettronica
     {
-        $this->body = $body;
+        $this->bodys[] = $body;
         return $this;
     }
+
 
     /**
      * @return array
@@ -129,20 +168,29 @@ class FatturaElettronica
         if (!$this->header instanceof FatturaElettronicaHeader) {
             throw new FatturaElettronicaException("missed istance of FatturaElettronicaHeader");
         }
-        if (!$this->body instanceof FatturaElettronicaBody) {
-            throw new FatturaElettronicaException("missed istance of FatturaElettronicaBody");
-
-        }
-
-        return [
+        $array = [
             '@versione' => $this->versione,
             '@xmlns:ds' => 'http://www.w3.org/2000/09/xmldsig#',
             '@xmlns:p' => 'http://ivaservizi.agenziaentrate.gov.it/docs/xsd/fatture/v1.2',
             '@xmlns:xsi' => 'http://www.w3.org/2001/XMLSchema-instance',
-            '@xsi:schemaLocation'=>'http://ivaservizi.agenziaentrate.gov.it/docs/xsd/fatture/v1.2 http://www.fatturapa.gov.it/export/fatturazione/sdi/fatturapa/v1.2/Schema_del_file_xml_FatturaPA_versione_1.2.xsd',
+            '@xsi:schemaLocation' => 'http://ivaservizi.agenziaentrate.gov.it/docs/xsd/fatture/v1.2 http://www.fatturapa.gov.it/export/fatturazione/sdi/fatturapa/v1.2/Schema_del_file_xml_FatturaPA_versione_1.2.xsd',
             'FatturaElettronicaHeader' => $this->header->toArray(),
-            'FatturaElettronicaBody' => $this->body->toArray(),
+            'FatturaElettronicaBody' => null,
         ];
+
+        if (count($this->getBodys()) == 0) {
+            throw new FatturaElettronicaException("missed istance of FatturaElettronicaBody");
+        } else {
+            if ($this->isLotto()) {
+                foreach ($this->getBodys() as $body) {
+                    $array['FatturaElettronicaBody'][] = $body->toArray();
+                }
+            } else {
+                $array['FatturaElettronicaBody'] = $this->getBodys()[0]->toArray();
+            }
+        }
+
+        return $array;
     }
 
     /**
@@ -158,7 +206,13 @@ class FatturaElettronica
             $o->setHeader(FatturaElettronicaHeader::fromArray($array['FatturaElettronicaHeader']));
         }
         if (!empty($array['FatturaElettronicaBody'])) {
-            $o->setBody(FatturaElettronicaBody::fromArray($array['FatturaElettronicaBody']));
+            if (isset($array['FatturaElettronicaBody'][0])) {
+                foreach ($array['FatturaElettronicaBody'] as $item) {
+                    $o->addBody(FatturaElettronicaBody::fromArray($item));
+                }
+            } else {
+                $o->addBody(FatturaElettronicaBody::fromArray($array['FatturaElettronicaBody']));
+            }
         }
 
         return $o;
