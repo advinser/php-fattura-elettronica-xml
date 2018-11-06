@@ -5,7 +5,7 @@
  * Time:         17:20
  */
 
-namespace FatturaElettronicaXml\Body;
+namespace Advinser\FatturaElettronicaXml\Body;
 
 
 class DettaglioLinea

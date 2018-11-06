@@ -5,13 +5,13 @@
  * Time:         19:06
  */
 
-namespace FatturaElettronicaXml\Header;
+namespace Advinser\FatturaElettronicaXml\Header;
 
 
-use FatturaElettronicaXml\Structures\Anagrafica;
-use FatturaElettronicaXml\Structures\Fiscale;
-use FatturaElettronicaXml\Structures\Indirizzo;
-use FatturaElettronicaXml\FatturaElettronicaException;
+use Advinser\FatturaElettronicaXml\Structures\Anagrafica;
+use Advinser\FatturaElettronicaXml\Structures\Fiscale;
+use Advinser\FatturaElettronicaXml\Structures\Indirizzo;
+use Advinser\FatturaElettronicaXml\FatturaElettronicaException;
 
 class CedentePrestatore
 {

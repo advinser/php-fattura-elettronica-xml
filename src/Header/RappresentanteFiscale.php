@@ -5,11 +5,11 @@
  * Time:         19:07
  */
 
-namespace FatturaElettronicaXml\Header;
+namespace Advinser\FatturaElettronicaXml\Header;
 
 
-use FatturaElettronicaXml\Structures\Anagrafica;
-use FatturaElettronicaXml\Structures\Fiscale;
+use Advinser\FatturaElettronicaXml\Structures\Anagrafica;
+use Advinser\FatturaElettronicaXml\Structures\Fiscale;
 
 class RappresentanteFiscale
 {

@@ -5,12 +5,12 @@
  * Time:         16:29
  */
 
-namespace FatturaElettronicaXml\Body;
+namespace Advinser\FatturaElettronicaXml\Body;
 
 
-use FatturaElettronicaXml\Structures\Anagrafica;
-use FatturaElettronicaXml\Structures\Fiscale;
-use FatturaElettronicaXml\Structures\Indirizzo;
+use Advinser\FatturaElettronicaXml\Structures\Anagrafica;
+use Advinser\FatturaElettronicaXml\Structures\Fiscale;
+use Advinser\FatturaElettronicaXml\Structures\Indirizzo;
 
 class DatiTrasporto
 {

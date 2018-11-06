@@ -5,7 +5,7 @@
  * Time:         10:43
  */
 
-namespace FatturaElettronicaXml\Structures;
+namespace Advinser\FatturaElettronicaXml\Structures;
 
 
 class Anagrafica

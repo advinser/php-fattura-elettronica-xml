@@ -5,10 +5,10 @@
  * Time:         18:57
  */
 
-namespace FatturaElettronicaXml\Body;
+namespace Advinser\FatturaElettronicaXml\Body;
 
-use FatturaElettronicaXml\AbsModels;
-use FatturaElettronicaXml\FatturaElettronicaException;
+use Advinser\FatturaElettronicaXml\AbsModels;
+use Advinser\FatturaElettronicaXml\FatturaElettronicaException;
 
 class FatturaElettronicaBody extends AbsModels
 {

@@ -17,7 +17,7 @@ require __DIR__ . '/../vendor/autoload.php';
  * imposto i dati per la trasmissione della fattura
  */
 
-$datiTrasmissione = \FatturaElettronicaXml\Header\DatiTrasmissione::fromArray([
+$datiTrasmissione = \Advinser\FatturaElettronicaXml\Header\DatiTrasmissione::fromArray([
     'IdTrasmittente' => [
         'IdPaese' => 'IT',
         'IdCodice' => '01234567890',
@@ -30,7 +30,7 @@ $datiTrasmissione = \FatturaElettronicaXml\Header\DatiTrasmissione::fromArray([
  * imposto i dati del soggetto  che emette la fattura
  */
 
-$prestatore = \FatturaElettronicaXml\Header\CedentePrestatore::fromArray([
+$prestatore = \Advinser\FatturaElettronicaXml\Header\CedentePrestatore::fromArray([
     'DatiAnagrafici' => [
         'IdFiscaleIVA' => [
             'IdPaese' => 'IT',
@@ -62,7 +62,7 @@ $prestatore = \FatturaElettronicaXml\Header\CedentePrestatore::fromArray([
  * imposto i dati del soggetto che a cui è intestata la fattura
  */
 
-$committente = \FatturaElettronicaXml\Header\CessionarioCommittente::fromArray([
+$committente = \Advinser\FatturaElettronicaXml\Header\CessionarioCommittente::fromArray([
     'DatiAnagrafici' => [
         'CodiceFiscale' => '01234567890',
         'Anagrafica' => [
@@ -82,7 +82,7 @@ $committente = \FatturaElettronicaXml\Header\CessionarioCommittente::fromArray([
 /**
  * assegno i dati all'header della fattura
  */
-$header = new \FatturaElettronicaXml\Header\FatturaElettronicaHeader();
+$header = new \Advinser\FatturaElettronicaXml\Header\FatturaElettronicaHeader();
 $header->setDatiTrasmissione($datiTrasmissione);
 $header->setCedentePrestatore($prestatore);
 $header->setCessionarioCommittente($committente);
@@ -94,12 +94,12 @@ $header->setCessionarioCommittente($committente);
  *
  **********/
 
-$body = new \FatturaElettronicaXml\Body\FatturaElettronicaBody();
+$body = new \Advinser\FatturaElettronicaXml\Body\FatturaElettronicaBody();
 
 /**
  * dati generali fattura
  */
-$datiGenerali = \FatturaElettronicaXml\Body\DatiGenerali::fromArray([
+$datiGenerali = \Advinser\FatturaElettronicaXml\Body\DatiGenerali::fromArray([
     'DatiGeneraliDocumento' => [
         'TipoDocumento' => 'TD01',
         'Divisa' => 'EUR',
@@ -115,7 +115,7 @@ $datiGenerali = \FatturaElettronicaXml\Body\DatiGenerali::fromArray([
 /**
  * dati ordine di acquisto, se presente
  */
-$ordineAcquisto = \FatturaElettronicaXml\Structures\DatiRiferimento::fromArray([
+$ordineAcquisto = \Advinser\FatturaElettronicaXml\Structures\DatiRiferimento::fromArray([
     'RiferimentoNumeroLinea' => 1,
     'IdDocumento' => '66685',
     'NumItem' => 2,
@@ -125,7 +125,7 @@ $ordineAcquisto = \FatturaElettronicaXml\Structures\DatiRiferimento::fromArray([
 /**
  * DatiRiepilogo e Righe fattura
  */
-$beni = \FatturaElettronicaXml\Body\DatiBeniServizi::fromArray([
+$beni = \Advinser\FatturaElettronicaXml\Body\DatiBeniServizi::fromArray([
     'DettaglioLinee' => [
         [
             'NumeroLinea' => 1,
@@ -148,7 +148,7 @@ $beni = \FatturaElettronicaXml\Body\DatiBeniServizi::fromArray([
 /**
  * Dettagli relativi al pagamento
  */
-$pagamento = \FatturaElettronicaXml\Body\DatiPagamento::fromArray([
+$pagamento = \Advinser\FatturaElettronicaXml\Body\DatiPagamento::fromArray([
     'CondizioniPagamento' => 'TP01',
     'DettaglioPagamento' => [
         'Beneficiario' => 'Advinser di Andrea Tommasi',
@@ -167,7 +167,7 @@ $body->setDatiBeniServizi($beni);
 $body->setDatiPagamento($pagamento);
 $body->setDatiGenerali($datiGenerali);
 
-$fattura = new \FatturaElettronicaXml\FatturaElettronica();
+$fattura = new \Advinser\FatturaElettronicaXml\FatturaElettronica();
 $fattura->setHeader($header);
 /**
  * le caso di lotti di fatture si può aggiungere più di un body
@@ -178,7 +178,7 @@ $fattura->addBody($body);
 /**
  * COCLUSIONE
  */
-$writer = new \FatturaElettronicaXml\XmlWriter($fattura);
+$writer = new \Advinser\FatturaElettronicaXml\XmlWriter($fattura);
 /**
  * display file xml
  */

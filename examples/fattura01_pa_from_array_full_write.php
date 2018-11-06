@@ -7,7 +7,7 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
-//$fatturaxml = \FatturaElettronicaXml\XmlReader::decodeFromFile(__DIR__.'/../doc_es/IT01234567890_FPA01.xml');
+//$fatturaxml = \Advinser\FatturaElettronicaXml\XmlReader::decodeFromFile(__DIR__.'/../doc_es/IT01234567890_FPA01.xml');
 //var_export($fatturaxml->toArray());
 
 
@@ -168,13 +168,13 @@ $fattura_array = [
         ],
 ];
 
-$fattura = \FatturaElettronicaXml\FatturaElettronica::fromArray($fattura_array);
+$fattura = \Advinser\FatturaElettronicaXml\FatturaElettronica::fromArray($fattura_array);
 
 
 /**
  * COCLUSIONE
  */
-$writer = new \FatturaElettronicaXml\XmlWriter($fattura);
+$writer = new \Advinser\FatturaElettronicaXml\XmlWriter($fattura);
 /**
  * display file xml
  */

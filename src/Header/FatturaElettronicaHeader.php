@@ -4,10 +4,10 @@
  * Date:         03/11/2018
  * Time:         18:57
  */
-namespace FatturaElettronicaXml\Header;
+namespace Advinser\FatturaElettronicaXml\Header;
 
 
-use FatturaElettronicaXml\AbsModels;
+use Advinser\FatturaElettronicaXml\AbsModels;
 
 class FatturaElettronicaHeader extends AbsModels
 {

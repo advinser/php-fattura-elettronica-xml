@@ -5,7 +5,7 @@
  * Time:         15:58
  */
 
-namespace FatturaElettronicaXml;
+namespace Advinser\FatturaElettronicaXml;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 
 class XmlReader

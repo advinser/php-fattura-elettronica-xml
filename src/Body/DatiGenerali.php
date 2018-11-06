@@ -5,11 +5,11 @@
  * Time:         16:00
  */
 
-namespace FatturaElettronicaXml\Body;
+namespace Advinser\FatturaElettronicaXml\Body;
 
 
-use FatturaElettronicaXml\FatturaElettronicaException;
-use FatturaElettronicaXml\Structures\DatiRiferimento;
+use Advinser\FatturaElettronicaXml\FatturaElettronicaException;
+use Advinser\FatturaElettronicaXml\Structures\DatiRiferimento;
 
 class DatiGenerali
 {

@@ -5,7 +5,7 @@
  * Time:         10:30
  */
 
-namespace FatturaElettronicaXml\Structures;
+namespace Advinser\FatturaElettronicaXml\Structures;
 
 
 class Indirizzo

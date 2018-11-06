@@ -5,12 +5,12 @@
  * Time:         18:56
  */
 
-namespace FatturaElettronicaXml;
+namespace Advinser\FatturaElettronicaXml;
 
-use FatturaElettronicaXml\Body\FatturaElettronicaBody;
-use FatturaElettronicaXml\Header\CedentePrestatore;
-use FatturaElettronicaXml\Header\CessionarioCommittente;
-use FatturaElettronicaXml\Header\FatturaElettronicaHeader;
+use Advinser\FatturaElettronicaXml\Body\FatturaElettronicaBody;
+use Advinser\FatturaElettronicaXml\Header\CedentePrestatore;
+use Advinser\FatturaElettronicaXml\Header\CessionarioCommittente;
+use Advinser\FatturaElettronicaXml\Header\FatturaElettronicaHeader;
 
 
 class FatturaElettronica

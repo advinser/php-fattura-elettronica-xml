@@ -5,11 +5,11 @@
  * Time:         19:06
  */
 
-namespace FatturaElettronicaXml\Header;
+namespace Advinser\FatturaElettronicaXml\Header;
 
 
-use FatturaElettronicaXml\Structures\Fiscale;
-use FatturaElettronicaXml\FatturaElettronicaException;
+use Advinser\FatturaElettronicaXml\Structures\Fiscale;
+use Advinser\FatturaElettronicaXml\FatturaElettronicaException;
 
 class DatiTrasmissione
 {

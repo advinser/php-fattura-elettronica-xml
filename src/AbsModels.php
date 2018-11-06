@@ -5,7 +5,7 @@
  * Time:         18:26
  */
 
-namespace FatturaElettronicaXml;
+namespace Advinser\FatturaElettronicaXml;
 
 
 abstract class AbsModels

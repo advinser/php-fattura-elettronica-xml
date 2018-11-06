@@ -16,8 +16,8 @@ require __DIR__ . '/../vendor/autoload.php';
 /**
  * imposto i dati per la trasmissione della fattura
  */
-$datiTrasmissione = new \FatturaElettronicaXml\Header\DatiTrasmissione();
-$datiTrasmissione->setIdTrasmittente(new \FatturaElettronicaXml\Structures\Fiscale('IT', '01234567890'));
+$datiTrasmissione = new \Advinser\FatturaElettronicaXml\Header\DatiTrasmissione();
+$datiTrasmissione->setIdTrasmittente(new \Advinser\FatturaElettronicaXml\Structures\Fiscale('IT', '01234567890'));
 $datiTrasmissione->setProgressivoInvio(1);
 $datiTrasmissione->setFormatoTrasmissione('FPA12');
 $datiTrasmissione->setCodiceDestinatario('AAAAAA');
@@ -26,17 +26,17 @@ $datiTrasmissione->setCodiceDestinatario('AAAAAA');
 /**
  * imposto i dati del soggetto  che emette la fattura
  */
-$prestatore = new \FatturaElettronicaXml\Header\CedentePrestatore();
+$prestatore = new \Advinser\FatturaElettronicaXml\Header\CedentePrestatore();
 $prestatore
-    ->setIdFiscaleIVA(new \FatturaElettronicaXml\Structures\Fiscale('IT', '01234567890'))
+    ->setIdFiscaleIVA(new \Advinser\FatturaElettronicaXml\Structures\Fiscale('IT', '01234567890'))
     ->setCodiceFiscale('TMMMMMMMMMMMMMMMMMMMMMMMM');
 
-$anagraficaCedente = new \FatturaElettronicaXml\Structures\Anagrafica();
+$anagraficaCedente = new \Advinser\FatturaElettronicaXml\Structures\Anagrafica();
 $anagraficaCedente->setDenominazione('ALPHA SRL');
 $prestatore->setAnagrafica($anagraficaCedente);
 $prestatore->setRegimeFiscale('RF19');
 
-$sedePrestatore = new \FatturaElettronicaXml\Structures\Indirizzo();
+$sedePrestatore = new \Advinser\FatturaElettronicaXml\Structures\Indirizzo();
 $sedePrestatore
     ->setIndirizzo('VIALE ROMA 543')
     ->setCAP('07100')
@@ -54,12 +54,12 @@ $prestatore->setSede($sedePrestatore)
 /**
  * imposto i dati del soggetto che a cui è intestata la fattura
  */
-$committente = new \FatturaElettronicaXml\Header\CessionarioCommittente();
+$committente = new \Advinser\FatturaElettronicaXml\Header\CessionarioCommittente();
 $committente->setCodiceFiscale('01234567890');
-$anagraficaCommittente = new \FatturaElettronicaXml\Structures\Anagrafica();
+$anagraficaCommittente = new \Advinser\FatturaElettronicaXml\Structures\Anagrafica();
 $anagraficaCommittente->setDenominazione('Amministrativa BETA');
 $committente->setAnagrafica($anagraficaCommittente);
-$sedeCommittente = new \FatturaElettronicaXml\Structures\Indirizzo();
+$sedeCommittente = new \Advinser\FatturaElettronicaXml\Structures\Indirizzo();
 $sedeCommittente->setIndirizzo('VIA TORINO 38-B')
     ->setCAP('00145')
     ->setComune('ROMA')
@@ -70,7 +70,7 @@ $committente->setSede($sedeCommittente);
 /**
  * assegno i dati all'header della fattura
  */
-$header = new \FatturaElettronicaXml\Header\FatturaElettronicaHeader();
+$header = new \Advinser\FatturaElettronicaXml\Header\FatturaElettronicaHeader();
 $header->setDatiTrasmissione($datiTrasmissione);
 $header->setCedentePrestatore($prestatore);
 $header->setCessionarioCommittente($committente);
@@ -82,14 +82,14 @@ $header->setCessionarioCommittente($committente);
  *
  **********/
 
-$body = new \FatturaElettronicaXml\Body\FatturaElettronicaBody();
+$body = new \Advinser\FatturaElettronicaXml\Body\FatturaElettronicaBody();
 
 /**
  * dati generali fattura
  */
-$datiGenerali = new \FatturaElettronicaXml\Body\DatiGenerali();
+$datiGenerali = new \Advinser\FatturaElettronicaXml\Body\DatiGenerali();
 
-$datiGeneraliDocumento = new \FatturaElettronicaXml\Body\DatiGeneraliDocumento();
+$datiGeneraliDocumento = new \Advinser\FatturaElettronicaXml\Body\DatiGeneraliDocumento();
 $datiGenerali->setDatiGeneraliDocumento($datiGeneraliDocumento);
 
 $datiGeneraliDocumento->setTipoDocumento('TD01')
@@ -104,7 +104,7 @@ $datiGeneraliDocumento->setTipoDocumento('TD01')
 /**
  * dati ordine di acquisto, se presente
  */
-$ordineAcquisto = new \FatturaElettronicaXml\Structures\DatiRiferimento();
+$ordineAcquisto = new \Advinser\FatturaElettronicaXml\Structures\DatiRiferimento();
 $datiGenerali->setDatiOrdineAcquisto($ordineAcquisto);
 $ordineAcquisto
     ->setRiferimentoNumeroLinea(1)
@@ -116,7 +116,7 @@ $ordineAcquisto
 /**
  * DatiRiepilogo e Righe fattura
  */
-$beni = new \FatturaElettronicaXml\Body\DatiBeniServizi();
+$beni = new \Advinser\FatturaElettronicaXml\Body\DatiBeniServizi();
 /**
  * DatiRiepilogo
  */
@@ -128,7 +128,7 @@ $beni->setEsigibilitaIVA('I');
 /**
  * Righe Fattura
  */
-$dettaglioLinea = new \FatturaElettronicaXml\Body\DettaglioLinea();
+$dettaglioLinea = new \Advinser\FatturaElettronicaXml\Body\DettaglioLinea();
 $dettaglioLinea->setNumeroLinea(1)
     ->setDescrizione('DESCRIZIONE DELLA FORNITURA')
     //->setUnitaMisura('Servizio')
@@ -142,7 +142,7 @@ $beni->addDettaglioLinea($dettaglioLinea);
 /**
  * Dettagli relativi al pagamento
  */
-$pagamento = new \FatturaElettronicaXml\Body\DatiPagamento();
+$pagamento = new \Advinser\FatturaElettronicaXml\Body\DatiPagamento();
 $pagamento->setCondizioniPagamento('TP01')
     ->setBeneficiario('Advinser di Andrea Tommasi')
     ->setModalitaPagamento('MP01')
@@ -158,7 +158,7 @@ $body->setDatiBeniServizi($beni);
 $body->setDatiPagamento($pagamento);
 $body->setDatiGenerali($datiGenerali);
 
-$fattura = new \FatturaElettronicaXml\FatturaElettronica();
+$fattura = new \Advinser\FatturaElettronicaXml\FatturaElettronica();
 $fattura->setHeader($header);
 /**
  * le caso di lotti di fatture si può aggiungere più di un body
@@ -169,7 +169,7 @@ $fattura->addBody($body);
 /**
  * COCLUSIONE
  */
-$writer = new \FatturaElettronicaXml\XmlWriter($fattura);
+$writer = new \Advinser\FatturaElettronicaXml\XmlWriter($fattura);
 /**
  * display file xml
  */

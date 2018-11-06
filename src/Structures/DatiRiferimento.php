@@ -5,7 +5,7 @@
  * Time:         16:22
  */
 
-namespace FatturaElettronicaXml\Structures;
+namespace Advinser\FatturaElettronicaXml\Structures;
 
 
 class DatiRiferimento

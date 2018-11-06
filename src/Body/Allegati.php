@@ -5,7 +5,7 @@
  * Time:         16:02
  */
 
-namespace FatturaElettronicaXml\Body;
+namespace Advinser\FatturaElettronicaXml\Body;
 
 
 class Allegati

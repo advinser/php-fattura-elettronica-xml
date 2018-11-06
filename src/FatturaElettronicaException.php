@@ -4,9 +4,9 @@
  * Date:         03/11/2018
  * Time:         18:56
  */
-namespace FatturaElettronicaXml;
-use FatturaElettronicaXml\Body\FatturaElettronicaBody;
-use FatturaElettronicaXml\Header\FatturaElettronicaHeader;
+namespace Advinser\FatturaElettronicaXml;
+use Advinser\FatturaElettronicaXml\Body\FatturaElettronicaBody;
+use Advinser\FatturaElettronicaXml\Header\FatturaElettronicaHeader;
 use Throwable;
 
 class FatturaElettronicaException extends \Exception

@@ -5,9 +5,9 @@
  * Time:         16:33
  */
 
-namespace FatturaElettronicaXml\Body;
+namespace Advinser\FatturaElettronicaXml\Body;
 
-use FatturaElettronicaXml\FatturaElettronicaException;
+use Advinser\FatturaElettronicaXml\FatturaElettronicaException;
 
 class DatiGeneraliDocumento
 {
