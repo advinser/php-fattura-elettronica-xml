@@ -170,7 +170,6 @@ $fattura_array = [
 
 $fattura = \Advinser\FatturaElettronicaXml\FatturaElettronica::fromArray($fattura_array);
 
-
 /**
  * COCLUSIONE
  */
