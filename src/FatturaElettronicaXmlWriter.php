@@ -8,7 +8,7 @@
 namespace Advinser\FatturaElettronicaXml;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 
-class XmlWriter
+class FatturaElettronicaXmlWriter
 {
     private $rootXml = 'p:FatturaElettronica';
     /**

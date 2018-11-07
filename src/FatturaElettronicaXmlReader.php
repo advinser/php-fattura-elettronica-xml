@@ -8,7 +8,7 @@
 namespace Advinser\FatturaElettronicaXml;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 
-class XmlReader
+class FatturaElettronicaXmlReader
 {
     /**
      * @var XmlEncoder
@@ -42,7 +42,7 @@ class XmlReader
      * @throws FatturaElettronicaException
      */
     public static function decodeFromFile(string $filePath){
-        $o = new XmlReader();
+        $o = new FatturaElettronicaXmlReader();
         return $o->decodeXml(file_get_contents($filePath));
     }
 

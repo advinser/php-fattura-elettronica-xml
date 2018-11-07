@@ -169,7 +169,7 @@ $fattura->addBody($body);
 /**
  * COCLUSIONE
  */
-$writer = new \Advinser\FatturaElettronicaXml\XmlWriter($fattura);
+$writer = new \Advinser\FatturaElettronicaXml\FatturaElettronicaXmlWriter($fattura);
 /**
  * display file xml
  */
