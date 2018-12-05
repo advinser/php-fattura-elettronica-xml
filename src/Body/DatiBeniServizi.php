@@ -16,42 +16,11 @@ class DatiBeniServizi
     private $DettaglioLinee;
 
     /**
-     * @var string|null
+     * @var DatiRiepilogo[] | null
      */
-    private $AliquotaIVA;
+    private $DatiRiepilogo;
 
-    /**
-     * @var string|null
-     */
-    private $Natura;
 
-    /**
-     * @var string|null
-     */
-    private $SpeseAccessorie;
-
-    /**
-     * @var string|null
-     */
-    private $Arrotondamento;
-
-    /**
-     * @var string|null
-     */
-    private $ImponibileImporto;
-
-    /**
-     * @var string|null
-     */
-    private $Imposta;
-    /**
-     * @var string|null
-     */
-    private $EsigibilitaIVA;
-    /**
-     * @var string|null
-     */
-    private $RiferimentoNormativo;
 
     /**
      * @return DettaglioLinea[]|null
@@ -82,132 +51,33 @@ class DatiBeniServizi
     }
 
     /**
-     * @return null|string
+     * @return DatiRiepilogo[]|null
      */
-    public function getAliquotaIVA(): ?string
+    public function getDatiRiepilogo(): ?array
     {
-        return $this->AliquotaIVA;
+        return $this->DatiRiepilogo;
     }
 
     /**
-     * @param null|string $AliquotaIVA
+     * @param DatiRiepilogo[]|null $DatiRiepilogo
+     * @return DatiBeniServizi
      */
-    public function setAliquotaIVA(?string $AliquotaIVA): void
+    public function setDatiRiepilogo(?array $DatiRiepilogo): DatiBeniServizi
     {
-        $this->AliquotaIVA = $AliquotaIVA;
+        $this->DatiRiepilogo = $DatiRiepilogo;
+        return $this;
     }
 
     /**
-     * @return null|string
+     * @param DatiRiepilogo[]|null $DatiRiepilogo
+     * @return DatiBeniServizi
      */
-    public function getNatura(): ?string
+    public function addDatiRiepilogo(DatiRiepilogo $DatiRiepilogo): DatiBeniServizi
     {
-        return $this->Natura;
+        $this->DatiRiepilogo[] = $DatiRiepilogo;
+        return $this;
     }
 
-    /**
-     * @param null|string $Natura
-     */
-    public function setNatura(?string $Natura): void
-    {
-        $this->Natura = $Natura;
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getSpeseAccessorie(): ?string
-    {
-        return $this->SpeseAccessorie;
-    }
-
-    /**
-     * @param null|string $SpeseAccessorie
-     */
-    public function setSpeseAccessorie(?string $SpeseAccessorie): void
-    {
-        $this->SpeseAccessorie = $SpeseAccessorie;
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getArrotondamento(): ?string
-    {
-        return $this->Arrotondamento;
-    }
-
-    /**
-     * @param null|string $Arrotondamento
-     */
-    public function setArrotondamento(?string $Arrotondamento): void
-    {
-        $this->Arrotondamento = $Arrotondamento;
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getImponibileImporto(): ?string
-    {
-        return $this->ImponibileImporto;
-    }
-
-    /**
-     * @param null|string $ImponibileImporto
-     */
-    public function setImponibileImporto(?string $ImponibileImporto): void
-    {
-        $this->ImponibileImporto = $ImponibileImporto;
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getImposta(): ?string
-    {
-        return $this->Imposta;
-    }
-
-    /**
-     * @param null|string $Imposta
-     */
-    public function setImposta(?string $Imposta): void
-    {
-        $this->Imposta = $Imposta;
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getEsigibilitaIVA(): ?string
-    {
-        return $this->EsigibilitaIVA;
-    }
-
-    /**
-     * @param null|string $EsigibilitaIVA
-     */
-    public function setEsigibilitaIVA(?string $EsigibilitaIVA): void
-    {
-        $this->EsigibilitaIVA = $EsigibilitaIVA;
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getRiferimentoNormativo(): ?string
-    {
-        return $this->RiferimentoNormativo;
-    }
-
-    /**
-     * @param null|string $RiferimentoNormativo
-     */
-    public function setRiferimentoNormativo(?string $RiferimentoNormativo): void
-    {
-        $this->RiferimentoNormativo = $RiferimentoNormativo;
-    }
 
 
     /**
@@ -217,16 +87,7 @@ class DatiBeniServizi
     {
         $array = [
             'DettaglioLinee' => null,
-            'DatiRiepilogo' => [
-                'AliquotaIVA' => null,
-                'Natura' => null,
-                'SpeseAccessorie' => null,
-                'Arrotondamento' => null,
-                'ImponibileImporto' => null,
-                'Imposta' => null,
-                'EsigibilitaIVA' => null,
-                'RiferimentoNormativo' => null,
-            ]
+            'DatiRiepilogo' => null,
         ];
 
         if (!empty($this->getDettaglioLinee())) {
@@ -241,32 +102,17 @@ class DatiBeniServizi
             }
         }
 
-        if (!empty($this->getAliquotaIVA())){
-            $array['DatiRiepilogo']['AliquotaIVA'] = number_format($this->getAliquotaIVA(), 2, '.', '');
+        if (!empty($this->getDatiRiepilogo())) {
+            if (count($this->getDatiRiepilogo()) === 1) {
+                $array['DatiRiepilogo'] = $this->getDatiRiepilogo()[0]->toArray();
+            } else {
+                $a = [];
+                foreach ($this->getDatiRiepilogo() as $datiRiepilogo) {
+                    $a[] = $datiRiepilogo->toArray();
+                }
+                $array['DatiRiepilogo'] = $a;
+            }
         }
-
-        if (!empty($this->getNatura())) {
-            $array['DatiRiepilogo']['Natura'] = $this->getNatura();
-        }
-        if (!empty($this->getSpeseAccessorie())) {
-            $array['DatiRiepilogo']['SpeseAccessorie'] = number_format(floatval($this->getSpeseAccessorie()), 2, '.', '');
-        }
-        if (!empty($this->getArrotondamento())) {
-            $array['DatiRiepilogo']['Arrotondamento'] = number_format(floatval($this->getArrotondamento()), 2, '.', '');
-        }
-        if (!empty($this->getImponibileImporto())) {
-            $array['DatiRiepilogo']['ImponibileImporto'] = number_format(floatval($this->getImponibileImporto()), 2, '.', '');
-        }
-        if (!empty($this->getImposta())) {
-            $array['DatiRiepilogo']['Imposta'] = number_format(floatval($this->getImposta()), 2, '.', '');
-        }
-        if (!empty($this->getEsigibilitaIVA())) {
-            $array['DatiRiepilogo']['EsigibilitaIVA'] = $this->getEsigibilitaIVA();
-        }
-        if (!empty($this->getRiferimentoNormativo())) {
-            $array['DatiRiepilogo']['RiferimentoNormativo'] = $this->getRiferimentoNormativo();
-        }
-
         return $array;
     }
 
@@ -285,31 +131,16 @@ class DatiBeniServizi
             }
         }
 
-        if (isset($array['DatiRiepilogo']['AliquotaIVA'])) {
-            $o->setAliquotaIVA($array['DatiRiepilogo']['AliquotaIVA']);
+        if (!empty($array['DatiRiepilogo'])) {
+            if (isset($array['DatiRiepilogo'][0])) {
+                foreach ($array['DatiRiepilogo'] as $item) {
+                    $o->addDatiRiepilogo(DatiRiepilogo::fromArray($item));
+                }
+            } else {
+                $o->addDatiRiepilogo(DatiRiepilogo::fromArray($array['DatiRiepilogo']));
+            }
         }
 
-        if (!empty($array['DatiRiepilogo']['Natura'])) {
-            $o->setNatura($array['DatiRiepilogo']['Natura']);
-        }
-        if (!empty($array['DatiRiepilogo']['SpeseAccessorie'])) {
-            $o->setSpeseAccessorie($array['DatiRiepilogo']['SpeseAccessorie']);
-        }
-        if (isset($array['DatiRiepilogo']['Arrotondamento'])) {
-            $o->setArrotondamento($array['DatiRiepilogo']['Arrotondamento']);
-        }
-        if (!empty($array['DatiRiepilogo']['ImponibileImporto'])) {
-            $o->setImponibileImporto($array['DatiRiepilogo']['ImponibileImporto']);
-        }
-        if (!empty($array['DatiRiepilogo']['Imposta'])) {
-            $o->setImposta($array['DatiRiepilogo']['Imposta']);
-        }
-        if (!empty($array['DatiRiepilogo']['EsigibilitaIVA'])) {
-            $o->setEsigibilitaIVA($array['DatiRiepilogo']['EsigibilitaIVA']);
-        }
-        if (!empty($array['DatiRiepilogo']['RiferimentoNormativo'])) {
-            $o->setRiferimentoNormativo($array['DatiRiepilogo']['RiferimentoNormativo']);
-        }
         return $o;
     }
 

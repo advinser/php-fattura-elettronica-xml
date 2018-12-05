@@ -22,7 +22,7 @@ $fattura_array = [
                             'IdCodice' => '01234567890',
                         ],
                     'ProgressivoInvio' => '0000000001',
-                    'FormatoTrasmissione' => 'FPA12',
+                    'FormatoTrasmissione' => 'FPR12',
                     'CodiceDestinatario' => 'AAAAAA',
                     'ContattiTrasmittente' => NULL,
                 ],
@@ -147,23 +147,36 @@ $fattura_array = [
                             'PrezzoTotale' => '5.00',
                             'AliquotaIVA' => '22.00',
                         ],
-                    'DatiRiepilogo' =>
+                    'DatiRiepilogo' => [
                         [
                             'AliquotaIVA' => '22.00',
                             'ImponibileImporto' => '5.00',
                             'Imposta' => '1.10',
                             'EsigibilitaIVA' => 'I',
                         ],
+                        [
+                            'AliquotaIVA' => '10.00',
+                            'ImponibileImporto' => '5.00',
+                            'Imposta' => '0.50',
+                            'EsigibilitaIVA' => 'I',
+                        ]
+                    ],
                 ],
             'DatiPagamento' =>
                 [
                     'CondizioniPagamento' => 'TP01',
-                    'DettaglioPagamento' =>
+                    'DettaglioPagamento' => [
                         [
                             'ModalitaPagamento' => 'MP01',
                             'DataScadenzaPagamento' => '2017-02-18',
                             'ImportoPagamento' => '6.10',
                         ],
+                        [
+                            'ModalitaPagamento' => 'MP15',
+                            'DataScadenzaPagamento' => '2017-02-19',
+                            'ImportoPagamento' => '6.60',
+                        ],
+                    ]
                 ],
         ],
 ];
