@@ -107,10 +107,12 @@ class DettaglioPagamento
 
     /**
      * @param string|null $Beneficiario
+     * @return DettaglioPagamento
      */
-    public function setBeneficiario(?string $Beneficiario): void
+    public function setBeneficiario(?string $Beneficiario): DettaglioPagamento
     {
         $this->Beneficiario = $Beneficiario;
+        return $this;
     }
 
     /**
@@ -123,10 +125,12 @@ class DettaglioPagamento
 
     /**
      * @param string|null $ModalitaPagamento
+     * @return DettaglioPagamento
      */
-    public function setModalitaPagamento(?string $ModalitaPagamento): void
+    public function setModalitaPagamento(?string $ModalitaPagamento): DettaglioPagamento
     {
         $this->ModalitaPagamento = $ModalitaPagamento;
+        return $this;
     }
 
     /**
@@ -139,10 +143,12 @@ class DettaglioPagamento
 
     /**
      * @param string|null $DataRiferimentoTerminiPagamento
+     * @return DettaglioPagamento
      */
-    public function setDataRiferimentoTerminiPagamento(?string $DataRiferimentoTerminiPagamento): void
+    public function setDataRiferimentoTerminiPagamento(?string $DataRiferimentoTerminiPagamento): DettaglioPagamento
     {
         $this->DataRiferimentoTerminiPagamento = $DataRiferimentoTerminiPagamento;
+        return $this;
     }
 
     /**
@@ -155,10 +161,12 @@ class DettaglioPagamento
 
     /**
      * @param string|null $GiorniTerminiPagamento
+     * @return DettaglioPagamento
      */
-    public function setGiorniTerminiPagamento(?string $GiorniTerminiPagamento): void
+    public function setGiorniTerminiPagamento(?string $GiorniTerminiPagamento): DettaglioPagamento
     {
         $this->GiorniTerminiPagamento = $GiorniTerminiPagamento;
+        return $this;
     }
 
     /**
@@ -171,10 +179,12 @@ class DettaglioPagamento
 
     /**
      * @param string|null $DataScadenzaPagamento
+     * @return DettaglioPagamento
      */
-    public function setDataScadenzaPagamento(?string $DataScadenzaPagamento): void
+    public function setDataScadenzaPagamento(?string $DataScadenzaPagamento): DettaglioPagamento
     {
         $this->DataScadenzaPagamento = $DataScadenzaPagamento;
+        return $this;
     }
 
     /**
@@ -187,10 +197,12 @@ class DettaglioPagamento
 
     /**
      * @param string|null $ImportoPagamento
+     * @return DettaglioPagamento
      */
-    public function setImportoPagamento(?string $ImportoPagamento): void
+    public function setImportoPagamento(?string $ImportoPagamento): DettaglioPagamento
     {
         $this->ImportoPagamento = $ImportoPagamento;
+        return $this;
     }
 
     /**
@@ -203,10 +215,12 @@ class DettaglioPagamento
 
     /**
      * @param string|null $CodUfficioPostale
+     * @return DettaglioPagamento
      */
-    public function setCodUfficioPostale(?string $CodUfficioPostale): void
+    public function setCodUfficioPostale(?string $CodUfficioPostale): DettaglioPagamento
     {
         $this->CodUfficioPostale = $CodUfficioPostale;
+        return $this;
     }
 
     /**
@@ -219,10 +233,12 @@ class DettaglioPagamento
 
     /**
      * @param string|null $CognomeQuietanzante
+     * @return DettaglioPagamento
      */
-    public function setCognomeQuietanzante(?string $CognomeQuietanzante): void
+    public function setCognomeQuietanzante(?string $CognomeQuietanzante): DettaglioPagamento
     {
         $this->CognomeQuietanzante = $CognomeQuietanzante;
+        return $this;
     }
 
     /**
@@ -235,10 +251,12 @@ class DettaglioPagamento
 
     /**
      * @param string|null $NomeQuietanzante
+     * @return DettaglioPagamento
      */
-    public function setNomeQuietanzante(?string $NomeQuietanzante): void
+    public function setNomeQuietanzante(?string $NomeQuietanzante): DettaglioPagamento
     {
         $this->NomeQuietanzante = $NomeQuietanzante;
+        return $this;
     }
 
     /**
@@ -251,10 +269,12 @@ class DettaglioPagamento
 
     /**
      * @param string|null $CFQuietanzante
+     * @return DettaglioPagamento
      */
-    public function setCFQuietanzante(?string $CFQuietanzante): void
+    public function setCFQuietanzante(?string $CFQuietanzante): DettaglioPagamento
     {
         $this->CFQuietanzante = $CFQuietanzante;
+        return $this;
     }
 
     /**
@@ -267,10 +287,12 @@ class DettaglioPagamento
 
     /**
      * @param string|null $TitoloQuietanzante
+     * @return DettaglioPagamento
      */
-    public function setTitoloQuietanzante(?string $TitoloQuietanzante): void
+    public function setTitoloQuietanzante(?string $TitoloQuietanzante): DettaglioPagamento
     {
         $this->TitoloQuietanzante = $TitoloQuietanzante;
+        return $this;
     }
 
     /**
@@ -283,10 +305,12 @@ class DettaglioPagamento
 
     /**
      * @param string|null $IstitutoFinanziario
+     * @return DettaglioPagamento
      */
-    public function setIstitutoFinanziario(?string $IstitutoFinanziario): void
+    public function setIstitutoFinanziario(?string $IstitutoFinanziario): DettaglioPagamento
     {
         $this->IstitutoFinanziario = $IstitutoFinanziario;
+        return $this;
     }
 
     /**
@@ -299,10 +323,12 @@ class DettaglioPagamento
 
     /**
      * @param string|null $IBAN
+     * @return DettaglioPagamento
      */
-    public function setIBAN(?string $IBAN): void
+    public function setIBAN(?string $IBAN): DettaglioPagamento
     {
         $this->IBAN = $IBAN;
+        return $this;
     }
 
     /**
@@ -315,10 +341,12 @@ class DettaglioPagamento
 
     /**
      * @param string|null $ABI
+     * @return DettaglioPagamento
      */
-    public function setABI(?string $ABI): void
+    public function setABI(?string $ABI): DettaglioPagamento
     {
         $this->ABI = $ABI;
+        return $this;
     }
 
     /**
@@ -331,10 +359,12 @@ class DettaglioPagamento
 
     /**
      * @param string|null $CAB
+     * @return DettaglioPagamento
      */
-    public function setCAB(?string $CAB): void
+    public function setCAB(?string $CAB): DettaglioPagamento
     {
         $this->CAB = $CAB;
+        return $this;
     }
 
     /**
@@ -347,10 +377,12 @@ class DettaglioPagamento
 
     /**
      * @param string|null $BIC
+     * @return DettaglioPagamento
      */
-    public function setBIC(?string $BIC): void
+    public function setBIC(?string $BIC): DettaglioPagamento
     {
         $this->BIC = $BIC;
+        return $this;
     }
 
     /**
@@ -363,10 +395,12 @@ class DettaglioPagamento
 
     /**
      * @param string|null $ScontoPagamentoAnticipato
+     * @return DettaglioPagamento
      */
-    public function setScontoPagamentoAnticipato(?string $ScontoPagamentoAnticipato): void
+    public function setScontoPagamentoAnticipato(?string $ScontoPagamentoAnticipato): DettaglioPagamento
     {
         $this->ScontoPagamentoAnticipato = $ScontoPagamentoAnticipato;
+        return $this;
     }
 
     /**
@@ -379,10 +413,12 @@ class DettaglioPagamento
 
     /**
      * @param string|null $DataLimitePagamentoAnticipato
+     * @return DettaglioPagamento
      */
-    public function setDataLimitePagamentoAnticipato(?string $DataLimitePagamentoAnticipato): void
+    public function setDataLimitePagamentoAnticipato(?string $DataLimitePagamentoAnticipato): DettaglioPagamento
     {
         $this->DataLimitePagamentoAnticipato = $DataLimitePagamentoAnticipato;
+        return $this;
     }
 
     /**
@@ -395,10 +431,12 @@ class DettaglioPagamento
 
     /**
      * @param string|null $PenalitaPagamentiRitardati
+     * @return DettaglioPagamento
      */
-    public function setPenalitaPagamentiRitardati(?string $PenalitaPagamentiRitardati): void
+    public function setPenalitaPagamentiRitardati(?string $PenalitaPagamentiRitardati): DettaglioPagamento
     {
         $this->PenalitaPagamentiRitardati = $PenalitaPagamentiRitardati;
+        return $this;
     }
 
     /**
@@ -411,10 +449,12 @@ class DettaglioPagamento
 
     /**
      * @param string|null $DataDecorrenzaPenale
+     * @return DettaglioPagamento
      */
-    public function setDataDecorrenzaPenale(?string $DataDecorrenzaPenale): void
+    public function setDataDecorrenzaPenale(?string $DataDecorrenzaPenale): DettaglioPagamento
     {
         $this->DataDecorrenzaPenale = $DataDecorrenzaPenale;
+        return $this;
     }
 
     /**
@@ -427,10 +467,12 @@ class DettaglioPagamento
 
     /**
      * @param string|null $CodicePagamento
+     * @return DettaglioPagamento
      */
-    public function setCodicePagamento(?string $CodicePagamento): void
+    public function setCodicePagamento(?string $CodicePagamento): DettaglioPagamento
     {
         $this->CodicePagamento = $CodicePagamento;
+        return $this;
     }
 
 
