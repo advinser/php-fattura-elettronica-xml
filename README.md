@@ -1,7 +1,9 @@
 # fattura-elettronica-xml
 
 Set di classi per scrivere e leggere la Fattura Elettronica in formato XML
-
+```
+composer require advinser/php-fattura-elettronica-xml:dev-master
+```
 <!--
 [![Build Status](https://img.shields.io/travis/PHP-DI/PHP-DI/master.svg?style=flat-square)](https://travis-ci.org/PHP-DI/PHP-DI)
 [![Coverage Status](https://img.shields.io/coveralls/PHP-DI/PHP-DI/master.svg?style=flat-square)](https://coveralls.io/r/PHP-DI/PHP-DI?branch=master)
