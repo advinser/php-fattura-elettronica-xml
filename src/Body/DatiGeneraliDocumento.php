@@ -703,7 +703,7 @@ class DatiGeneraliDocumento
             $array['ScontoMaggiorazione']['Importo'] = number_format($this->getScontoImporto(), 2, '.', '');
         }
 
-        if (!$this->getImportoTotaleDocumento() === null) {
+        if (!($this->getImportoTotaleDocumento() === null)) {
             $array['ImportoTotaleDocumento'] = number_format($this->getImportoTotaleDocumento(), 2, '.', '');
         }
         if (!empty($this->getArrotondamento())) {
