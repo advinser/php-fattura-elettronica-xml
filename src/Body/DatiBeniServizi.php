@@ -69,7 +69,7 @@ class DatiBeniServizi
     }
 
     /**
-     * @param DatiRiepilogo[]|null $DatiRiepilogo
+     * @param DatiRiepilogo $DatiRiepilogo
      * @return DatiBeniServizi
      */
     public function addDatiRiepilogo(DatiRiepilogo $DatiRiepilogo): DatiBeniServizi

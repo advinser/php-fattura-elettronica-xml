@@ -105,7 +105,7 @@ $datiGeneraliDocumento->setTipoDocumento('TD01')
  * dati ordine di acquisto, se presente
  */
 $ordineAcquisto = new \Advinser\FatturaElettronicaXml\Structures\DatiRiferimento();
-$datiGenerali->setDatiOrdineAcquisto($ordineAcquisto);
+$datiGenerali->addDatiOrdineAcquisto($ordineAcquisto);
 $ordineAcquisto
     ->setRiferimentoNumeroLinea(1)
     ->setNumItem(1)
@@ -120,10 +120,14 @@ $beni = new \Advinser\FatturaElettronicaXml\Body\DatiBeniServizi();
 /**
  * DatiRiepilogo
  */
-$beni->setAliquotaIVA(22);
-$beni->setImponibileImporto(5);
-$beni->setImposta(1.1);
-$beni->setEsigibilitaIVA('I');
+$riepilogo = new \Advinser\FatturaElettronicaXml\Body\DatiRiepilogo();
+$riepilogo->setAliquotaIVA(22);
+$riepilogo->setImponibileImporto(5);
+$riepilogo->setImposta(1.1);
+$riepilogo->setEsigibilitaIVA('I');
+
+$beni = new \Advinser\FatturaElettronicaXml\Body\DatiBeniServizi();
+$beni->addDatiRiepilogo($riepilogo);
 
 /**
  * Righe Fattura
