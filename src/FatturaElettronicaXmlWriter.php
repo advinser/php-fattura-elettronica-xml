@@ -33,12 +33,14 @@ class FatturaElettronicaXmlWriter
     }
 
     /**
+     * @param bool $validate
      * @return string
      * @throws FatturaElettronicaException
+     * @throws FatturaElettronicaValidateException
      */
-    public function encodeXml(): string
+    public function encodeXml($validate = false): string
     {
-        return trim($this->xmlEncoder->encode(
+        $xmlData =  trim($this->xmlEncoder->encode(
             $this->fatturaElettronica->toArray(),
             'xml',
             [
@@ -46,16 +48,23 @@ class FatturaElettronicaXmlWriter
                 'xml_encoding' => 'UTF-8'
             ]
         ));
+        if($validate){
+            FatturaElettronicaValidate::validateFromData($xmlData);
+        }
+
+        return $xmlData;
     }
 
     /**
      * @param string $filePath
+     * @param bool $validate
      * @return bool
      * @throws FatturaElettronicaException
+     * @throws FatturaElettronicaValidateException
      */
-    public function writeXml(string $filePath): bool
+    public function writeXml(string $filePath,$validate = false): bool
     {
-        return file_put_contents($filePath, $this->encodeXml()) !== false;
+        return file_put_contents($filePath, $this->encodeXml($validate)) !== false;
     }
 
 

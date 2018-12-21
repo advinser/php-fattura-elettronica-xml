@@ -23,13 +23,17 @@ class FatturaElettronicaXmlReader
         $this->xmlEncoder = new XmlEncoder();
     }
 
-
     /**
      * @param string $source
+     * @param bool $validate
      * @return FatturaElettronica
      * @throws FatturaElettronicaException
+     * @throws FatturaElettronicaValidateException
      */
-    public function decodeXml(string $source){
+    public function decodeXml(string $source, $validate = false){
+        if($validate){
+            FatturaElettronicaValidate::validateFromData($source);
+        }
         $a = $this->xmlEncoder->decode($this->clearSignature($source),null);
         $fattura = FatturaElettronica::fromArray($a);
 
@@ -38,12 +42,14 @@ class FatturaElettronicaXmlReader
 
     /**
      * @param string $filePath
+     * @param bool $validate
      * @return FatturaElettronica
      * @throws FatturaElettronicaException
+     * @throws FatturaElettronicaValidateException
      */
-    public static function decodeFromFile(string $filePath){
+    public static function decodeFromFile(string $filePath, $validate = false){
         $o = new FatturaElettronicaXmlReader();
-        return $o->decodeXml(file_get_contents($filePath));
+        return $o->decodeXml(file_get_contents($filePath),$validate);
     }
 
     /**
