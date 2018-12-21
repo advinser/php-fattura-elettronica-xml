@@ -4,10 +4,12 @@
  * Date:         03/11/2018
  * Time:         18:57
  */
+
 namespace Advinser\FatturaElettronicaXml\Header;
 
 
 use Advinser\FatturaElettronicaXml\AbsModels;
+use Advinser\FatturaElettronicaXml\FatturaElettronicaException;
 
 class FatturaElettronicaHeader extends AbsModels
 {
@@ -109,9 +111,14 @@ class FatturaElettronicaHeader extends AbsModels
     /**
      * @param CessionarioCommittente $cessionarioCommittente
      * @return FatturaElettronicaHeader
+     * @throws FatturaElettronicaException
      */
     public function setCessionarioCommittente(CessionarioCommittente $cessionarioCommittente): FatturaElettronicaHeader
     {
+        if (empty($cessionarioCommittente->getIdFiscaleIVA()) && empty($cessionarioCommittente->getCodiceFiscale())) {
+            throw new FatturaElettronicaException("You must fill either the field 'Codice Fiscale' 
+                or the field 'Id Fiscale IVA'");
+        }
         $this->cessionarioCommittente = $cessionarioCommittente;
         return $this;
     }
@@ -155,29 +162,30 @@ class FatturaElettronicaHeader extends AbsModels
     /**
      * @return array
      */
-    public function toArray(){
+    public function toArray()
+    {
         $array = [
-            'DatiTrasmissione'=>null,
-            'CedentePrestatore'=>null,
-            'RappresentanteFiscale'=>null,
-            'CessionarioCommittente'=>null,
-            'TerzoIntermediarioOSoggettoEmittente'=>null,
-            'SoggettoEmittente'=>$this->getSoggettoEmittente()
+            'DatiTrasmissione' => null,
+            'CedentePrestatore' => null,
+            'RappresentanteFiscale' => null,
+            'CessionarioCommittente' => null,
+            'TerzoIntermediarioOSoggettoEmittente' => null,
+            'SoggettoEmittente' => $this->getSoggettoEmittente()
         ];
 
-        if($this->getDatiTrasmissione() instanceof DatiTrasmissione){
+        if ($this->getDatiTrasmissione() instanceof DatiTrasmissione) {
             $array['DatiTrasmissione'] = $this->getDatiTrasmissione()->toArray();
         }
-        if($this->getCedentePrestatore() instanceof CedentePrestatore){
+        if ($this->getCedentePrestatore() instanceof CedentePrestatore) {
             $array['CedentePrestatore'] = $this->getCedentePrestatore()->toArray();
         }
-        if($this->getRappresentanteFiscale() instanceof RappresentanteFiscale){
+        if ($this->getRappresentanteFiscale() instanceof RappresentanteFiscale) {
             $array['RappresentanteFiscale'] = $this->getRappresentanteFiscale()->toArray();
         }
-        if($this->getCessionarioCommittente() instanceof CessionarioCommittente){
+        if ($this->getCessionarioCommittente() instanceof CessionarioCommittente) {
             $array['CessionarioCommittente'] = $this->getCessionarioCommittente()->toArray();
         }
-        if($this->getTerzoIntermediarioOSoggettoEmittente() instanceof TerzoIntermediarioOSoggettoEmittente){
+        if ($this->getTerzoIntermediarioOSoggettoEmittente() instanceof TerzoIntermediarioOSoggettoEmittente) {
             $array['TerzoIntermediarioOSoggettoEmittente'] = $this->getTerzoIntermediarioOSoggettoEmittente()->toArray();
         }
         return $this->clean_array($array);
@@ -187,25 +195,25 @@ class FatturaElettronicaHeader extends AbsModels
     /**
      * @param array $array
      * @return FatturaElettronicaHeader
-     * @throws \FatturaElettronicaXml\FatturaElettronicaException
+     * @throws FatturaElettronicaException
      */
-    public static function fromArray(array $array):FatturaElettronicaHeader
+    public static function fromArray(array $array): FatturaElettronicaHeader
     {
         $o = new FatturaElettronicaHeader();
 
-        if(!empty($array['DatiTrasmissione'])){
+        if (!empty($array['DatiTrasmissione'])) {
             $o->setDatiTrasmissione(DatiTrasmissione::fromArray($array['DatiTrasmissione']));
         }
-        if(!empty($array['CedentePrestatore'])){
+        if (!empty($array['CedentePrestatore'])) {
             $o->setCedentePrestatore(CedentePrestatore::fromArray($array['CedentePrestatore']));
         }
-        if(!empty($array['RappresentanteFiscale'])){
+        if (!empty($array['RappresentanteFiscale'])) {
             $o->setRappresentanteFiscale(RappresentanteFiscale::fromArray($array['RappresentanteFiscale']));
         }
-        if(!empty($array['CessionarioCommittente'])){
+        if (!empty($array['CessionarioCommittente'])) {
             $o->setCessionarioCommittente(CessionarioCommittente::fromArray($array['CessionarioCommittente']));
         }
-        if(!empty($array['TerzoIntermediarioOSoggettoEmittente'])){
+        if (!empty($array['TerzoIntermediarioOSoggettoEmittente'])) {
             $o->setTerzoIntermediarioOSoggettoEmittente(TerzoIntermediarioOSoggettoEmittente::fromArray($array['TerzoIntermediarioOSoggettoEmittente']));
         }
         return $o;

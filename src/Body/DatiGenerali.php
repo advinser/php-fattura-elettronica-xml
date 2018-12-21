@@ -18,7 +18,7 @@ class DatiGenerali
      */
     private $DatiGeneraliDocumento;
     /**
-     * @var DatiRiferimento|null
+     * @var DatiRiferimento[]|null
      */
     private $DatiOrdineAcquisto;
     /**
@@ -93,20 +93,30 @@ class DatiGenerali
 
 
     /**
-     * @return DatiRiferimento|null
+     * @return DatiRiferimento[]|null
      */
-    public function getDatiOrdineAcquisto(): ?DatiRiferimento
+    public function getDatiOrdineAcquisto(): ?array
     {
         return $this->DatiOrdineAcquisto;
+    }
+
+    /**
+     * @param DatiRiferimento[] $DatiOrdineAcquisto
+     * @return DatiGenerali
+     */
+    public function setDatiOrdineAcquisto(array $DatiOrdineAcquisto): DatiGenerali
+    {
+        $this->DatiOrdineAcquisto = $DatiOrdineAcquisto;
+        return $this;
     }
 
     /**
      * @param DatiRiferimento|null $DatiOrdineAcquisto
      * @return DatiGenerali
      */
-    public function setDatiOrdineAcquisto(?DatiRiferimento $DatiOrdineAcquisto): DatiGenerali
+    public function addDatiOrdineAcquisto(?DatiRiferimento $DatiOrdineAcquisto): DatiGenerali
     {
-        $this->DatiOrdineAcquisto = $DatiOrdineAcquisto;
+        $this->DatiOrdineAcquisto[] = $DatiOrdineAcquisto;
         return $this;
     }
 
@@ -336,8 +346,10 @@ class DatiGenerali
             //todo controllare se toarray è vuoto
         }
 
-        if ($this->getDatiOrdineAcquisto() instanceof DatiRiferimento) {
-            $array['DatiOrdineAcquisto'] = $this->getDatiOrdineAcquisto()->toArray();
+        if (!empty($this->getDatiOrdineAcquisto())) {
+            foreach ($this->getDatiOrdineAcquisto() as $ordineAcquisto) {
+                $array['DatiOrdineAcquisto'][] = $ordineAcquisto->toArray();
+            }
         }
 
         if ($this->getDatiContratto() instanceof DatiRiferimento) {
@@ -387,14 +399,16 @@ class DatiGenerali
      * @param array $array
      * @return DatiGenerali
      */
-    public static function fromArray(array $array) : DatiGenerali
+    public static function fromArray(array $array): DatiGenerali
     {
         $o = new DatiGenerali();
         if (!empty($array['DatiGeneraliDocumento'])) {
             $o->setDatiGeneraliDocumento(DatiGeneraliDocumento::fromArray($array['DatiGeneraliDocumento']));
         }
         if (!empty($array['DatiOrdineAcquisto'])) {
-            $o->setDatiOrdineAcquisto(DatiRiferimento::fromArray($array['DatiOrdineAcquisto']));
+            foreach ($array['DatiOrdineAcquisto'] as $datiOrdineAcquisto) {
+                $o->addDatiOrdineAcquisto(DatiRiferimento::fromArray($datiOrdineAcquisto));
+            }
         }
         if (!empty($array['DatiContratto'])) {
             $o->setDatiContratto(DatiRiferimento::fromArray($array['DatiContratto']));
@@ -419,22 +433,22 @@ class DatiGenerali
             $o->setDataDDT($array['DatiDDT']['NumeroDDT']);
         }
         if (!empty($array['DatiDDT']['RiferimentoNumeroLinea'])) {
-             $o->setRiferimentoNumeroLinea($array['DatiDDT']['RiferimentoNumeroLinea']);
+            $o->setRiferimentoNumeroLinea($array['DatiDDT']['RiferimentoNumeroLinea']);
         }
 
         if (!empty($array['DatiTrasporto'])) {
-             $o->setDatiTrasporto(DatiTrasporto::fromArray($array['DatiTrasporto']));
+            $o->setDatiTrasporto(DatiTrasporto::fromArray($array['DatiTrasporto']));
         }
 
         if (!empty($array['FatturaPrincipale']['NumeroFatturaPrincipale'])) {
-             $o->setNumeroFatturaPrincipale($array['FatturaPrincipale']['NumeroFatturaPrincipale']);
+            $o->setNumeroFatturaPrincipale($array['FatturaPrincipale']['NumeroFatturaPrincipale']);
         }
         if (!empty($array['FatturaPrincipale']['DataFatturaPrincipale'])) {
             $o->setDataFatturaPrincipale($array['FatturaPrincipale']['DataFatturaPrincipale']);
         }
-        
+
         return $o;
-        
+
     }
 
 }

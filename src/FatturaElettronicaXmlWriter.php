@@ -6,6 +6,7 @@
  */
 
 namespace Advinser\FatturaElettronicaXml;
+
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 
 class FatturaElettronicaXmlWriter
@@ -32,19 +33,29 @@ class FatturaElettronicaXmlWriter
     }
 
     /**
-     * @return bool|float|int|string
+     * @return string
      * @throws FatturaElettronicaException
      */
-    public function encodeXml(){
-        return trim($this->xmlEncoder->encode($this->fatturaElettronica->toArray(), 'xml', ['xml_root_node_name' => $this->rootXml,'xml_encoding' => 'UTF-8']));
+    public function encodeXml(): string
+    {
+        return trim($this->xmlEncoder->encode(
+            $this->fatturaElettronica->toArray(),
+            'xml',
+            [
+                'xml_root_node_name' => $this->rootXml,
+                'xml_encoding' => 'UTF-8'
+            ]
+        ));
     }
 
     /**
-     * @param $filePath
+     * @param string $filePath
+     * @return bool
      * @throws FatturaElettronicaException
      */
-    public function writeXml($filePath){
-        file_put_contents($filePath,$this->encodeXml());
+    public function writeXml(string $filePath): bool
+    {
+        return file_put_contents($filePath, $this->encodeXml()) !== false;
     }
 
 
