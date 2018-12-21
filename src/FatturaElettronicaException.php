@@ -5,12 +5,17 @@
  * Time:         18:56
  */
 namespace Advinser\FatturaElettronicaXml;
-use Advinser\FatturaElettronicaXml\Body\FatturaElettronicaBody;
-use Advinser\FatturaElettronicaXml\Header\FatturaElettronicaHeader;
 use Throwable;
 
 class FatturaElettronicaException extends \Exception
 {
+    /**
+     * FatturaElettronicaException constructor.
+     * @param string $message
+     * @param string $tag
+     * @param int $code
+     * @param Throwable|null $previous
+     */
     public function __construct($message = "", $tag = "", $code = 0, Throwable $previous = null)
     {
         if(empty($tag)){

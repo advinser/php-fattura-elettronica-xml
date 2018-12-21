@@ -8,8 +8,8 @@
 namespace Advinser\FatturaElettronicaXml\Header;
 
 
-use Advinser\FatturaElettronicaXml\Structures\Fiscale;
 use Advinser\FatturaElettronicaXml\FatturaElettronicaException;
+use Advinser\FatturaElettronicaXml\Structures\Fiscale;
 
 class DatiTrasmissione
 {
@@ -113,8 +113,8 @@ class DatiTrasmissione
             default:
                 throw new FatturaElettronicaException("Invalid 'FormatoTrasmissione', you provide '" . $FormatoTrasmissione . "', value can be FPA12 or FPR12");
                 break;
-
         }
+        $this->controllaDestinatario();
         return $this;
     }
 
@@ -129,11 +129,32 @@ class DatiTrasmissione
     /**
      * @param string $CodiceDestinatario
      * @return DatiTrasmissione
+     * @throws FatturaElettronicaException
      */
     public function setCodiceDestinatario(string $CodiceDestinatario): DatiTrasmissione
     {
         $this->CodiceDestinatario = $CodiceDestinatario;
+        $this->controllaDestinatario();
         return $this;
+    }
+
+    /**
+     * @throws FatturaElettronicaException
+     */
+    private function controllaDestinatario()
+    {
+        if (empty($this->FormatoTrasmissione)) {
+            if (strlen($this->CodiceDestinatario) != 6 || strlen($this->CodiceDestinatario) != 7) {
+                throw new FatturaElettronicaException("Invalid length for 'CodiceDestinatario',
+                    it must be between 6 and 7");
+            }
+        } else {
+            if (($this->FormatoTrasmissione == 'FPA12' && strlen($this->CodiceDestinatario) != 6) ||
+                ($this->FormatoTrasmissione == 'FPR12' && strlen($this->CodiceDestinatario) != 7)) {
+                throw new FatturaElettronicaException("Invalid length for 'CodiceDestinatario', 
+                    it must be 6 in case of FPA12 and 7 in case of FPR12");
+            }
+        }
     }
 
     /**
@@ -204,14 +225,14 @@ class DatiTrasmissione
             'PECDestinatario' => $this->getPECDestinatario(),
         ];
 
-        if($this->getIdTrasmittente() instanceof Fiscale){
+        if ($this->getIdTrasmittente() instanceof Fiscale) {
             $array['IdTrasmittente'] = $this->getIdTrasmittente()->toArray();
         }
 
-        if(!empty($this->getTelefono())){
+        if (!empty($this->getTelefono())) {
             $array['ContattiTrasmittente']['Telefono'] = $this->getTelefono();
         }
-        if(!empty($this->getEmail())){
+        if (!empty($this->getEmail())) {
             $array['ContattiTrasmittente']['Email'] = $this->getEmail();
         }
 
