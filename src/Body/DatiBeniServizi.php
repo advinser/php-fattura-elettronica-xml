@@ -21,7 +21,6 @@ class DatiBeniServizi
     private $DatiRiepilogo;
 
 
-
     /**
      * @return DettaglioLinea[]|null
      */
