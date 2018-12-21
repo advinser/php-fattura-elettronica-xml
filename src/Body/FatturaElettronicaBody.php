@@ -150,10 +150,12 @@ class FatturaElettronicaBody extends AbsModels
         if($this->getDatiVeicoli() instanceof DatiVeicoli){
             $array['DatiVeicoli'] = $this->getDatiVeicoli()->toArray();
         }
-        if(!$this->getDatiPagamento() instanceof DatiPagamento){
-            throw new FatturaElettronicaException("missing instance of 'DatiPagamento'",'FatturaElettronicaBody');
-        }else{
-            $array['DatiPagamento'] = $this->getDatiPagamento()->toArray();
+        if(!empty($this->getDatiPagamento())) {
+            if (!$this->getDatiPagamento() instanceof DatiPagamento) {
+                throw new FatturaElettronicaException("missing instance of 'DatiPagamento'", 'FatturaElettronicaBody');
+            } else {
+                $array['DatiPagamento'] = $this->getDatiPagamento()->toArray();
+            }
         }
         if($this->getAllegati() instanceof Allegati){
             $array['Allegati'] = $this->getAllegati()->toArray();
