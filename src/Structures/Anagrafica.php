@@ -35,13 +35,19 @@ class Anagrafica
 
     /**
      * Anagrafica constructor.
-     * @param null|string $Denominazione
-     * @param null|string $Nome
-     * @param null|string $Cognome
-     * @param null|string $Titolo
-     * @param null|string $CodEORI
+     * @param string|null $Denominazione
+     * @param string|null $Nome
+     * @param string|null $Cognome
+     * @param string|null $Titolo
+     * @param string|null $CodEORI
      */
-    public function __construct(?string $Denominazione = null, ?string $Nome = null, ?string $Cognome = null, ?string $Titolo = null, ?string $CodEORI = null)
+    public function __construct(
+        ?string $Denominazione = null,
+        ?string $Nome = null,
+        ?string $Cognome = null,
+        ?string $Titolo = null,
+        ?string $CodEORI = null
+    )
     {
         $this->Denominazione = $Denominazione;
         $this->Nome = $Nome;
