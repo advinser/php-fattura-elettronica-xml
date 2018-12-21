@@ -143,6 +143,9 @@ class DatiTrasmissione
      */
     private function controllaDestinatario()
     {
+        if(empty($this->CodiceDestinatario)){
+            return;
+        }
         if (empty($this->FormatoTrasmissione)) {
             if (strlen($this->CodiceDestinatario) != 6 || strlen($this->CodiceDestinatario) != 7) {
                 throw new FatturaElettronicaException("Invalid length for 'CodiceDestinatario',
