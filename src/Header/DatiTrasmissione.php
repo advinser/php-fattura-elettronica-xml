@@ -28,7 +28,7 @@ class DatiTrasmissione
     /**
      * @var string
      */
-    private $CodiceDestinatario = '0000000';
+    private $CodiceDestinatario = '';
     /**
      * @var string|null
      */
