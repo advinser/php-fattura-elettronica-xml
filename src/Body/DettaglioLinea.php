@@ -11,7 +11,7 @@ namespace Advinser\FatturaElettronicaXml\Body;
 class DettaglioLinea
 {
     /**
-     * @var string|null
+     * @var int|null
      */
     private $NumeroLinea;
     /**
@@ -31,7 +31,7 @@ class DettaglioLinea
      */
     private $Descrizione;
     /**
-     * @var string|null
+     * @var int|null
      */
     private $Quantita;
     /**
@@ -47,7 +47,7 @@ class DettaglioLinea
      */
     private $DataFinePeriodo;
     /**
-     * @var string|null
+     * @var float|null
      */
     private $PrezzoUnitario;
     /**
@@ -55,19 +55,19 @@ class DettaglioLinea
      */
     private $ScontoTipo;
     /**
-     * @var string|null
+     * @var float|null
      */
     private $ScontoPercentuale;
     /**
-     * @var string|null
+     * @var float|null
      */
     private $ScontoImporto;
     /**
-     * @var string|null
+     * @var float|null
      */
     private $PrezzoTotale;
     /**
-     * @var string|null
+     * @var float|null
      */
     private $AliquotaIVA;
     /**
@@ -100,25 +100,25 @@ class DettaglioLinea
     private $RiferimentoData;
 
     /**
-     * @return null|string
+     * @return int|null
      */
-    public function getNumeroLinea(): ?string
+    public function getNumeroLinea(): ?int
     {
         return $this->NumeroLinea;
     }
 
     /**
-     * @param null|string $NumeroLinea
+     * @param int|null $NumeroLinea
      * @return DettaglioLinea
      */
-    public function setNumeroLinea(?string $NumeroLinea): DettaglioLinea
+    public function setNumeroLinea(?int $NumeroLinea): DettaglioLinea
     {
         $this->NumeroLinea = $NumeroLinea;
         return $this;
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getTipoCessionePrestazione(): ?string
     {
@@ -126,7 +126,7 @@ class DettaglioLinea
     }
 
     /**
-     * @param null|string $TipoCessionePrestazione
+     * @param string|null $TipoCessionePrestazione
      * @return DettaglioLinea
      */
     public function setTipoCessionePrestazione(?string $TipoCessionePrestazione): DettaglioLinea
@@ -136,7 +136,7 @@ class DettaglioLinea
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getCodiceTipo(): ?string
     {
@@ -144,7 +144,7 @@ class DettaglioLinea
     }
 
     /**
-     * @param null|string $CodiceTipo
+     * @param string|null $CodiceTipo
      * @return DettaglioLinea
      */
     public function setCodiceTipo(?string $CodiceTipo): DettaglioLinea
@@ -154,7 +154,7 @@ class DettaglioLinea
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getCodiceValore(): ?string
     {
@@ -162,7 +162,7 @@ class DettaglioLinea
     }
 
     /**
-     * @param null|string $CodiceValore
+     * @param string|null $CodiceValore
      * @return DettaglioLinea
      */
     public function setCodiceValore(?string $CodiceValore): DettaglioLinea
@@ -172,7 +172,7 @@ class DettaglioLinea
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getDescrizione(): ?string
     {
@@ -180,7 +180,7 @@ class DettaglioLinea
     }
 
     /**
-     * @param null|string $Descrizione
+     * @param string|null $Descrizione
      * @return DettaglioLinea
      */
     public function setDescrizione(?string $Descrizione): DettaglioLinea
@@ -190,25 +190,25 @@ class DettaglioLinea
     }
 
     /**
-     * @return null|string
+     * @return int|null
      */
-    public function getQuantita(): ?string
+    public function getQuantita(): ?int
     {
         return $this->Quantita;
     }
 
     /**
-     * @param null|string $Quantita
+     * @param int|null $Quantita
      * @return DettaglioLinea
      */
-    public function setQuantita(?string $Quantita): DettaglioLinea
+    public function setQuantita(?int $Quantita): DettaglioLinea
     {
         $this->Quantita = $Quantita;
         return $this;
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getUnitaMisura(): ?string
     {
@@ -216,7 +216,7 @@ class DettaglioLinea
     }
 
     /**
-     * @param null|string $UnitaMisura
+     * @param string|null $UnitaMisura
      * @return DettaglioLinea
      */
     public function setUnitaMisura(?string $UnitaMisura): DettaglioLinea
@@ -226,7 +226,7 @@ class DettaglioLinea
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getDataInizioPeriodo(): ?string
     {
@@ -234,7 +234,7 @@ class DettaglioLinea
     }
 
     /**
-     * @param null|string $DataInizioPeriodo
+     * @param string|null $DataInizioPeriodo
      * @return DettaglioLinea
      */
     public function setDataInizioPeriodo(?string $DataInizioPeriodo): DettaglioLinea
@@ -244,7 +244,7 @@ class DettaglioLinea
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getDataFinePeriodo(): ?string
     {
@@ -252,7 +252,7 @@ class DettaglioLinea
     }
 
     /**
-     * @param null|string $DataFinePeriodo
+     * @param string|null $DataFinePeriodo
      * @return DettaglioLinea
      */
     public function setDataFinePeriodo(?string $DataFinePeriodo): DettaglioLinea
@@ -262,25 +262,25 @@ class DettaglioLinea
     }
 
     /**
-     * @return null|string
+     * @return float|null
      */
-    public function getPrezzoUnitario(): ?string
+    public function getPrezzoUnitario(): ?float
     {
         return $this->PrezzoUnitario;
     }
 
     /**
-     * @param null|string $PrezzoUnitario
+     * @param float|null $PrezzoUnitario
      * @return DettaglioLinea
      */
-    public function setPrezzoUnitario(?string $PrezzoUnitario): DettaglioLinea
+    public function setPrezzoUnitario(?float $PrezzoUnitario): DettaglioLinea
     {
         $this->PrezzoUnitario = $PrezzoUnitario;
         return $this;
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getScontoTipo(): ?string
     {
@@ -288,7 +288,7 @@ class DettaglioLinea
     }
 
     /**
-     * @param null|string $ScontoTipo
+     * @param string|null $ScontoTipo
      * @return DettaglioLinea
      */
     public function setScontoTipo(?string $ScontoTipo): DettaglioLinea
@@ -298,79 +298,79 @@ class DettaglioLinea
     }
 
     /**
-     * @return null|string
+     * @return float|null
      */
-    public function getScontoPercentuale(): ?string
+    public function getScontoPercentuale(): ?float
     {
         return $this->ScontoPercentuale;
     }
 
     /**
-     * @param null|string $ScontoPercentuale
+     * @param float|null $ScontoPercentuale
      * @return DettaglioLinea
      */
-    public function setScontoPercentuale(?string $ScontoPercentuale): DettaglioLinea
+    public function setScontoPercentuale(?float $ScontoPercentuale): DettaglioLinea
     {
         $this->ScontoPercentuale = $ScontoPercentuale;
         return $this;
     }
 
     /**
-     * @return null|string
+     * @return float|null
      */
-    public function getScontoImporto(): ?string
+    public function getScontoImporto(): ?float
     {
         return $this->ScontoImporto;
     }
 
     /**
-     * @param null|string $ScontoImporto
+     * @param float|null $ScontoImporto
      * @return DettaglioLinea
      */
-    public function setScontoImporto(?string $ScontoImporto): DettaglioLinea
+    public function setScontoImporto(?float $ScontoImporto): DettaglioLinea
     {
         $this->ScontoImporto = $ScontoImporto;
         return $this;
     }
 
     /**
-     * @return null|string
+     * @return float|null
      */
-    public function getPrezzoTotale(): ?string
+    public function getPrezzoTotale(): ?float
     {
         return $this->PrezzoTotale;
     }
 
     /**
-     * @param null|string $PrezzoTotale
+     * @param float|null $PrezzoTotale
      * @return DettaglioLinea
      */
-    public function setPrezzoTotale(?string $PrezzoTotale): DettaglioLinea
+    public function setPrezzoTotale(?float $PrezzoTotale): DettaglioLinea
     {
         $this->PrezzoTotale = $PrezzoTotale;
         return $this;
     }
 
     /**
-     * @return null|string
+     * @return float|null
      */
-    public function getAliquotaIVA(): ?string
+    public function getAliquotaIVA(): ?float
     {
         return $this->AliquotaIVA;
     }
 
     /**
-     * @param null|string $AliquotaIVA
+     * @param float|null $AliquotaIVA
      * @return DettaglioLinea
      */
-    public function setAliquotaIVA(?string $AliquotaIVA): DettaglioLinea
+    public function setAliquotaIVA(?float $AliquotaIVA): DettaglioLinea
     {
         $this->AliquotaIVA = $AliquotaIVA;
         return $this;
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getRitenuta(): ?string
     {
@@ -378,7 +378,7 @@ class DettaglioLinea
     }
 
     /**
-     * @param null|string $Ritenuta
+     * @param string|null $Ritenuta
      * @return DettaglioLinea
      */
     public function setRitenuta(?string $Ritenuta): DettaglioLinea
@@ -388,7 +388,7 @@ class DettaglioLinea
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getNatura(): ?string
     {
@@ -396,7 +396,7 @@ class DettaglioLinea
     }
 
     /**
-     * @param null|string $Natura
+     * @param string|null $Natura
      * @return DettaglioLinea
      */
     public function setNatura(?string $Natura): DettaglioLinea
@@ -406,7 +406,7 @@ class DettaglioLinea
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getRiferimentoAmministrazione(): ?string
     {
@@ -414,7 +414,7 @@ class DettaglioLinea
     }
 
     /**
-     * @param null|string $RiferimentoAmministrazione
+     * @param string|null $RiferimentoAmministrazione
      * @return DettaglioLinea
      */
     public function setRiferimentoAmministrazione(?string $RiferimentoAmministrazione): DettaglioLinea
@@ -424,7 +424,7 @@ class DettaglioLinea
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getTipoDato(): ?string
     {
@@ -432,7 +432,7 @@ class DettaglioLinea
     }
 
     /**
-     * @param null|string $TipoDato
+     * @param string|null $TipoDato
      * @return DettaglioLinea
      */
     public function setTipoDato(?string $TipoDato): DettaglioLinea
@@ -442,7 +442,7 @@ class DettaglioLinea
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getRiferimentoTesto(): ?string
     {
@@ -450,7 +450,7 @@ class DettaglioLinea
     }
 
     /**
-     * @param null|string $RiferimentoTesto
+     * @param string|null $RiferimentoTesto
      * @return DettaglioLinea
      */
     public function setRiferimentoTesto(?string $RiferimentoTesto): DettaglioLinea
@@ -460,7 +460,7 @@ class DettaglioLinea
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getRiferimentoNumero(): ?string
     {
@@ -468,7 +468,7 @@ class DettaglioLinea
     }
 
     /**
-     * @param null|string $RiferimentoNumero
+     * @param string|null $RiferimentoNumero
      * @return DettaglioLinea
      */
     public function setRiferimentoNumero(?string $RiferimentoNumero): DettaglioLinea
@@ -478,7 +478,7 @@ class DettaglioLinea
     }
 
     /**
-     * @return null|string
+     * @return string|null
      */
     public function getRiferimentoData(): ?string
     {
@@ -486,7 +486,7 @@ class DettaglioLinea
     }
 
     /**
-     * @param null|string $RiferimentoData
+     * @param string|null $RiferimentoData
      * @return DettaglioLinea
      */
     public function setRiferimentoData(?string $RiferimentoData): DettaglioLinea
@@ -494,7 +494,6 @@ class DettaglioLinea
         $this->RiferimentoData = $RiferimentoData;
         return $this;
     }
-
 
     public function toArray()
     {
