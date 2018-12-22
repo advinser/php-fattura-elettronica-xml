@@ -8,6 +8,8 @@
 namespace Advinser\FatturaElettronicaXml;
 
 
+use Advinser\FatturaElettronicaXml\Structures\ValidateError;
+
 class FatturaElettronicaValidate
 {
     /**
@@ -21,33 +23,32 @@ class FatturaElettronicaValidate
     private $xmlData;
 
     /**
-     * @var bool
+     * @var ValidateError[]
      */
-    private $isCLI;
+    private $errors = [];
 
     /**
-     * @var string
+     * @var bool
      */
-    const TEMPLATE_ERROR_HTTP = '<b>%s</b> | Code: <b>%s</b> | Message: <b>%s</b> | Line: %d <br/>';
-    /**
-     * @var string
-     */
-    const TEMPLATE_ERROR_CLI = "%s | Code: %s | Message: %s | Line: %d";
+    private $throwException = false;
+
 
     /**
      * FatturaElettronicaValidate constructor.
      * @param string $xmlData
-     * @param bool $validate
+     * @param bool $autoValidate
      * @throws FatturaElettronicaValidateException
      */
-    public function __construct(string $xmlData,$validate = true)
+    public function __construct(string $xmlData, $autoValidate = true, $throwException = false)
     {
         $this->xmlData = $xmlData;
         libxml_use_internal_errors(true);
         $this->xml = new \DOMDocument();
         $this->xml->loadXML($xmlData);
-        $this->isCLI = ( php_sapi_name() == 'cli' );
-        if($validate){
+
+        $this->throwException = $throwException;
+
+        if ($autoValidate) {
             $this->validate();
         }
     }
@@ -57,9 +58,10 @@ class FatturaElettronicaValidate
      * @return FatturaElettronicaValidate
      * @throws FatturaElettronicaValidateException
      */
-    public static function validateFromFile($filePath){
-        $data  =file_get_contents($filePath);
-        return new self($data,true);
+    public static function validateFromFile($filePath, $throwException = false)
+    {
+        $data = file_get_contents($filePath);
+        return new self($data, true,$throwException);
     }
 
     /**
@@ -67,20 +69,20 @@ class FatturaElettronicaValidate
      * @return FatturaElettronicaValidate
      * @throws FatturaElettronicaValidateException
      */
-    public static function validateFromData($data){
-        return new self($data,true);
+    public static function validateFromData($data, $throwException = false)
+    {
+        return new self($data, true, $throwException);
     }
 
     /**
+     * @param bool $exception
      * @throws FatturaElettronicaValidateException
      */
-    public function validate(){
-        $msg_template = self::TEMPLATE_ERROR_CLI;
-        if(!$this->isCLI){
-            $msg_template = self::TEMPLATE_ERROR_HTTP;
-        }
-        $result = $this->xml->schemaValidate(__DIR__.'/../xsd/Schema_del_file_xml_FatturaPA_versione_1.2.1.xsd');
-        if(!$result){
+    public function validate($exception = false)
+    {
+        $result = $this->xml->schemaValidate(__DIR__ . '/../xsd/Schema_del_file_xml_FatturaPA_versione_1.2.1.xsd');
+        $this->errors = [];
+        if (!$result) {
             $libXmlErrors = libxml_get_errors();
             $errorList = [];
             foreach ($libXmlErrors as $theError) {
@@ -97,13 +99,62 @@ class FatturaElettronicaValidate
                         break;
                 }
 
-                $errorList[] = sprintf($msg_template,$level,$theError->code,trim($theError->message),$theError->line);
+                $this->errors[] = new ValidateError($level, trim($theError->message), $theError->code, $theError->line);
+
             }
 
-            if(!empty($errorList)){
-                throw new FatturaElettronicaValidateException($errorList);
-            }
             libxml_clear_errors();
         }
+
+        if (!empty($this->errors) && $this->throwException) {
+            throw new FatturaElettronicaValidateException($this->errors);
+        }
     }
+
+    /**
+     * @return ValidateError[]
+     */
+    public function getErrors(): array
+    {
+        return $this->errors;
+    }
+
+    /**
+     * @return string
+     */
+    public function getXmlData(): string
+    {
+        return $this->xmlData;
+    }
+
+    /**
+     * @param string $xmlData
+     * @return FatturaElettronicaValidate
+     */
+    public function setXmlData(string $xmlData): FatturaElettronicaValidate
+    {
+        $this->xmlData = $xmlData;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isThrowException(): bool
+    {
+        return $this->throwException;
+    }
+
+    /**
+     * @param bool $throwException
+     * @return FatturaElettronicaValidate
+     */
+    public function setThrowException(bool $throwException): FatturaElettronicaValidate
+    {
+        $this->throwException = $throwException;
+        return $this;
+    }
+
+
+
 }

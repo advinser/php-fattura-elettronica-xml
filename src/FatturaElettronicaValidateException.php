@@ -5,28 +5,44 @@
  * Time:         18:56
  */
 namespace Advinser\FatturaElettronicaXml;
+use Advinser\FatturaElettronicaXml\Structures\ValidateError;
 use Throwable;
 
 class FatturaElettronicaValidateException extends \Exception
 {
+
     /**
      * FatturaElettronicaValidateException constructor.
-     * @param array $messageArray
+     * @param ValidateError[] $errorArray
      * @param string $tag
      * @param int $code
      * @param Throwable|null $previous
      */
-    public function __construct(array $messageArray = [], $tag = "", $code = 0, Throwable $previous = null)
+    public function __construct(array $errorArray = [], $tag = "", $code = 0, Throwable $previous = null)
     {
         if(empty($tag)){
             $tag = 'Validate @ FatturaElettronicaXml :: ';
         }else{
             $tag = 'Validate @ FatturaElettronicaXml :: '.$tag.' :: ';
         }
-        $message = implode("\r\n",$messageArray);
+        $message = '';
+        $isCLI = ( php_sapi_name() == 'cli' );
+        foreach ($errorArray as $error){
+            $message.=$error;
+            if($isCLI){
+                $message.="\r\n";
+            }else{
+                $message.="<br/>";
+            }
+        }
+        if($isCLI){
+            $message = $tag."\r\n".$message;
+        }else{
+            $message = $tag."<br/>".$message;
 
+        }
 
-        parent::__construct($tag."\r\n".$message, $code, $previous);
+        parent::__construct($message, $code, $previous);
     }
 
 }

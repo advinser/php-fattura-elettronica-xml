@@ -23,6 +23,11 @@ class FatturaElettronicaXmlWriter
     private $fatturaElettronica;
 
     /**
+     * @var FatturaElettronicaValidate|null
+     */
+    private $validate = null;
+
+    /**
      * XmlWriter constructor.
      * @param FatturaElettronica $fatturaElettronica
      */
@@ -49,7 +54,7 @@ class FatturaElettronicaXmlWriter
             ]
         ));
         if($validate){
-            FatturaElettronicaValidate::validateFromData($xmlData);
+            $this->validate = FatturaElettronicaValidate::validateFromData($xmlData);
         }
 
         return $xmlData;
@@ -66,6 +71,16 @@ class FatturaElettronicaXmlWriter
     {
         return file_put_contents($filePath, $this->encodeXml($validate)) !== false;
     }
+
+    /**
+     * @return FatturaElettronicaValidate|null
+     */
+    public function getValidate(): ?FatturaElettronicaValidate
+    {
+        return $this->validate;
+    }
+
+
 
 
 }
