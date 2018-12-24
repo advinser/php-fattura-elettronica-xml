@@ -532,12 +532,11 @@ class DettaglioLinea
             $array['ScontoMaggiorazione']['Tipo'] = $this->getScontoTipo();
         }
         if (!empty($this->getScontoPercentuale())) {
-            $array['ScontoMaggiorazione']['Percentuale'] = $this->getScontoPercentuale();
+            $array['ScontoMaggiorazione']['Percentuale'] = number_format(floatval($this->getScontoPercentuale()), 2, '.', '');
         }
         if (!empty($this->getScontoImporto())) {
             $array['ScontoMaggiorazione']['Importo'] = number_format(floatval($this->getScontoImporto()), 2, '.', '');
         }
-
         if (!empty($this->getTipoDato())) {
             $array['AltriDatiGestionali']['TipoDato'] = $this->getTipoDato();
         }
@@ -550,7 +549,6 @@ class DettaglioLinea
         if (!empty($this->getRiferimentoData())) {
             $array['AltriDatiGestionali']['RiferimentoData'] = $this->getRiferimentoData();
         }
-
 
         return $array;
     }
