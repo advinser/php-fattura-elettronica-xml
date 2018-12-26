@@ -10,6 +10,7 @@ namespace Advinser\FatturaElettronicaXml\Body;
 
 use Advinser\FatturaElettronicaXml\FatturaElettronicaException;
 use Advinser\FatturaElettronicaXml\Structures\DatiRiferimento;
+use Advinser\FatturaElettronicaXml\Body\DatiDDT;
 
 class DatiGenerali
 {
@@ -45,18 +46,11 @@ class DatiGenerali
      * @var null|string
      */
     private $RiferimentoFase = null;
+
     /**
-     * @var null|string
+     * @var DatiDDT[] | null
      */
-    private $NumeroDDT = null;
-    /**
-     * @var null|string
-     */
-    private $DataDDT = null;
-    /**
-     * @var null|string
-     */
-    private $RiferimentoNumeroLinea = null;
+    private $DatiDDT ;
 
     /**
      * @var DatiTrasporto|null
@@ -72,6 +66,34 @@ class DatiGenerali
      * @var string|null
      */
     private $DataFatturaPrincipale;
+
+    /**
+     * @return DatiDDT[]|null
+     */
+    public function getDatiDDT(): ?array
+    {
+        return $this->DatiDDT;
+    }
+
+    /**
+     * @param DatiDDT[]|null $datiDDT
+     * @return DatiDDT
+     */
+    public function setDatiDDT(?array $datiDDT): DatiGenerali
+    {
+        $this->DatiDDT = $datiDDT;
+        return $this;
+    }
+
+    /**
+     * @param DatiDDT $datiDDT
+     * @return DatiGenerali
+     */
+    public function addDatiDDT(DatiDDT $datiDDT): DatiGenerali
+    {
+        $this->DatiDDT[] = $datiDDT;
+        return $this;
+    }
 
     /**
      * @return DatiGeneraliDocumento|null
@@ -211,60 +233,6 @@ class DatiGenerali
     }
 
     /**
-     * @return null|string
-     */
-    public function getNumeroDDT(): ?string
-    {
-        return $this->NumeroDDT;
-    }
-
-    /**
-     * @param null|string $NumeroDDT
-     * @return DatiGenerali
-     */
-    public function setNumeroDDT(?string $NumeroDDT): DatiGenerali
-    {
-        $this->NumeroDDT = $NumeroDDT;
-        return $this;
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getDataDDT(): ?string
-    {
-        return $this->DataDDT;
-    }
-
-    /**
-     * @param null|string $DataDDT
-     * @return DatiGenerali
-     */
-    public function setDataDDT(?string $DataDDT): DatiGenerali
-    {
-        $this->DataDDT = $DataDDT;
-        return $this;
-    }
-
-    /**
-     * @return null|string
-     */
-    public function getRiferimentoNumeroLinea(): ?string
-    {
-        return $this->RiferimentoNumeroLinea;
-    }
-
-    /**
-     * @param null|string $RiferimentoNumeroLinea
-     * @return DatiGenerali
-     */
-    public function setRiferimentoNumeroLinea(?string $RiferimentoNumeroLinea): DatiGenerali
-    {
-        $this->RiferimentoNumeroLinea = $RiferimentoNumeroLinea;
-        return $this;
-    }
-
-    /**
      * @return DatiTrasporto|null
      */
     public function getDatiTrasporto(): ?DatiTrasporto
@@ -371,14 +339,17 @@ class DatiGenerali
         if (!empty($this->getRiferimentoFase())) {
             $array['DatiSAL']['RiferimentoFase'] = $this->getRiferimentoFase();
         }
-        if (!empty($this->getNumeroDDT())) {
-            $array['DatiDDT']['NumeroDDT'] = $this->getNumeroDDT();
-        }
-        if (!empty($this->getDataDDT())) {
-            $array['DatiDDT']['NumeroDDT'] = $this->getDataDDT();
-        }
-        if (!empty($this->getRiferimentoNumeroLinea())) {
-            $array['DatiDDT']['RiferimentoNumeroLinea'] = $this->getRiferimentoNumeroLinea();
+
+        if (!empty($this->getDatiDDT())) {
+            if (count($this->getDatiDDT()) === 1) {
+                $array['DatiDDT'] = $this->getDatiDDT()[0]->toArray();
+            } else {
+                $a = [];
+                foreach ($this->getDatiDDT() as $DatiDDT) {
+                    $a[] = $DatiDDT->toArray();
+                }
+                $array['DatiDDT'] = $a;
+            }
         }
 
         if ($this->getDatiTrasporto() instanceof DatiTrasporto) {
@@ -426,16 +397,17 @@ class DatiGenerali
         if (!empty($array['DatiSAL']['RiferimentoFase'])) {
             $o->setRiferimentoFase($array['DatiSAL']['RiferimentoFase']);
         }
-        if (!empty($array['DatiDDT']['NumeroDDT'])) {
-            $o->setNumeroDDT($array['DatiDDT']['NumeroDDT']);
-        }
-        if (!empty($array['DatiDDT']['NumeroDDT'])) {
-            $o->setDataDDT($array['DatiDDT']['NumeroDDT']);
-        }
-        if (!empty($array['DatiDDT']['RiferimentoNumeroLinea'])) {
-            $o->setRiferimentoNumeroLinea($array['DatiDDT']['RiferimentoNumeroLinea']);
-        }
 
+        if (isset($array['DatiDDT'])) {
+            if (isset($array['DatiDDT'][0])) {
+                foreach ($array['DatiDDT'] as $item) {
+                    $o->addDatiDDT(DatiDDT::fromArray($item));
+                }
+            } else {
+                $o->addDatiDDT(DatiDDT::fromArray($array['DatiDDT']));
+            }
+        }
+        
         if (!empty($array['DatiTrasporto'])) {
             $o->setDatiTrasporto(DatiTrasporto::fromArray($array['DatiTrasporto']));
         }
