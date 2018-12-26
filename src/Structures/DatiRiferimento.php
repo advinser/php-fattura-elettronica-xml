@@ -8,6 +8,10 @@
 namespace Advinser\FatturaElettronicaXml\Structures;
 
 
+use Advinser\FatturaElettronicaXml\FatturaElettronica;
+use Advinser\FatturaElettronicaXml\Validation\ValidateError;
+use Advinser\FatturaElettronicaXml\Validation\ValidateErrorContainer;
+
 class DatiRiferimento
 {
     /**
@@ -199,5 +203,58 @@ class DatiRiferimento
         }
 
         return $o;
+    }
+
+    /**
+     * @param $array
+     * @param ValidateErrorContainer $errorContainer
+     * @param string $tag
+     */
+    public static function validate($array, ValidateErrorContainer $errorContainer, $tag = '')
+    {
+        if (!empty($array['RiferimentoNumeroLinea'])) {
+            if (!is_numeric($array['RiferimentoNumeroLinea'])) {
+                $errorContainer->addError(new ValidateError('', FatturaElettronica::ERROR_LEVEL_INVALID, $tag . "'RiferimentoNumeroLinea' must be numeric", $tag . 'DatiRiferimento::01', __LINE__));
+            } elseif ($array['RiferimentoNumeroLinea'] > 9999) {
+                $errorContainer->addError(new ValidateError('', FatturaElettronica::ERROR_LEVEL_INVALID, $tag . "'RiferimentoNumeroLinea', length max is 4", $tag . 'DatiRiferimento::02', __LINE__));
+
+            }
+        }
+        if (empty($array['IdDocumento'])) {
+            $errorContainer->addError(new ValidateError('', FatturaElettronica::ERROR_LEVEL_REQUIRED, $tag . "'IdDocumento' is missing", $tag . 'DatiRiferimento::03', __LINE__));
+        } else {
+            if (strlen($array['IdDocumento']) > 20) {
+                $errorContainer->addError(new ValidateError('', FatturaElettronica::ERROR_LEVEL_INVALID, $tag . "'IdDocumento', length max is 20", $tag . 'DatiRiferimento::04', __LINE__));
+            }
+        }
+
+        if (!empty($array['Data'])) {
+            $dt = \DateTime::createFromFormat('Y-m-d', $array['Data']);
+            if (!$dt instanceof \DateTime) {
+                $errorContainer->addError(new ValidateError('', FatturaElettronica::ERROR_LEVEL_INVALID, $tag . "'Data' format must by YYYY-MM-DD", $tag . 'DatiRiferimento::05', __LINE__));
+
+            }
+        }
+        if (!empty($array['NumItem'])) {
+            if (strlen($array['NumItem']) > 20) {
+                $errorContainer->addError(new ValidateError('', FatturaElettronica::ERROR_LEVEL_INVALID, $tag . "'NumItem', length max is 20", $tag . 'DatiRiferimento::06', __LINE__));
+            }
+        }
+        if (!empty($array['CodiceCommessaConvenzione'])) {
+            if (strlen($array['CodiceCommessaConvenzione']) > 20) {
+                $errorContainer->addError(new ValidateError('', FatturaElettronica::ERROR_LEVEL_INVALID, $tag . "'CodiceCommessaConvenzione', length max is 100", $tag . 'DatiRiferimento::07', __LINE__));
+            }
+        }
+        if (!empty($array['CodiceCUP'])) {
+            if (strlen($array['CodiceCUP']) > 15) {
+                $errorContainer->addError(new ValidateError('', FatturaElettronica::ERROR_LEVEL_INVALID, $tag . "'CodiceCUP', length max is 15", $tag . 'DatiRiferimento::08', __LINE__));
+            }
+        }
+        if (!empty($array['CodiceCIG'])) {
+            if (strlen($array['CodiceCIG']) > 15) {
+                $errorContainer->addError(new ValidateError('', FatturaElettronica::ERROR_LEVEL_INVALID, $tag . "'CodiceCIG', length max is 15", $tag . 'DatiRiferimento::09', __LINE__));
+            }
+        }
+
     }
 }

@@ -179,7 +179,11 @@ class Anagrafica
         return $o;
     }
 
-
+    /**
+     * @param $array
+     * @param ValidateErrorContainer $errorContainer
+     * @param string $tag
+     */
     public static function validate($array, ValidateErrorContainer $errorContainer, $tag = '')
     {
         $empty = true;
