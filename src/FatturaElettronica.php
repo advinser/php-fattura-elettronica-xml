@@ -12,6 +12,8 @@ use Advinser\FatturaElettronicaXml\Header\CedentePrestatore;
 use Advinser\FatturaElettronicaXml\Header\CessionarioCommittente;
 use Advinser\FatturaElettronicaXml\Header\DatiTrasmissione;
 use Advinser\FatturaElettronicaXml\Header\FatturaElettronicaHeader;
+use Advinser\FatturaElettronicaXml\Header\RappresentanteFiscale;
+use Advinser\FatturaElettronicaXml\Header\TerzoIntermediarioOSoggettoEmittente;
 use Advinser\FatturaElettronicaXml\Validation\FatturaElettronicaValidateException;
 use Advinser\FatturaElettronicaXml\Validation\ValidateError;
 use Advinser\FatturaElettronicaXml\Validation\ValidateErrorContainer;
@@ -439,6 +441,20 @@ class FatturaElettronica
                 $this->errorContainer->addError(new ValidateError('','FATAL',"Missing 'CedentePrestatore'",'FatturaElettronica::03',__LINE__));
             }else{
                 CedentePrestatore::validate($array['FatturaElettronicaHeader']['CedentePrestatore'],$this->errorContainer);
+            }
+
+            if(empty($array['FatturaElettronicaHeader']['CessionarioCommittente'])){
+                $this->errorContainer->addError(new ValidateError('','FATAL',"Missing 'CessionarioCommittente'",'FatturaElettronica::04',__LINE__));
+            }else{
+                CessionarioCommittente::validate($array['FatturaElettronicaHeader']['CessionarioCommittente'],$this->errorContainer);
+            }
+
+            if(empty($array['FatturaElettronicaHeader']['TerzoIntermediarioOSoggettoEmittente'])){
+                TerzoIntermediarioOSoggettoEmittente::validate($array['FatturaElettronicaHeader']['TerzoIntermediarioOSoggettoEmittente'],$this->errorContainer);
+            }
+
+            if(empty($array['FatturaElettronicaHeader']['RappresentanteFiscale'])){
+                RappresentanteFiscale::validate($array['FatturaElettronicaHeader']['RappresentanteFiscale'],$this->errorContainer);
             }
         }
 

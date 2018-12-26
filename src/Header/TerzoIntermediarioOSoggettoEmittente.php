@@ -8,10 +8,14 @@
 namespace Advinser\FatturaElettronicaXml\Header;
 
 
+use Advinser\FatturaElettronicaXml\FatturaElettronica;
 use Advinser\FatturaElettronicaXml\Structures\Anagrafica;
 use Advinser\FatturaElettronicaXml\Structures\Fiscale;
 use Advinser\FatturaElettronicaXml\Structures\Indirizzo;
 use Advinser\FatturaElettronicaXml\Structures\SoggettiHeader;
+use Advinser\FatturaElettronicaXml\Validation\ValidateError;
+use Advinser\FatturaElettronicaXml\Validation\ValidateErrorContainer;
+use Advinser\FatturaElettronicaXml\Validation\Validators\VCodiceFiscale;
 
 class TerzoIntermediarioOSoggettoEmittente
 {
@@ -113,5 +117,28 @@ class TerzoIntermediarioOSoggettoEmittente
         }
 
         return $o;
+    }
+
+    /**
+     * @param $array
+     * @param ValidateErrorContainer $errorContainer
+     */
+    public static function validate($array,ValidateErrorContainer $errorContainer){
+        if(empty($array['DatiAnagrafici']['IdFiscaleIVA'])){
+            $errorContainer->addError(new ValidateError('Obect',FatturaElettronica::ERROR_LEVEL_REQUIRED,"Invalid value for 'RegimeFiscale', it can't be null or empty",'TerzoIntermediarioOSoggettoEmittente::01',__LINE__));
+        }else{
+            Fiscale::validate($array['DatiAnagrafici']['IdFiscaleIVA'],$errorContainer,'TerzoIntermediarioOSoggettoEmittente::');
+        }
+
+        if(!empty($array['CodiceFiscale'])){
+            VCodiceFiscale::validate($array['CodiceFiscale'],$errorContainer,'TerzoIntermediarioOSoggettoEmittente::');
+        }
+
+        if(empty($array['DatiAnagrafici']['Anagrafica'])){
+            $errorContainer->addError(new ValidateError('Obect',FatturaElettronica::ERROR_LEVEL_REQUIRED,"Invalid value for 'Anagrafica', it can't be null or empty",'TerzoIntermediarioOSoggettoEmittente::02',__LINE__));
+        }else{
+            Anagrafica::validate($array['DatiAnagrafici']['Anagrafica'],$errorContainer,'TerzoIntermediarioOSoggettoEmittente::');
+        }
+
     }
 }
