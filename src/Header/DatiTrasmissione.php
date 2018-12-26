@@ -8,8 +8,11 @@
 namespace Advinser\FatturaElettronicaXml\Header;
 
 
+use Advinser\FatturaElettronicaXml\FatturaElettronica;
 use Advinser\FatturaElettronicaXml\FatturaElettronicaException;
 use Advinser\FatturaElettronicaXml\Structures\Fiscale;
+use Advinser\FatturaElettronicaXml\Validation\ValidateError;
+use Advinser\FatturaElettronicaXml\Validation\ValidateErrorContainer;
 
 class DatiTrasmissione
 {
@@ -105,16 +108,16 @@ class DatiTrasmissione
      */
     public function setFormatoTrasmissione(string $FormatoTrasmissione): DatiTrasmissione
     {
-        switch ($FormatoTrasmissione) {
-            case 'FPA12':
-            case 'FPR12':
-                $this->FormatoTrasmissione = $FormatoTrasmissione;
-                break;
-            default:
-                throw new FatturaElettronicaException("Invalid 'FormatoTrasmissione', you provide '" . $FormatoTrasmissione . "', value can be FPA12 or FPR12");
-                break;
-        }
-        $this->controllaDestinatario();
+//        switch ($FormatoTrasmissione) {
+//            case 'FPA12':
+//            case 'FPR12':
+//                $this->FormatoTrasmissione = $FormatoTrasmissione;
+//                break;
+//            default:
+//                throw new FatturaElettronicaException("Invalid 'FormatoTrasmissione', you provide '" . $FormatoTrasmissione . "', value can be FPA12 or FPR12");
+//                break;
+//        }
+//        $this->controllaDestinatario();
         return $this;
     }
 
@@ -134,7 +137,7 @@ class DatiTrasmissione
     public function setCodiceDestinatario(string $CodiceDestinatario): DatiTrasmissione
     {
         $this->CodiceDestinatario = $CodiceDestinatario;
-        $this->controllaDestinatario();
+//        $this->controllaDestinatario();
         return $this;
     }
 
@@ -275,6 +278,63 @@ class DatiTrasmissione
         }
 
         return $o;
+    }
+
+    public static function validate($array,ValidateErrorContainer $errorContainer){
+        if(empty($array['IdTrasmittente'])){
+            $errorContainer->addError(new ValidateError('',FatturaElettronica::ERROR_LEVEL_REQUIRED,"Missing 'IdTrasmittente'",'DatiTrasmissione::01',__LINE__));
+        }else{
+            Fiscale::validate($array['IdTrasmittente'],$errorContainer,'DatiTrasmissione::');
+        }
+        if(empty($array['ProgressivoInvio'])){
+            $errorContainer->addError(new ValidateError('',FatturaElettronica::ERROR_LEVEL_REQUIRED,"Missing 'ProgressivoInvio'",'DatiTrasmissione::02',__LINE__));
+        }else{
+            $l = strlen($array['ProgressivoInvio']);
+            if($l<1 || $l>10){
+                $errorContainer->addError(new ValidateError('',FatturaElettronica::ERROR_LEVEL_INVALID,"Invalid 'ProgressivoInvio', must be between 1 and 11 char length",'DatiTrasmissione::03',__LINE__));
+
+            }
+        }
+
+        if(empty($array['FormatoTrasmissione'])){
+            $errorContainer->addError(new ValidateError('',FatturaElettronica::ERROR_LEVEL_REQUIRED,"Missing 'FormatoTrasmissione'",'DatiTrasmissione::04',__LINE__));
+        }else{
+            if($array['FormatoTrasmissione'] != 'FPA12' && $array['FormatoTrasmissione']!='FPR12'){
+
+                $errorContainer->addError(new ValidateError('',FatturaElettronica::ERROR_LEVEL_INVALID,"Invalid 'FormatoTrasmissione', must be 'FPA12' or 'FPR12'",'DatiTrasmissione::05',__LINE__));
+
+            }
+        }
+
+        if(empty($array['CodiceDestinatario'])){
+            $errorContainer->addError(new ValidateError('',FatturaElettronica::ERROR_LEVEL_REQUIRED,"Missing 'CodiceDestinatario'",'DatiTrasmissione::06',__LINE__));
+        }else{
+            $l = (!empty($array['FormatoTrasmissione']) && $array['FormatoTrasmissione'] == 'FPR12') ? 7 : 6;
+            if(strlen($array['CodiceDestinatario']) != $l){
+                $errorContainer->addError(new ValidateError('',FatturaElettronica::ERROR_LEVEL_INVALID,"Invalid 'CodiceDestinatario', must be of length $l",'DatiTrasmissione::07',__LINE__));
+            }
+        }
+
+        if(!empty($array['ContattiTrasmittente']['Telefono'])){
+            $l = strlen($array['ContattiTrasmittente']['Telefono']);
+            if($l< 5 || $l > 12){
+                $errorContainer->addError(new ValidateError('',FatturaElettronica::ERROR_LEVEL_INVALID,"Invalid 'ContattiTrasmittente'::'Telefono', must be of length between 5 and 12",'DatiTrasmissione::08',__LINE__));
+            }
+        }
+
+        if(!empty($array['ContattiTrasmittente']['Email'])){
+            $l = strlen($array['ContattiTrasmittente']['Email']);
+            if($l<7 || $l > 256){
+                $errorContainer->addError(new ValidateError('',FatturaElettronica::ERROR_LEVEL_INVALID,"Invalid 'ContattiTrasmittente'::'Email', must be of length between 7 and 256",'DatiTrasmissione::08',__LINE__));
+            }
+        }
+
+        if(!empty($array['PECDestinatario'])){
+            if(empty($array['CodiceDestinatario']) || $array['CodiceDestinatario'] != '0000000'){
+                $errorContainer->addError(new ValidateError('',FatturaElettronica::ERROR_LEVEL_INVALID,"Invalid 'PECDestinatario', can be used only when 'CodiceDestinatario' is 0000000",'DatiTrasmissione::09',__LINE__));
+            }
+        }
+
     }
 
 }

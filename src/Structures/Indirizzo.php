@@ -8,6 +8,10 @@
 namespace Advinser\FatturaElettronicaXml\Structures;
 
 
+use Advinser\FatturaElettronicaXml\FatturaElettronica;
+use Advinser\FatturaElettronicaXml\Validation\ValidateError;
+use Advinser\FatturaElettronicaXml\Validation\ValidateErrorContainer;
+
 class Indirizzo
 {
     /**
@@ -180,6 +184,71 @@ class Indirizzo
         }
 
         return $o;
+    }
+
+    public static function validate($array, ValidateErrorContainer $errorContainer, $tag = '')
+    {
+
+        if (empty($array['Indirizzo'])) {
+            $errorContainer->addError(new ValidateError('', FatturaElettronica::ERROR_LEVEL_REQUIRED, $tag . "Missing 'Indirizzo'", $tag . 'GIndirizzo::01', __LINE__));
+        } else {
+            $l = strlen($array['Indirizzo']);
+            if ($l > 60) {
+                $errorContainer->addError(new ValidateError('', FatturaElettronica::ERROR_LEVEL_INVALID, $tag . "'Indirizzo' length max is 60", $tag . 'GIndirizzo::02', __LINE__));
+            }
+        }
+        if (!empty($array['NumeroCivico'])) {
+            $l = strlen($array['NumeroCivico']);
+            if ($l > 8) {
+                $errorContainer->addError(new ValidateError('', FatturaElettronica::ERROR_LEVEL_INVALID, $tag . "'NumeroCivico' length max is 8", $tag . 'GIndirizzo::03', __LINE__));
+            }
+        }
+
+        if (empty($array['CAP'])) {
+            $errorContainer->addError(new ValidateError('', FatturaElettronica::ERROR_LEVEL_REQUIRED, $tag . "Missing 'CAP'", $tag . 'GIndirizzo::04', __LINE__));
+        } else {
+            $l = strlen($array['CAP']);
+            if ($l > 5) {
+                $errorContainer->addError(new ValidateError('', FatturaElettronica::ERROR_LEVEL_INVALID, $tag . "'CAP' length max is 5", $tag . 'GIndirizzo::05', __LINE__));
+            }
+        }
+
+        if (empty($array['Comune'])) {
+            $errorContainer->addError(new ValidateError('', FatturaElettronica::ERROR_LEVEL_REQUIRED, $tag . "Missing 'Comune'", $tag . 'GIndirizzo::06', __LINE__));
+        } else {
+            $l = strlen($array['Comune']);
+            if ($l > 60) {
+                $errorContainer->addError(new ValidateError('', FatturaElettronica::ERROR_LEVEL_INVALID, $tag . "'Comune' length max is 60", $tag . 'GIndirizzo::07', __LINE__));
+            }
+        }
+
+        $provinciaIsset = false;
+        if (!empty($array['Provincia'])) {
+            $provinciaIsset = true;
+            $l = strlen($array['Provincia']);
+            if ($l > 2) {
+                $errorContainer->addError(new ValidateError('', FatturaElettronica::ERROR_LEVEL_INVALID, $tag . "'Provincia' length max is 2", $tag . 'GIndirizzo::08', __LINE__));
+            }
+        }
+        $nazioneIt = false;
+
+        if (empty($array['Nazione'])) {
+            $errorContainer->addError(new ValidateError('', FatturaElettronica::ERROR_LEVEL_REQUIRED, $tag . "Missing 'Nazione'", $tag . 'GIndirizzo::09', __LINE__));
+        } else {
+            $l = strlen($array['Nazione']);
+            if ($l > 2) {
+                $errorContainer->addError(new ValidateError('', FatturaElettronica::ERROR_LEVEL_INVALID, $tag . "'Nazione' length max is 2", $tag . 'GIndirizzo::10', __LINE__));
+            }
+            if ($array['Nazione'] == 'IT') {
+                $nazioneIt = true;
+            }
+        }
+
+        if ($nazioneIt && !$provinciaIsset) {
+            $errorContainer->addError(new ValidateError('', FatturaElettronica::ERROR_LEVEL_REQUIRED, $tag . "Missing 'Provincia', must be used when 'Nazione' is 'IT'", $tag . 'GIndirizzo::11', __LINE__));
+        }
+
+
     }
 
 

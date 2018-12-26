@@ -8,14 +8,18 @@
 namespace Advinser\FatturaElettronicaXml\Header;
 
 
+use Advinser\FatturaElettronicaXml\FatturaElettronica;
 use Advinser\FatturaElettronicaXml\Structures\Anagrafica;
 use Advinser\FatturaElettronicaXml\Structures\Fiscale;
 use Advinser\FatturaElettronicaXml\Structures\Indirizzo;
 use Advinser\FatturaElettronicaXml\FatturaElettronicaException;
+use Advinser\FatturaElettronicaXml\Validation\ValidateError;
+use Advinser\FatturaElettronicaXml\Validation\ValidateErrorContainer;
+use Advinser\FatturaElettronicaXml\Validation\Validators\VCodiceFiscale;
 
 class CedentePrestatore
 {
-    private $regimiFiscali = [
+    private static $regimiFiscali = [
         'RF01' => 'Ordinario',
         'RF02' => 'Contribuenti minimi (art.1, c.96-117, L. 244/07)',
         'RF04' => 'Agricoltura e attività connesse e pesca (artt.34 e 34-bis, DPR 633/72)',
@@ -125,24 +129,6 @@ class CedentePrestatore
      * @var null|string
      */
     protected $RiferimentoAmministrazione = null;
-
-    /**
-     * @return array
-     */
-    public function getRegimiFiscali(): array
-    {
-        return $this->regimiFiscali;
-    }
-
-    /**
-     * @param array $regimiFiscali
-     * @return CedentePrestatore
-     */
-    public function setRegimiFiscali(array $regimiFiscali): CedentePrestatore
-    {
-        $this->regimiFiscali = $regimiFiscali;
-        return $this;
-    }
 
     /**
      * @return Fiscale
@@ -285,13 +271,6 @@ class CedentePrestatore
      */
     public function setRegimeFiscale(string $RegimeFiscale)
     {
-        if (!isset($this->regimiFiscali[$RegimeFiscale])) {
-            $buffer = "";
-            foreach ($this->regimiFiscali as $c => $v) {
-                $buffer .= $c . "\r\n";
-            }
-            throw new FatturaElettronicaException("Invalid value for 'RegimeFiscale', allowed value are:\r\n" . $buffer);
-        }
         $this->RegimeFiscale = $RegimeFiscale;
         return $this;
     }
@@ -510,19 +489,32 @@ class CedentePrestatore
     public function toArray()
     {
         $array['DatiAnagrafici'] = [
-            'IdFiscaleIVA' => $this->getIdFiscaleIVA()->toArray(),
-            'CodiceFiscale' => $this->getCodiceFiscale(),
-            'Anagrafica' => $this->getAnagrafica()->toArray(),
-            'RegimeFiscale' => $this->getRegimeFiscale(),
+            'IdFiscaleIVA' => $this->getIdFiscaleIVA()->toArray(),//
+            'CodiceFiscale' => $this->getCodiceFiscale(),//
+            'Anagrafica' => $this->getAnagrafica()->toArray(),//
+            'RegimeFiscale' => $this->getRegimeFiscale(),//
         ];
 
-        $array['Sede'] = null;
+        $array['Sede'] = null;//
         if ($this->getSede() instanceof Indirizzo) {
             $array['Sede'] = $this->getSede()->toArray();
         }
-        $array['StabileOrganizzazione'] = null;
+        $array['StabileOrganizzazione'] = null;//
         if ($this->getStabileOrganizzazione() instanceof Indirizzo) {
             $array['StabileOrganizzazione'] = $this->getStabileOrganizzazione()->toArray();
+        }
+
+        if(!empty($this->getAlboProfessionale())){
+            $array['DatiAnagrafici']['AlboProfessionale'] = $this->getAlboProfessionale();
+        }
+        if(!empty($this->getProvinciaAlbo())){
+            $array['DatiAnagrafici']['ProvinciaAlbo'] = $this->getProvinciaAlbo();
+        }
+        if(!empty($this->getNumeroIscrizioneAlbo())){
+            $array['DatiAnagrafici']['NumeroIscrizioneAlbo'] = $this->getNumeroIscrizioneAlbo();
+        }
+        if(!empty($this->getDataIscrizioneAlbo())){
+            $array['DatiAnagrafici']['DataIscrizioneAlbo'] = $this->getDataIscrizioneAlbo();
         }
 
         $array['IscrizioneREA'] = null;
@@ -583,6 +575,22 @@ class CedentePrestatore
             $o->setRegimeFiscale($array['DatiAnagrafici']['RegimeFiscale']);
         }
 
+        if(!empty($array['DatiAnagrafici']['AlboProfessionale'])){
+            $o->setAlboProfessionale($array['DatiAnagrafici']['AlboProfessionale']);
+        }
+
+        if(!empty($array['DatiAnagrafici']['ProvinciaAlbo'])){
+            $o->setProvinciaAlbo($array['DatiAnagrafici']['ProvinciaAlbo']);
+        }
+
+        if(!empty($array['DatiAnagrafici']['NumeroIscrizioneAlbo'])){
+            $o->setNumeroIscrizioneAlbo($array['DatiAnagrafici']['NumeroIscrizioneAlbo']);
+        }
+
+        if(!empty($array['DatiAnagrafici']['DataIscrizioneAlbo'])){
+            $o->setDataIscrizioneAlbo($array['DatiAnagrafici']['DataIscrizioneAlbo']);
+        }
+
         if (!empty($array['Sede'])) {
             $o->setSede(Indirizzo::fromArray($array['Sede']));
         }
@@ -616,7 +624,82 @@ class CedentePrestatore
         if (!empty($array['RiferimentoAmministrazione'])) {
             $o->setRiferimentoAmministrazione($array['RiferimentoAmministrazione']);
         }
+
         return $o;
+    }
+
+    /**
+     * @param $array
+     * @param ValidateErrorContainer $errorContainer
+     */
+    public static function validate($array,ValidateErrorContainer $errorContainer){
+        if(empty($array['DatiAnagrafici']['IdFiscaleIVA'])){
+            $errorContainer->addError(new ValidateError('Obect',FatturaElettronica::ERROR_LEVEL_REQUIRED,"Invalid value for 'RegimeFiscale', it can't be null or empty",'CedentePrestatore::01',__LINE__));
+        }else{
+            Fiscale::validate($array['DatiAnagrafici']['IdFiscaleIVA'],$errorContainer,'CedentePrestatore::');
+        }
+
+        if(!empty($array['CodiceFiscale'])){
+            VCodiceFiscale::validate($array['CodiceFiscale'],$errorContainer,'CedentePrestatore::');
+        }
+
+        if(empty($array['DatiAnagrafici']['RegimeFiscale'])){
+            $errorContainer->addError(new ValidateError('Obect',FatturaElettronica::ERROR_LEVEL_REQUIRED,"Invalid value for 'RegimeFiscale', it can't be null or empty",'CedentePrestatore::02',__LINE__));
+        }else{
+
+            if (!isset(self::$regimiFiscali[$array['DatiAnagrafici']['RegimeFiscale']])) {
+                $errorContainer->addError(new ValidateError('Obect',FatturaElettronica::ERROR_LEVEL_INVALID,"Invalid value for 'RegimeFiscale' = '".$array['DatiAnagrafici']['RegimeFiscale']."', allowed value are ".implode(', ',array_keys(self::$regimiFiscali)),'CedentePrestatore::03',__LINE__));
+            }
+        }
+
+        if(empty($array['DatiAnagrafici']['Anagrafica'])){
+            $errorContainer->addError(new ValidateError('Obect',FatturaElettronica::ERROR_LEVEL_REQUIRED,"Invalid value for 'Anagrafica', it can't be null or empty",'CedentePrestatore::03',__LINE__));
+        }else{
+            Anagrafica::validate($array['DatiAnagrafici']['Anagrafica'],$errorContainer,'CedentePrestatore::');
+        }
+
+        if(empty($array['Sede'])){
+            $errorContainer->addError(new ValidateError('Obect',FatturaElettronica::ERROR_LEVEL_REQUIRED,"Invalid value for 'Sede', it can't be null or empty",'CedentePrestatore::04',__LINE__));
+        }else{
+            Indirizzo::validate($array['Sede'],$errorContainer,'CedentePrestatore::Sede::');
+        }
+
+        if(!empty($array['StabileOrganizzazione'])){
+            Indirizzo::validate($array['StabileOrganizzazione'],$errorContainer,'CedentePrestatore::StabileOrganizzazione::');
+        }
+
+        if(!empty($array['DatiAnagrafici']['AlboProfessionale'])){
+            if(strlen($array['DatiAnagrafici']['AlboProfessionale'])>60){
+                $errorContainer->addError(new ValidateError('Obect',FatturaElettronica::ERROR_LEVEL_INVALID,"Invalid value for 'AlboProfessionale', length max is 60",'CedentePrestatore::05',__LINE__));
+            }
+        }
+
+        if(!empty($array['DatiAnagrafici']['ProvinciaAlbo'])){
+            if(strlen($array['DatiAnagrafici']['ProvinciaAlbo'])>2){
+                $errorContainer->addError(new ValidateError('Obect',FatturaElettronica::ERROR_LEVEL_INVALID,"Invalid value for 'ProvinciaAlbo', length max is 2",'CedentePrestatore::06',__LINE__));
+            }
+        }
+
+        if(!empty($array['DatiAnagrafici']['NumeroIscrizioneAlbo'])){
+            if(strlen($array['DatiAnagrafici']['NumeroIscrizioneAlbo'])>60){
+                $errorContainer->addError(new ValidateError('Obect',FatturaElettronica::ERROR_LEVEL_INVALID,"Invalid value for 'NumeroIscrizioneAlbo', length max is 60",'CedentePrestatore::07',__LINE__));
+            }
+        }
+
+        if(!empty($array['DatiAnagrafici']['DataIscrizioneAlbo'])){
+            $dt = \DateTime::createFromFormat('Y-m-d',$array['DatiAnagrafici']['DataIscrizioneAlbo']);
+            if(!$dt instanceof \DateTime){
+                $errorContainer->addError(new ValidateError('Obect',FatturaElettronica::ERROR_LEVEL_INVALID,"Invalid value for 'DataIscrizioneAlbo', format must be YYYY-MM-DD",'CedentePrestatore::08',__LINE__));
+            }
+        }
+
+        if(!empty($array['RiferimentoAmministrazione'])){
+            if(strlen($array['RiferimentoAmministrazione'])>20){
+                $errorContainer->addError(new ValidateError('Obect',FatturaElettronica::ERROR_LEVEL_INVALID,"Invalid value for 'RiferimentoAmministrazione', length max is 20",'CedentePrestatore::09',__LINE__));
+            }
+        }
+
+
     }
 
 }

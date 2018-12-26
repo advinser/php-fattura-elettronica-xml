@@ -10,11 +10,17 @@ namespace Advinser\FatturaElettronicaXml;
 use Advinser\FatturaElettronicaXml\Body\FatturaElettronicaBody;
 use Advinser\FatturaElettronicaXml\Header\CedentePrestatore;
 use Advinser\FatturaElettronicaXml\Header\CessionarioCommittente;
+use Advinser\FatturaElettronicaXml\Header\DatiTrasmissione;
 use Advinser\FatturaElettronicaXml\Header\FatturaElettronicaHeader;
+use Advinser\FatturaElettronicaXml\Validation\FatturaElettronicaValidateException;
+use Advinser\FatturaElettronicaXml\Validation\ValidateError;
+use Advinser\FatturaElettronicaXml\Validation\ValidateErrorContainer;
 
 
 class FatturaElettronica
 {
+    const ERROR_LEVEL_INVALID = 'Invalid';
+    const ERROR_LEVEL_REQUIRED = 'Required';
     /**
      * @var FatturaElettronicaHeader
      */
@@ -35,18 +41,38 @@ class FatturaElettronica
     private $lotto = false;
 
     /**
+     * @var ValidateErrorContainer
+     */
+    private $errorContainer;
+
+    /**
+     * @var bool
+     */
+    private $throwValidateException = true;
+
+    /**
+     * @var bool
+     */
+    private $autoValidate = true;
+
+    /**
      * FatturaElettronica constructor.
      * @param FatturaElettronicaHeader $header
      * @param FatturaElettronicaBody $body
      */
-    public function __construct(FatturaElettronicaHeader $header = null, FatturaElettronicaBody $body = null)
+    public function __construct(FatturaElettronicaHeader $header = null, FatturaElettronicaBody $body = null, $autoValidate = false, $throwValidateException = true)
     {
+        $this->throwValidateException = $throwValidateException;
+        $this->autoValidate = $autoValidate;
+
         $this->header = $header;
         $this->bodys = $body;
 
         if ($header instanceof FatturaElettronicaHeader) {
             $this->versione = $header->getDatiTrasmissione()->getFormatoTrasmissione();
         }
+
+        $this->errorContainer = new ValidateErrorContainer($this->throwValidateException);
     }
 
     /**
@@ -260,6 +286,9 @@ class FatturaElettronica
                 $array['FatturaElettronicaBody'] = $this->getBodys()[0]->toArray();
             }
         }
+        if($this->autoValidate){
+            $this->executeValidate($array);
+        }
 
         return $array;
     }
@@ -269,9 +298,14 @@ class FatturaElettronica
      * @return FatturaElettronica
      * @throws FatturaElettronicaException
      */
-    public static function fromArray(array $array)
+    public static function fromArray(array $array, $autoValidate = false, $throwValidateException = true)
     {
-        $o = new FatturaElettronica();
+        $o = new FatturaElettronica(null,null, $autoValidate, $throwValidateException);
+
+
+        if($o->isAutoValidate()){
+            $o->executeValidate($array);
+        }
 
         if (!empty($array['FatturaElettronicaHeader'])) {
             $o->setHeader(FatturaElettronicaHeader::fromArray($array['FatturaElettronicaHeader']));
@@ -294,10 +328,122 @@ class FatturaElettronica
      * @return FatturaElettronica
      * @throws FatturaElettronicaException
      */
-    public static function fromJson(string $json)
+    public static function fromJson(string $json, $autoValidate = false, $throwValidateException = true)
     {
-        return FatturaElettronica::fromArray(json_decode($json,true));
+        return FatturaElettronica::fromArray(json_decode($json,true), $autoValidate, $throwValidateException);
     }
+
+
+    /**
+     * @return ValidateErrorContainer
+     */
+    public function getErrorContainer(): ValidateErrorContainer
+    {
+        return $this->errorContainer;
+    }
+
+
+    /**
+     * @param ValidateError $error
+     * @return FatturaElettronica
+     */
+    public function addError(ValidateError $error): FatturaElettronica
+    {
+        $this->getErrorContainer()->addError($error);
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isValid(){
+        return $this->getErrorContainer()->isValid();
+    }
+
+    /**
+     * @return bool
+     * @throws FatturaElettronicaValidateException
+     */
+    public function check(){
+        return $this->getErrorContainer()->check();
+    }
+
+    /**
+     * @return string
+     */
+    public function getVersione(): string
+    {
+        return $this->versione;
+    }
+
+    /**
+     * @param string $versione
+     * @return FatturaElettronica
+     */
+    public function setVersione(string $versione): FatturaElettronica
+    {
+        $this->versione = $versione;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isThrowValidateException(): bool
+    {
+        return $this->throwValidateException;
+    }
+
+    /**
+     * @param bool $throwValidateException
+     * @return FatturaElettronica
+     */
+    public function setThrowValidateException(bool $throwValidateException): FatturaElettronica
+    {
+        $this->throwValidateException = $throwValidateException;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAutoValidate(): bool
+    {
+        return $this->autoValidate;
+    }
+
+    /**
+     * @param bool $autoValidate
+     * @return FatturaElettronica
+     */
+    public function setAutoValidate(bool $autoValidate): FatturaElettronica
+    {
+        $this->autoValidate = $autoValidate;
+        return $this;
+    }
+
+
+    private function executeValidate($array){
+//        print_r($array);
+        if(empty($array['FatturaElettronicaHeader'])){
+            $this->errorContainer->addError(new ValidateError('','FATAL',"Missing 'FatturaElettronicaHeader'",'FatturaElettronica::01',__LINE__));
+        }else{
+
+            if(empty($array['FatturaElettronicaHeader']['DatiTrasmissione'])){
+                $this->errorContainer->addError(new ValidateError('','FATAL',"Missing 'DatiTrasmissione'",'FatturaElettronica::02',__LINE__));
+            }else{
+                DatiTrasmissione::validate($array['FatturaElettronicaHeader']['DatiTrasmissione'],$this->errorContainer);
+            }
+
+            if(empty($array['FatturaElettronicaHeader']['CedentePrestatore'])){
+                $this->errorContainer->addError(new ValidateError('','FATAL',"Missing 'CedentePrestatore'",'FatturaElettronica::03',__LINE__));
+            }else{
+                CedentePrestatore::validate($array['FatturaElettronicaHeader']['CedentePrestatore'],$this->errorContainer);
+            }
+        }
+
+    }
+
 
 
 }
