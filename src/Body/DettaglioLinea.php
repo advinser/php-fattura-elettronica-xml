@@ -31,7 +31,7 @@ class DettaglioLinea
      */
     private $Descrizione;
     /**
-     * @var float|null
+     * @var string|null
      */
     private $Quantita;
     /**
@@ -47,7 +47,7 @@ class DettaglioLinea
      */
     private $DataFinePeriodo;
     /**
-     * @var float|null
+     * @var string|null
      */
     private $PrezzoUnitario;
     /**
@@ -55,19 +55,19 @@ class DettaglioLinea
      */
     private $ScontoTipo;
     /**
-     * @var float|null
+     * @var string|null
      */
     private $ScontoPercentuale;
     /**
-     * @var float|null
+     * @var string|null
      */
     private $ScontoImporto;
     /**
-     * @var float|null
+     * @var string|null
      */
     private $PrezzoTotale;
     /**
-     * @var float|null
+     * @var string|null
      */
     private $AliquotaIVA;
     /**
@@ -190,9 +190,9 @@ class DettaglioLinea
     }
 
     /**
-     * @return float|null
+     * @return string|null
      */
-    public function getQuantita(): ?float
+    public function getQuantita(): ?string
     {
         return $this->Quantita;
     }
@@ -263,9 +263,9 @@ class DettaglioLinea
     }
 
     /**
-     * @return float|null
+     * @return string|null
      */
-    public function getPrezzoUnitario(): ?float
+    public function getPrezzoUnitario(): ?string
     {
         return $this->PrezzoUnitario;
     }
@@ -300,9 +300,9 @@ class DettaglioLinea
     }
 
     /**
-     * @return float|null
+     * @return string|null
      */
-    public function getScontoPercentuale(): ?float
+    public function getScontoPercentuale(): ?string
     {
         return $this->ScontoPercentuale;
     }
@@ -313,14 +313,14 @@ class DettaglioLinea
      */
     public function setScontoPercentuale(?float $ScontoPercentuale): DettaglioLinea
     {
-        $this->ScontoPercentuale = $ScontoPercentuale;
+        $this->ScontoPercentuale = number_format($ScontoPercentuale, 2, '.', '');
         return $this;
     }
 
     /**
-     * @return float|null
+     * @return string|null
      */
-    public function getScontoImporto(): ?float
+    public function getScontoImporto(): ?string
     {
         return $this->ScontoImporto;
     }
@@ -331,14 +331,14 @@ class DettaglioLinea
      */
     public function setScontoImporto(?float $ScontoImporto): DettaglioLinea
     {
-        $this->ScontoImporto = $ScontoImporto;
+        $this->ScontoImporto = number_format($ScontoImporto, 2, '.', '');
         return $this;
     }
 
     /**
-     * @return float|null
+     * @return string|null
      */
-    public function getPrezzoTotale(): ?float
+    public function getPrezzoTotale(): ?string
     {
         return $this->PrezzoTotale;
     }
@@ -355,9 +355,9 @@ class DettaglioLinea
     }
 
     /**
-     * @return float|null
+     * @return string|null
      */
-    public function getAliquotaIVA(): ?float
+    public function getAliquotaIVA(): ?string
     {
         return $this->AliquotaIVA;
     }
@@ -535,11 +535,9 @@ class DettaglioLinea
             $array['ScontoMaggiorazione']['Tipo'] = $this->getScontoTipo();
         }
         if (!empty($this->getScontoPercentuale())) {
-//            $array['ScontoMaggiorazione']['Percentuale'] = number_format(floatval($this->getScontoPercentuale()), 2, '.', '');
             $array['ScontoMaggiorazione']['Percentuale'] = $this->getScontoPercentuale();
         }
         if (!empty($this->getScontoImporto())) {
-//            $array['ScontoMaggiorazione']['Importo'] = number_format(floatval($this->getScontoImporto()), 2, '.', '');
             $array['ScontoMaggiorazione']['Importo'] = $this->getScontoImporto();
         }
         if (!empty($this->getTipoDato())) {
@@ -605,7 +603,6 @@ class DettaglioLinea
         if (isset($array['RiferimentoAmministrazione'])) {
             $o->setRiferimentoAmministrazione($array['RiferimentoAmministrazione']);
         }
-
 
         if (!empty($array['CodiceArticolo']['CodiceTipo'])) {
             $o->setCodiceTipo($array['CodiceArticolo']['CodiceTipo']);
