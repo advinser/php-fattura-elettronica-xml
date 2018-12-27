@@ -1,8 +1,7 @@
 <?php
+
 namespace Advinser\FatturaElettronicaXml\Body;
 
-use Advinser\FatturaElettronicaXml\FatturaElettronica;
-use Advinser\FatturaElettronicaXml\Validation\ValidateError;
 use Advinser\FatturaElettronicaXml\Validation\ValidateErrorContainer;
 
 class DatiDDT
@@ -110,7 +109,8 @@ class DatiDDT
      * @param ValidateErrorContainer $errorContainer
      * @param string $tag
      */
-    public static function validate(array $array,ValidateErrorContainer $errorContainer, $tag = ''){
+    public static function validate(array $array, ValidateErrorContainer $errorContainer, $tag = '')
+    {
 
     }
 }

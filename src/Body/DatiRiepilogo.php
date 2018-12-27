@@ -57,12 +57,12 @@ class DatiRiepilogo
     }
 
     /**
-     * @param string|null $AliquotaIVA
+     * @param float|null $AliquotaIVA
      * @return DatiRiepilogo
      */
-    public function setAliquotaIVA(?string $AliquotaIVA): DatiRiepilogo
+    public function setAliquotaIVA(?float $AliquotaIVA): DatiRiepilogo
     {
-        $this->AliquotaIVA = $AliquotaIVA;
+        $this->AliquotaIVA = number_format($AliquotaIVA, 2, '.', '');
         return $this;
     }
 
@@ -96,9 +96,9 @@ class DatiRiepilogo
      * @param string|null $SpeseAccessorie
      * @return DatiRiepilogo
      */
-    public function setSpeseAccessorie(?string $SpeseAccessorie): DatiRiepilogo
+    public function setSpeseAccessorie(?float $SpeseAccessorie): DatiRiepilogo
     {
-        $this->SpeseAccessorie = $SpeseAccessorie;
+        $this->SpeseAccessorie = number_format($SpeseAccessorie, 2, '.', '');
         return $this;
     }
 
@@ -111,12 +111,13 @@ class DatiRiepilogo
     }
 
     /**
-     * @param string|null $Arrotondamento
+     * @param float|null $Arrotondamento
+     * @param int $Precision
      * @return DatiRiepilogo
      */
-    public function setArrotondamento(?string $Arrotondamento): DatiRiepilogo
+    public function setArrotondamento(?float $Arrotondamento, int $Precision = 8): DatiRiepilogo
     {
-        $this->Arrotondamento = $Arrotondamento;
+        $this->Arrotondamento = number_format($Arrotondamento, $Precision, '.', '');
         return $this;
     }
 
@@ -129,12 +130,12 @@ class DatiRiepilogo
     }
 
     /**
-     * @param string|null $ImponibileImporto
+     * @param float|null $ImponibileImporto
      * @return DatiRiepilogo
      */
-    public function setImponibileImporto(?string $ImponibileImporto): DatiRiepilogo
+    public function setImponibileImporto(?float $ImponibileImporto): DatiRiepilogo
     {
-        $this->ImponibileImporto = $ImponibileImporto;
+        $this->ImponibileImporto = number_format($ImponibileImporto, 2, '.', '');
         return $this;
     }
 
@@ -147,12 +148,12 @@ class DatiRiepilogo
     }
 
     /**
-     * @param string|null $Imposta
+     * @param float|null $Imposta
      * @return DatiRiepilogo
      */
-    public function setImposta(?string $Imposta): DatiRiepilogo
+    public function setImposta(?float $Imposta): DatiRiepilogo
     {
-        $this->Imposta = $Imposta;
+        $this->Imposta = number_format($Imposta, 2, '.', '');
         return $this;
     }
 

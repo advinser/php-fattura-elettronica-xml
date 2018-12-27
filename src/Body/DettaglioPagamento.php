@@ -196,12 +196,12 @@ class DettaglioPagamento
     }
 
     /**
-     * @param string|null $ImportoPagamento
+     * @param float|null $ImportoPagamento
      * @return DettaglioPagamento
      */
-    public function setImportoPagamento(?string $ImportoPagamento): DettaglioPagamento
+    public function setImportoPagamento(?float $ImportoPagamento): DettaglioPagamento
     {
-        $this->ImportoPagamento = $ImportoPagamento;
+        $this->ImportoPagamento = number_format($ImportoPagamento, 2, '.', '');
         return $this;
     }
 

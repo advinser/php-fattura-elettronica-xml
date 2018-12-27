@@ -80,7 +80,6 @@ class DatiBeniServizi
     }
 
 
-
     /**
      * @return array
      */
@@ -153,7 +152,8 @@ class DatiBeniServizi
      * @param ValidateErrorContainer $errorContainer
      * @param string $tag
      */
-    public static function validate(array $array,ValidateErrorContainer $errorContainer, $tag = ''){
+    public static function validate(array $array, ValidateErrorContainer $errorContainer, $tag = '')
+    {
 
     }
 }

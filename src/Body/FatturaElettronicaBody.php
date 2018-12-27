@@ -130,34 +130,34 @@ class FatturaElettronicaBody extends AbsModels
     public function toArray()
     {
         $array = [
-            'DatiGenerali'=>null,
-            'DatiBeniServizi'=>null,
-            'DatiVeicoli'=>null,
-            'DatiPagamento'=>null,
-            'Allegati'=>null,
+            'DatiGenerali' => null,
+            'DatiBeniServizi' => null,
+            'DatiVeicoli' => null,
+            'DatiPagamento' => null,
+            'Allegati' => null,
         ];
 
-        if(!$this->getDatiGenerali() instanceof DatiGenerali){
-            throw new FatturaElettronicaException("missing instance of 'DatiGenerali'",'FatturaElettronicaBody');
-        }else{
+        if (!$this->getDatiGenerali() instanceof DatiGenerali) {
+            throw new FatturaElettronicaException("missing instance of 'DatiGenerali'", 'FatturaElettronicaBody');
+        } else {
             $array['DatiGenerali'] = $this->getDatiGenerali()->toArray();
         }
-        if(!$this->getDatiBeniServizi() instanceof DatiBeniServizi){
-            throw new FatturaElettronicaException("missing instance of 'DatiBeniServizi'",'FatturaElettronicaBody');
-        }else{
+        if (!$this->getDatiBeniServizi() instanceof DatiBeniServizi) {
+            throw new FatturaElettronicaException("missing instance of 'DatiBeniServizi'", 'FatturaElettronicaBody');
+        } else {
             $array['DatiBeniServizi'] = $this->getDatiBeniServizi()->toArray();
         }
-        if($this->getDatiVeicoli() instanceof DatiVeicoli){
+        if ($this->getDatiVeicoli() instanceof DatiVeicoli) {
             $array['DatiVeicoli'] = $this->getDatiVeicoli()->toArray();
         }
-        if(!empty($this->getDatiPagamento())) {
+        if (!empty($this->getDatiPagamento())) {
             if (!$this->getDatiPagamento() instanceof DatiPagamento) {
                 throw new FatturaElettronicaException("missing instance of 'DatiPagamento'", 'FatturaElettronicaBody');
             } else {
                 $array['DatiPagamento'] = $this->getDatiPagamento()->toArray();
             }
         }
-        if($this->getAllegati() instanceof Allegati){
+        if ($this->getAllegati() instanceof Allegati) {
             $array['Allegati'] = $this->getAllegati()->toArray();
         }
 
@@ -168,23 +168,25 @@ class FatturaElettronicaBody extends AbsModels
     /**
      * @param array $array
      * @return FatturaElettronicaBody
+     * @throws FatturaElettronicaException
      */
-    public static function fromArray(array $array):FatturaElettronicaBody{
+    public static function fromArray(array $array): FatturaElettronicaBody
+    {
         $o = new FatturaElettronicaBody();
 
-        if(!empty($array['DatiGenerali'])){
+        if (!empty($array['DatiGenerali'])) {
             $o->setDatiGenerali(DatiGenerali::fromArray($array['DatiGenerali']));
         }
-        if(!empty($array['DatiBeniServizi'])){
+        if (!empty($array['DatiBeniServizi'])) {
             $o->setDatiBeniServizi(DatiBeniServizi::fromArray($array['DatiBeniServizi']));
         }
-        if(!empty($array['DatiVeicoli'])){
+        if (!empty($array['DatiVeicoli'])) {
             $o->setDatiVeicoli(DatiVeicoli::fromArray($array['DatiVeicoli']));
         }
-        if(!empty($array['DatiPagamento'])){
+        if (!empty($array['DatiPagamento'])) {
             $o->setDatiPagamento(DatiPagamento::fromArray($array['DatiPagamento']));
         }
-        if(!empty($array['Allegati'])){
+        if (!empty($array['Allegati'])) {
             $o->setAllegati(Allegati::fromArray($array['Allegati']));
         }
         return $o;

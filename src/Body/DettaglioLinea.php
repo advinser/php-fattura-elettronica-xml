@@ -199,11 +199,12 @@ class DettaglioLinea
 
     /**
      * @param float|null $Quantita
+     * @param int $precision
      * @return DettaglioLinea
      */
-    public function setQuantita(?float $Quantita): DettaglioLinea
+    public function setQuantita(?float $Quantita, int $precision = 8): DettaglioLinea
     {
-        $this->Quantita = $Quantita;
+        $this->Quantita = number_format($Quantita, $precision, '.', '');
         return $this;
     }
 
@@ -271,11 +272,12 @@ class DettaglioLinea
 
     /**
      * @param float|null $PrezzoUnitario
+     * @param int $Precision
      * @return DettaglioLinea
      */
-    public function setPrezzoUnitario(?float $PrezzoUnitario): DettaglioLinea
+    public function setPrezzoUnitario(?float $PrezzoUnitario, int $Precision = 8): DettaglioLinea
     {
-        $this->PrezzoUnitario = $PrezzoUnitario;
+        $this->PrezzoUnitario = number_format($PrezzoUnitario, $Precision, '.', '');
         return $this;
     }
 
@@ -343,11 +345,12 @@ class DettaglioLinea
 
     /**
      * @param float|null $PrezzoTotale
+     * @param int $Precision
      * @return DettaglioLinea
      */
-    public function setPrezzoTotale(?float $PrezzoTotale): DettaglioLinea
+    public function setPrezzoTotale(?float $PrezzoTotale, int $Precision = 8): DettaglioLinea
     {
-        $this->PrezzoTotale = $PrezzoTotale;
+        $this->PrezzoTotale = number_format($PrezzoTotale, $Precision, '.', '');
         return $this;
     }
 
@@ -365,7 +368,7 @@ class DettaglioLinea
      */
     public function setAliquotaIVA(?float $AliquotaIVA): DettaglioLinea
     {
-        $this->AliquotaIVA = $AliquotaIVA;
+        $this->AliquotaIVA = number_format($AliquotaIVA, 2, '.', '');
         return $this;
     }
 
@@ -503,16 +506,12 @@ class DettaglioLinea
             'TipoCessionePrestazione' => $this->getTipoCessionePrestazione(),
             'CodiceArticolo' => null,
             'Descrizione' => $this->getDescrizione(),
-//            'Quantita' => !empty($this->getQuantita()) ? number_format(floatval($this->getQuantita()), 2, '.', '') : null,
             'Quantita' => !empty($this->getQuantita()) ? $this->getQuantita() : null,
             'UnitaMisura' => $this->getUnitaMisura(),
             'DataInizioPeriodo' => $this->getDataInizioPeriodo(),
             'DataFinePeriodo' => $this->getDataFinePeriodo(),
-//            'PrezzoUnitario' => number_format(floatval($this->getPrezzoUnitario()), 2, '.', ''),
             'PrezzoUnitario' => !empty($this->getPrezzoUnitario()) ? $this->getPrezzoUnitario() : null,
             'ScontoMaggiorazione' => null,
-//            'PrezzoTotale' => number_format(floatval($this->getPrezzoTotale()), 2, '.', ''),
-//            'AliquotaIVA' => number_format(floatval($this->getAliquotaIVA()), 2, '.', ''),
             'PrezzoTotale' => empty($this->getPrezzoTotale()) ? $this->getPrezzoTotale() : null,
             'AliquotaIVA' => empty($this->getAliquotaIVA()) ? $this->getAliquotaIVA() : null,
             'Ritenuta' => $this->getRitenuta(),

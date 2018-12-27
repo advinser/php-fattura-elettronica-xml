@@ -11,7 +11,6 @@ namespace Advinser\FatturaElettronicaXml\Body;
 use Advinser\FatturaElettronicaXml\FatturaElettronica;
 use Advinser\FatturaElettronicaXml\FatturaElettronicaException;
 use Advinser\FatturaElettronicaXml\Structures\DatiRiferimento;
-use Advinser\FatturaElettronicaXml\Body\DatiDDT;
 use Advinser\FatturaElettronicaXml\Validation\ValidateError;
 use Advinser\FatturaElettronicaXml\Validation\ValidateErrorContainer;
 
@@ -53,7 +52,7 @@ class DatiGenerali
     /**
      * @var DatiDDT[] | null
      */
-    private $DatiDDT ;
+    private $DatiDDT;
 
     /**
      * @var DatiTrasporto|null
@@ -410,7 +409,7 @@ class DatiGenerali
                 $o->addDatiDDT(DatiDDT::fromArray($array['DatiDDT']));
             }
         }
-        
+
         if (!empty($array['DatiTrasporto'])) {
             $o->setDatiTrasporto(DatiTrasporto::fromArray($array['DatiTrasporto']));
         }
@@ -431,35 +430,36 @@ class DatiGenerali
      * @param ValidateErrorContainer $errorContainer
      * @param string $tag
      */
-    public static function validate(array $array,ValidateErrorContainer $errorContainer, $tag = ''){
-        if(empty($array['NomeAttachment'])){
-            $errorContainer->addError(new ValidateError('Obect',FatturaElettronica::ERROR_LEVEL_REQUIRED,$tag."Missing 'NomeAttachment'",'Allegati::01',__LINE__));
-        }else{
-            if(strlen($array['NomeAttachment'])>60){
-                $errorContainer->addError(new ValidateError('Obect',FatturaElettronica::ERROR_LEVEL_INVALID,$tag."Invalid 'NomeAttachment', max length is 60",'Allegati::02',__LINE__));
+    public static function validate(array $array, ValidateErrorContainer $errorContainer, $tag = '')
+    {
+        if (empty($array['NomeAttachment'])) {
+            $errorContainer->addError(new ValidateError('Obect', FatturaElettronica::ERROR_LEVEL_REQUIRED, $tag . "Missing 'NomeAttachment'", 'Allegati::01', __LINE__));
+        } else {
+            if (strlen($array['NomeAttachment']) > 60) {
+                $errorContainer->addError(new ValidateError('Obect', FatturaElettronica::ERROR_LEVEL_INVALID, $tag . "Invalid 'NomeAttachment', max length is 60", 'Allegati::02', __LINE__));
             }
 
         }
-        if(empty($array['Attachment'])){
-            $errorContainer->addError(new ValidateError('Obect',FatturaElettronica::ERROR_LEVEL_REQUIRED,$tag."Missing 'Attachment'",'Allegati::03',__LINE__));
-        }else{
+        if (empty($array['Attachment'])) {
+            $errorContainer->addError(new ValidateError('Obect', FatturaElettronica::ERROR_LEVEL_REQUIRED, $tag . "Missing 'Attachment'", 'Allegati::03', __LINE__));
+        } else {
             //todo calcolo peso da base64 Allegati::04 , tenendo conto che ci può essere più di un allegato
         }
-        if(!empty($array['AlgoritmoCompressione'])){
-            if(strlen($array['AlgoritmoCompressione'])>10){
-                $errorContainer->addError(new ValidateError('Obect',FatturaElettronica::ERROR_LEVEL_INVALID,$tag."Invalid 'AlgoritmoCompressione', max length is 10",'Allegati::05',__LINE__));
+        if (!empty($array['AlgoritmoCompressione'])) {
+            if (strlen($array['AlgoritmoCompressione']) > 10) {
+                $errorContainer->addError(new ValidateError('Obect', FatturaElettronica::ERROR_LEVEL_INVALID, $tag . "Invalid 'AlgoritmoCompressione', max length is 10", 'Allegati::05', __LINE__));
 
             }
         }
-        if(!empty($array['FormatoAttachment'])){
-            if(strlen($array['FormatoAttachment'])>10){
-                $errorContainer->addError(new ValidateError('Obect',FatturaElettronica::ERROR_LEVEL_INVALID,$tag."Invalid 'FormatoAttachment', max length is 10",'Allegati::06',__LINE__));
+        if (!empty($array['FormatoAttachment'])) {
+            if (strlen($array['FormatoAttachment']) > 10) {
+                $errorContainer->addError(new ValidateError('Obect', FatturaElettronica::ERROR_LEVEL_INVALID, $tag . "Invalid 'FormatoAttachment', max length is 10", 'Allegati::06', __LINE__));
 
             }
         }
-        if(!empty($array['DescrizioneAttachment'])){
-            if(strlen($array['DescrizioneAttachment'])>100){
-                $errorContainer->addError(new ValidateError('Obect',FatturaElettronica::ERROR_LEVEL_INVALID,$tag."Invalid 'FormatoAttachment', max length is 100",'Allegati::07',__LINE__));
+        if (!empty($array['DescrizioneAttachment'])) {
+            if (strlen($array['DescrizioneAttachment']) > 100) {
+                $errorContainer->addError(new ValidateError('Obect', FatturaElettronica::ERROR_LEVEL_INVALID, $tag . "Invalid 'FormatoAttachment', max length is 100", 'Allegati::07', __LINE__));
 
             }
         }
