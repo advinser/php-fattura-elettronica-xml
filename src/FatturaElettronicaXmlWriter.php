@@ -9,8 +9,8 @@ namespace Advinser\FatturaElettronicaXml;
 
 use Advinser\FatturaElettronicaXml\Validation\FatturaElettronicaValidateException;
 use Advinser\FatturaElettronicaXml\Validation\ValidateXmlSchema;
-use mysql_xdevapi\Exception;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Serializer;
 
 class FatturaElettronicaXmlWriter
 {
@@ -33,6 +33,7 @@ class FatturaElettronicaXmlWriter
     {
         $this->fatturaElettronica = $fatturaElettronica;
         $this->xmlEncoder = new XmlEncoder();
+        $this->xmlEncoder->setSerializer(new Serializer());
     }
 
     /**
@@ -73,8 +74,4 @@ class FatturaElettronicaXmlWriter
     {
         return file_put_contents($filePath, $this->encodeXml()) !== false;
     }
-
-
-
-
 }
