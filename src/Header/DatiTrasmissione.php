@@ -108,15 +108,15 @@ class DatiTrasmissione
      */
     public function setFormatoTrasmissione(string $FormatoTrasmissione): DatiTrasmissione
     {
-//        switch ($FormatoTrasmissione) {
-//            case 'FPA12':
-//            case 'FPR12':
-//                $this->FormatoTrasmissione = $FormatoTrasmissione;
-//                break;
-//            default:
-//                throw new FatturaElettronicaException("Invalid 'FormatoTrasmissione', you provide '" . $FormatoTrasmissione . "', value can be FPA12 or FPR12");
-//                break;
-//        }
+        switch ($FormatoTrasmissione) {
+            case 'FPA12':
+            case 'FPR12':
+                $this->FormatoTrasmissione = $FormatoTrasmissione;
+                break;
+            default:
+                throw new FatturaElettronicaException("Invalid 'FormatoTrasmissione', you provide '" . $FormatoTrasmissione . "', value can be FPA12 or FPR12");
+                break;
+        }
 //        $this->controllaDestinatario();
         return $this;
     }
