@@ -31,7 +31,7 @@ class DettaglioLinea
      */
     private $Descrizione;
     /**
-     * @var int|null
+     * @var float|null
      */
     private $Quantita;
     /**
@@ -190,18 +190,18 @@ class DettaglioLinea
     }
 
     /**
-     * @return int|null
+     * @return float|null
      */
-    public function getQuantita(): ?int
+    public function getQuantita(): ?float
     {
         return $this->Quantita;
     }
 
     /**
-     * @param int|null $Quantita
+     * @param float|null $Quantita
      * @return DettaglioLinea
      */
-    public function setQuantita(?int $Quantita): DettaglioLinea
+    public function setQuantita(?float $Quantita): DettaglioLinea
     {
         $this->Quantita = $Quantita;
         return $this;
