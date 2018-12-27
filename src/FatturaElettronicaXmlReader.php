@@ -7,8 +7,8 @@
 
 namespace Advinser\FatturaElettronicaXml;
 
-use Advinser\FatturaElettronicaXml\Validation\ValidateXmlSchema;
 use Advinser\FatturaElettronicaXml\Validation\FatturaElettronicaValidateException;
+use Advinser\FatturaElettronicaXml\Validation\ValidateXmlSchema;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 
 class FatturaElettronicaXmlReader
@@ -28,7 +28,8 @@ class FatturaElettronicaXmlReader
 
     /**
      * @param string $source
-     * @param bool $validate
+     * @param bool $autoValidate
+     * @param bool $throwValidateException
      * @return FatturaElettronica
      * @throws FatturaElettronicaException
      * @throws FatturaElettronicaValidateException
@@ -39,16 +40,14 @@ class FatturaElettronicaXmlReader
         $a = $this->xmlEncoder->decode($source, null);
         $fattura = FatturaElettronica::fromArray($a, $autoValidate, $throwValidateException);
         if ($autoValidate) {
-            foreach(ValidateXmlSchema::validateFromData($source) as $error){
+            foreach (ValidateXmlSchema::validateFromData($source) as $error) {
                 $fattura->addError($error);
             }
         }
 
-
-        if($fattura->isThrowValidateException() && !$fattura->isValid()){
+        if ($fattura->isThrowValidateException() && !$fattura->isValid()) {
             throw new FatturaElettronicaValidateException($fattura->getErrorContainer());
         }
-
 
         return $fattura;
     }
