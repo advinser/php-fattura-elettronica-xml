@@ -9,6 +9,7 @@ namespace Advinser\FatturaElettronicaXml\Body;
 
 
 use Advinser\FatturaElettronicaXml\FatturaElettronicaException;
+use Advinser\FatturaElettronicaXml\Validation\ValidateErrorContainer;
 
 class DatiPagamento
 {
@@ -129,6 +130,16 @@ class DatiPagamento
         }
 
         return $o;
+    }
+
+
+    /**
+     * @param array $array
+     * @param ValidateErrorContainer $errorContainer
+     * @param string $tag
+     */
+    public static function validate(array $array,ValidateErrorContainer $errorContainer, $tag = ''){
+
     }
 
 }

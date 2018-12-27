@@ -649,10 +649,12 @@ class DatiGeneraliDocumento
             $array['DatiRitenuta']['TipoRitenuta'] = $this->getTipoRitenuta();
         }
         if (!empty($this->getImportoRitenuta())) {
-            $array['DatiRitenuta']['ImportoRitenuta'] = number_format($this->getImportoRitenuta(), 2, '.', '');
+//            $array['DatiRitenuta']['ImportoRitenuta'] = number_format($this->getImportoRitenuta(), 2, '.', '');
+            $array['DatiRitenuta']['ImportoRitenuta'] = $this->getImportoRitenuta();
         }
         if (!empty($this->getAliquotaRitenuta())) {
-            $array['DatiRitenuta']['AliquotaRitenuta'] = number_format($this->getAliquotaRitenuta(), 2, '.', '');
+//            $array['DatiRitenuta']['AliquotaRitenuta'] = number_format($this->getAliquotaRitenuta(), 2, '.', '');
+            $array['DatiRitenuta']['AliquotaRitenuta'] = $this->getAliquotaRitenuta();
         }
         if (!empty($this->getCausalePagamento())) {
             $array['DatiRitenuta']['CausalePagamento'] = $this->getCausalePagamento();
@@ -663,7 +665,8 @@ class DatiGeneraliDocumento
             $array['DatiBollo']['BolloVirtuale'] = $this->getBolloVirtuale();
         }
         if (!empty($this->getImportoBollo())) {
-            $array['DatiBollo']['ImportoBollo'] = number_format($this->getImportoBollo(), 2, '.', '');
+//            $array['DatiBollo']['ImportoBollo'] = number_format($this->getImportoBollo(), 2, '.', '');
+            $array['DatiBollo']['ImportoBollo'] = $this->getImportoBollo();
         }
 
 
@@ -677,10 +680,12 @@ class DatiGeneraliDocumento
             $array['DatiCassaPrevidenziale']['ImportoContributoCassa'] = $this->getImportoContributoCassa();
         }
         if (!empty($this->getImponibileCassa())) {
-            $array['DatiCassaPrevidenziale']['ImponibileCassa'] = number_format($this->getImponibileCassa(), 2, '.', '');
+//            $array['DatiCassaPrevidenziale']['ImponibileCassa'] = number_format($this->getImponibileCassa(), 2, '.', '');
+            $array['DatiCassaPrevidenziale']['ImponibileCassa'] = $this->getImponibileCassa();
         }
         if (!empty($this->getAliquotaIVA())) {
-            $array['DatiCassaPrevidenziale']['AliquotaIVA'] = number_format($this->getAliquotaIVA(), 2, '.', '');
+//            $array['DatiCassaPrevidenziale']['AliquotaIVA'] = number_format($this->getAliquotaIVA(), 2, '.', '');
+            $array['DatiCassaPrevidenziale']['AliquotaIVA'] = $this->getAliquotaIVA();
         }
         if (!empty($this->getRitenuta())) {
             $array['DatiCassaPrevidenziale']['Ritenuta'] = $this->getRitenuta();
@@ -697,17 +702,21 @@ class DatiGeneraliDocumento
             $array['ScontoMaggiorazione']['Tipo'] = $this->getScontoTipo();
         }
         if (!empty($this->getScontoPercentuale())) {
-            $array['ScontoMaggiorazione']['Percentuale'] = number_format($this->getScontoPercentuale(), 2, '.', '');
+//            $array['ScontoMaggiorazione']['Percentuale'] = number_format($this->getScontoPercentuale(), 2, '.', '');
+            $array['ScontoMaggiorazione']['Percentuale'] = $this->getScontoPercentuale();
         }
         if (!empty($this->getScontoImporto())) {
-            $array['ScontoMaggiorazione']['Importo'] = number_format($this->getScontoImporto(), 2, '.', '');
+//            $array['ScontoMaggiorazione']['Importo'] = number_format($this->getScontoImporto(), 2, '.', '');
+            $array['ScontoMaggiorazione']['Importo'] = $this->getScontoImporto();
         }
 
         if ($this->getImportoTotaleDocumento() !== null) {
-            $array['ImportoTotaleDocumento'] = number_format($this->getImportoTotaleDocumento(), 2, '.', '');
+//            $array['ImportoTotaleDocumento'] = number_format($this->getImportoTotaleDocumento(), 2, '.', '');
+            $array['ImportoTotaleDocumento'] = $this->getImportoTotaleDocumento();
         }
         if (!empty($this->getArrotondamento())) {
-            $array['Arrotondamento'] = number_format($this->getArrotondamento(), 2, '.', '');
+//            $array['Arrotondamento'] = number_format($this->getArrotondamento(), 2, '.', '');
+            $array['Arrotondamento'] = $this->getArrotondamento();
         }
         if (!empty($this->getCausale())) {
             $array['Causale'] = $this->getCausale();

@@ -211,23 +211,28 @@ class DatiRiepilogo
         ];
 
         if (!empty($this->getAliquotaIVA())) {
-            $array['AliquotaIVA'] = number_format($this->getAliquotaIVA(), 2, '.', '');
+//            $array['AliquotaIVA'] = number_format($this->getAliquotaIVA(), 2, '.', '');
+            $array['AliquotaIVA'] = $this->getAliquotaIVA();
         }
 
         if (!empty($this->getNatura())) {
             $array['Natura'] = $this->getNatura();
         }
         if (!empty($this->getSpeseAccessorie())) {
-            $array['SpeseAccessorie'] = number_format(floatval($this->getSpeseAccessorie()), 2, '.', '');
+//            $array['SpeseAccessorie'] = number_format(floatval($this->getSpeseAccessorie()), 2, '.', '');
+            $array['SpeseAccessorie'] = $this->getSpeseAccessorie();
         }
         if (!empty($this->getArrotondamento())) {
-            $array['Arrotondamento'] = number_format(floatval($this->getArrotondamento()), 2, '.', '');
+//            $array['Arrotondamento'] = number_format(floatval($this->getArrotondamento()), 2, '.', '');
+            $array['Arrotondamento'] = $this->getArrotondamento();
         }
         if (!empty($this->getImponibileImporto())) {
-            $array['ImponibileImporto'] = number_format(floatval($this->getImponibileImporto()), 2, '.', '');
+//            $array['ImponibileImporto'] = number_format(floatval($this->getImponibileImporto()), 2, '.', '');
+            $array['ImponibileImporto'] = $this->getImponibileImporto();
         }
         if (!empty($this->getImposta())) {
-            $array['Imposta'] = number_format(floatval($this->getImposta()), 2, '.', '');
+//            $array['Imposta'] = number_format(floatval($this->getImposta()), 2, '.', '');
+            $array['Imposta'] = $this->getImposta();
         }
         if (!empty($this->getEsigibilitaIVA())) {
             $array['EsigibilitaIVA'] = $this->getEsigibilitaIVA();

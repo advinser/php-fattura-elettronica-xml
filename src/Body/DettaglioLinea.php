@@ -503,14 +503,18 @@ class DettaglioLinea
             'TipoCessionePrestazione' => $this->getTipoCessionePrestazione(),
             'CodiceArticolo' => null,
             'Descrizione' => $this->getDescrizione(),
-            'Quantita' => !empty($this->getQuantita()) ? number_format(floatval($this->getQuantita()), 2, '.', '') : null,
+//            'Quantita' => !empty($this->getQuantita()) ? number_format(floatval($this->getQuantita()), 2, '.', '') : null,
+            'Quantita' => !empty($this->getQuantita()) ? $this->getQuantita() : null,
             'UnitaMisura' => $this->getUnitaMisura(),
             'DataInizioPeriodo' => $this->getDataInizioPeriodo(),
             'DataFinePeriodo' => $this->getDataFinePeriodo(),
-            'PrezzoUnitario' => number_format(floatval($this->getPrezzoUnitario()), 2, '.', ''),
+//            'PrezzoUnitario' => number_format(floatval($this->getPrezzoUnitario()), 2, '.', ''),
+            'PrezzoUnitario' => !empty($this->getPrezzoUnitario()) ? $this->getPrezzoUnitario() : null,
             'ScontoMaggiorazione' => null,
-            'PrezzoTotale' => number_format(floatval($this->getPrezzoTotale()), 2, '.', ''),
-            'AliquotaIVA' => number_format(floatval($this->getAliquotaIVA()), 2, '.', ''),
+//            'PrezzoTotale' => number_format(floatval($this->getPrezzoTotale()), 2, '.', ''),
+//            'AliquotaIVA' => number_format(floatval($this->getAliquotaIVA()), 2, '.', ''),
+            'PrezzoTotale' => empty($this->getPrezzoTotale()) ? $this->getPrezzoTotale() : null,
+            'AliquotaIVA' => empty($this->getAliquotaIVA()) ? $this->getAliquotaIVA() : null,
             'Ritenuta' => $this->getRitenuta(),
             'Natura' => $this->getNatura(),
             'RiferimentoAmministrazione' => $this->getRiferimentoAmministrazione(),
@@ -532,10 +536,12 @@ class DettaglioLinea
             $array['ScontoMaggiorazione']['Tipo'] = $this->getScontoTipo();
         }
         if (!empty($this->getScontoPercentuale())) {
-            $array['ScontoMaggiorazione']['Percentuale'] = number_format(floatval($this->getScontoPercentuale()), 2, '.', '');
+//            $array['ScontoMaggiorazione']['Percentuale'] = number_format(floatval($this->getScontoPercentuale()), 2, '.', '');
+            $array['ScontoMaggiorazione']['Percentuale'] = $this->getScontoPercentuale();
         }
         if (!empty($this->getScontoImporto())) {
-            $array['ScontoMaggiorazione']['Importo'] = number_format(floatval($this->getScontoImporto()), 2, '.', '');
+//            $array['ScontoMaggiorazione']['Importo'] = number_format(floatval($this->getScontoImporto()), 2, '.', '');
+            $array['ScontoMaggiorazione']['Importo'] = $this->getScontoImporto();
         }
         if (!empty($this->getTipoDato())) {
             $array['AltriDatiGestionali']['TipoDato'] = $this->getTipoDato();

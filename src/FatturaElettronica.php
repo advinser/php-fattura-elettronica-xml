@@ -7,6 +7,11 @@
 
 namespace Advinser\FatturaElettronicaXml;
 
+use Advinser\FatturaElettronicaXml\Body\Allegati;
+use Advinser\FatturaElettronicaXml\Body\DatiBeniServizi;
+use Advinser\FatturaElettronicaXml\Body\DatiGenerali;
+use Advinser\FatturaElettronicaXml\Body\DatiPagamento;
+use Advinser\FatturaElettronicaXml\Body\DatiVeicoli;
 use Advinser\FatturaElettronicaXml\Body\FatturaElettronicaBody;
 use Advinser\FatturaElettronicaXml\Header\CedentePrestatore;
 use Advinser\FatturaElettronicaXml\Header\CessionarioCommittente;
@@ -425,39 +430,112 @@ class FatturaElettronica
     }
 
 
-    private function executeValidate($array){
+    /**
+     * @param array $array
+     */
+    private function executeValidate(array $array){
 //        print_r($array);
         if(empty($array['FatturaElettronicaHeader'])){
-            $this->errorContainer->addError(new ValidateError('','FATAL',"Missing 'FatturaElettronicaHeader'",'FatturaElettronica::01',__LINE__));
+            $this->errorContainer->addError(new ValidateError('',FatturaElettronica::ERROR_LEVEL_REQUIRED,"Missing 'FatturaElettronicaHeader'",'FatturaElettronica::01',__LINE__));
         }else{
 
             if(empty($array['FatturaElettronicaHeader']['DatiTrasmissione'])){
-                $this->errorContainer->addError(new ValidateError('','FATAL',"Missing 'DatiTrasmissione'",'FatturaElettronica::02',__LINE__));
+                $this->errorContainer->addError(new ValidateError('',FatturaElettronica::ERROR_LEVEL_REQUIRED,"Missing 'DatiTrasmissione'",'FatturaElettronica::02',__LINE__));
             }else{
                 DatiTrasmissione::validate($array['FatturaElettronicaHeader']['DatiTrasmissione'],$this->errorContainer);
             }
 
             if(empty($array['FatturaElettronicaHeader']['CedentePrestatore'])){
-                $this->errorContainer->addError(new ValidateError('','FATAL',"Missing 'CedentePrestatore'",'FatturaElettronica::03',__LINE__));
+                $this->errorContainer->addError(new ValidateError('',FatturaElettronica::ERROR_LEVEL_REQUIRED,"Missing 'CedentePrestatore'",'FatturaElettronica::03',__LINE__));
             }else{
                 CedentePrestatore::validate($array['FatturaElettronicaHeader']['CedentePrestatore'],$this->errorContainer);
             }
 
             if(empty($array['FatturaElettronicaHeader']['CessionarioCommittente'])){
-                $this->errorContainer->addError(new ValidateError('','FATAL',"Missing 'CessionarioCommittente'",'FatturaElettronica::04',__LINE__));
+                $this->errorContainer->addError(new ValidateError('',FatturaElettronica::ERROR_LEVEL_REQUIRED,"Missing 'CessionarioCommittente'",'FatturaElettronica::04',__LINE__));
             }else{
                 CessionarioCommittente::validate($array['FatturaElettronicaHeader']['CessionarioCommittente'],$this->errorContainer);
             }
 
             if(empty($array['FatturaElettronicaHeader']['TerzoIntermediarioOSoggettoEmittente'])){
                 TerzoIntermediarioOSoggettoEmittente::validate($array['FatturaElettronicaHeader']['TerzoIntermediarioOSoggettoEmittente'],$this->errorContainer);
+                if(empty($array['FatturaElettronicaHeader']['SoggettoEmittente'])){
+                    $this->errorContainer->addError(new ValidateError('',FatturaElettronica::ERROR_LEVEL_REQUIRED,"Missing 'SoggettoEmittente', you must set a valid value",'FatturaElettronicaHeader::01',__LINE__));
+                }else{
+                    if($array['FatturaElettronicaHeader']['SoggettoEmittente']!='CC' && $array['FatturaElettronicaHeader']['SoggettoEmittente']!='TZ'){
+                        $this->errorContainer->addError(new ValidateError('',FatturaElettronica::ERROR_LEVEL_INVALID,"'SoggettoEmittente', must be 'CC' or 'TZ'",'FatturaElettronicaHeader::02',__LINE__));
+                    }
+                }
             }
 
             if(empty($array['FatturaElettronicaHeader']['RappresentanteFiscale'])){
                 RappresentanteFiscale::validate($array['FatturaElettronicaHeader']['RappresentanteFiscale'],$this->errorContainer);
             }
+
+            $bodyCount = 1;
+            if (!empty($array['FatturaElettronicaBody'])) {
+                if (isset($array['FatturaElettronicaBody'][0])) {
+                    foreach ($array['FatturaElettronicaBody'] as $item) {
+                        $this->validateBody($item,$bodyCount);
+                        $bodyCount++;
+                    }
+                } else {
+                    $this->validateBody($array['FatturaElettronicaBody'],$bodyCount);
+                }
+            }
         }
 
+    }
+
+    /**
+     * @param array $array
+     */
+    public function validateBody(array $array, $bodyCount){
+        $tag = 'FatturaElettronicaBody_'.$bodyCount.'::';
+
+        $arraye = [
+            'DatiPagamento'=>null,//0.n
+            'Allegati'=>null, //0.n
+        ];
+
+        if(empty($array['DatiGenerali'])){
+            $this->errorContainer->addError(new ValidateError('',FatturaElettronica::ERROR_LEVEL_REQUIRED,$tag."Missing 'DatiGenerali'",'FatturaElettronicaBody::01',__LINE__));
+        }else{
+            DatiGenerali::validate($array['DatiGenerali'],$this->errorContainer,$tag);
+        }
+        if(empty($array['DatiBeniServizi'])){
+            $this->errorContainer->addError(new ValidateError('',FatturaElettronica::ERROR_LEVEL_REQUIRED,$tag."Missing 'DatiBeniServizi'",'FatturaElettronicaBody::02',__LINE__));
+        }else{
+            DatiBeniServizi::validate($array['DatiBeniServizi'],$this->errorContainer,$tag);
+        }
+
+        if(!empty($array['DatiVeicoli'])){
+            DatiVeicoli::validate($array['DatiVeicoli'],$this->errorContainer,$tag);
+        }
+
+        if(!empty($array['DatiPagamento'])){
+            if (!empty($array['DatiPagamento'])) {
+                if (isset($array['DatiPagamento'][0])) {
+                    foreach ($array['DatiPagamento'] as $item) {
+                        DatiPagamento::validate($item,$this->errorContainer,$tag);
+                    }
+                } else {
+                    DatiPagamento::validate($array['DatiPagamento'],$this->errorContainer,$tag);
+                }
+            }
+        }
+
+        if(!empty($array['Allegati'])){
+            if (!empty($array['Allegati'])) {
+                if (isset($array['Allegati'][0])) {
+                    foreach ($array['Allegati'] as $item) {
+                        Allegati::validate($item,$this->errorContainer,$tag);
+                    }
+                } else {
+                    Allegati::validate($array['Allegati'],$this->errorContainer,$tag);
+                }
+            }
+        }
     }
 
 

@@ -8,6 +8,8 @@
 namespace Advinser\FatturaElettronicaXml\Body;
 
 
+use Advinser\FatturaElettronicaXml\Validation\ValidateErrorContainer;
+
 class DatiVeicoli
 {
     /**
@@ -82,6 +84,16 @@ class DatiVeicoli
         }
 
         return $o;
+    }
+
+
+    /**
+     * @param array $array
+     * @param ValidateErrorContainer $errorContainer
+     * @param string $tag
+     */
+    public static function validate(array $array,ValidateErrorContainer $errorContainer, $tag = ''){
+
     }
 
 }
