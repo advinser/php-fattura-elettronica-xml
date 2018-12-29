@@ -560,9 +560,5 @@ class CessionarioCommittente
 
         }
 
-        if(!$denominazioneIsset && (!$nomeIsset || !$cognomeIsset)){
-            $errorContainer->addError(new ValidateError('', FatturaElettronica::ERROR_LEVEL_INVALID, $tag . " one of 'Denominazione' or 'Nome' and 'Cognome' must be used", $tag . 'CessionarioCommittente::10', __LINE__));
-        }
-
     }
 }
