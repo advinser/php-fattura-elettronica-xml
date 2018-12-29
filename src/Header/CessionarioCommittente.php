@@ -527,9 +527,7 @@ class CessionarioCommittente
             Indirizzo::validate($array['StabileOrganizzazione'],$errorContainer,'CessionarioCommittente::StabileOrganizzazione::');
         }
 
-        if(empty($array['RappresentanteFiscale']['IdFiscaleIVA'])){
-            $errorContainer->addError(new ValidateError('Obect',FatturaElettronica::ERROR_LEVEL_REQUIRED,"Invalid value for 'RegimeFiscale', it can't be null or empty",'CessionarioCommittente::05',__LINE__));
-        }else{
+        if(!empty($array['RappresentanteFiscale']['IdFiscaleIVA'])){
             Fiscale::validate($array['RappresentanteFiscale']['IdFiscaleIVA'],$errorContainer,'CessionarioCommittente::');
         }
 
