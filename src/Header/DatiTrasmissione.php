@@ -132,7 +132,6 @@ class DatiTrasmissione
     /**
      * @param string $CodiceDestinatario
      * @return DatiTrasmissione
-     * @throws FatturaElettronicaException
      */
     public function setCodiceDestinatario(string $CodiceDestinatario): DatiTrasmissione
     {

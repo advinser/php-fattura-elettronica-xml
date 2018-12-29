@@ -267,7 +267,6 @@ class CedentePrestatore
     /**
      * @param string $RegimeFiscale
      * @return $this
-     * @throws FatturaElettronicaException
      */
     public function setRegimeFiscale(string $RegimeFiscale)
     {

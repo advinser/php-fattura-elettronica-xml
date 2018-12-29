@@ -466,7 +466,7 @@ class FatturaElettronica
                 CessionarioCommittente::validate($array['FatturaElettronicaHeader']['CessionarioCommittente'], $this->errorContainer);
             }
 
-            if (empty($array['FatturaElettronicaHeader']['TerzoIntermediarioOSoggettoEmittente'])) {
+            if (!empty($array['FatturaElettronicaHeader']['TerzoIntermediarioOSoggettoEmittente'])) {
                 TerzoIntermediarioOSoggettoEmittente::validate($array['FatturaElettronicaHeader']['TerzoIntermediarioOSoggettoEmittente'], $this->errorContainer);
                 if (empty($array['FatturaElettronicaHeader']['SoggettoEmittente'])) {
                     $this->errorContainer->addError(new ValidateError('', FatturaElettronica::ERROR_LEVEL_REQUIRED, "Missing 'SoggettoEmittente', you must set a valid value", 'FatturaElettronicaHeader::01', __LINE__));
@@ -477,7 +477,7 @@ class FatturaElettronica
                 }
             }
 
-            if (empty($array['FatturaElettronicaHeader']['RappresentanteFiscale'])) {
+            if (!empty($array['FatturaElettronicaHeader']['RappresentanteFiscale'])) {
                 RappresentanteFiscale::validate($array['FatturaElettronicaHeader']['RappresentanteFiscale'], $this->errorContainer);
             }
 
@@ -491,6 +491,8 @@ class FatturaElettronica
                 } else {
                     $this->validateBody($array['FatturaElettronicaBody'], $bodyCount);
                 }
+            }else{
+                $this->errorContainer->addError(new ValidateError('', FatturaElettronica::ERROR_LEVEL_REQUIRED, "Missing 'Body'", 'FatturaElettronicaHeader::05', __LINE__));
             }
         }
 
