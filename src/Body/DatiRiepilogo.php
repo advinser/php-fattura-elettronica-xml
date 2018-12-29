@@ -8,6 +8,8 @@
 namespace Advinser\FatturaElettronicaXml\Body;
 
 
+use Advinser\FatturaElettronicaXml\Validation\ValidateErrorContainer;
+
 class DatiRiepilogo
 {
     /**
@@ -256,5 +258,16 @@ class DatiRiepilogo
         }
 
         return $o;
+    }
+
+    /**
+     * @param array $array
+     * @param ValidateErrorContainer $errorContainer
+     * @param string $tag
+     */
+    public static function validate(array $array, ValidateErrorContainer $errorContainer, $tag = '')
+    {
+        //todo validation
+
     }
 }

@@ -11,6 +11,7 @@ namespace Advinser\FatturaElettronicaXml\Body;
 use Advinser\FatturaElettronicaXml\Structures\Anagrafica;
 use Advinser\FatturaElettronicaXml\Structures\Fiscale;
 use Advinser\FatturaElettronicaXml\Structures\Indirizzo;
+use Advinser\FatturaElettronicaXml\Validation\ValidateErrorContainer;
 
 class DatiTrasporto
 {
@@ -504,6 +505,17 @@ class DatiTrasporto
         }
 
         return $o;
+    }
+
+    /**
+     * @param array $array
+     * @param ValidateErrorContainer $errorContainer
+     * @param string $tag
+     */
+    public static function validate(array $array, ValidateErrorContainer $errorContainer, $tag = '')
+    {
+        //todo validation
+
     }
 
 

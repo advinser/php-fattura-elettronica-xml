@@ -94,6 +94,7 @@ class DatiVeicoli
      */
     public static function validate(array $array, ValidateErrorContainer $errorContainer, $tag = '')
     {
+        //todo validation
 
     }
 

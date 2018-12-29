@@ -525,7 +525,6 @@ class FatturaElettronica
             DatiVeicoli::validate($array['DatiVeicoli'], $this->errorContainer, $tag);
         }
 
-        if (!empty($array['DatiPagamento'])) {
             if (!empty($array['DatiPagamento'])) {
                 if (isset($array['DatiPagamento'][0])) {
                     foreach ($array['DatiPagamento'] as $item) {
@@ -535,9 +534,7 @@ class FatturaElettronica
                     DatiPagamento::validate($array['DatiPagamento'], $this->errorContainer, $tag);
                 }
             }
-        }
 
-        if (!empty($array['Allegati'])) {
             if (!empty($array['Allegati'])) {
                 if (isset($array['Allegati'][0])) {
                     foreach ($array['Allegati'] as $item) {
@@ -547,7 +544,6 @@ class FatturaElettronica
                     Allegati::validate($array['Allegati'], $this->errorContainer, $tag);
                 }
             }
-        }
     }
 
 
