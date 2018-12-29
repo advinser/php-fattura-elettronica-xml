@@ -502,7 +502,7 @@ class CessionarioCommittente
      * @param ValidateErrorContainer $errorContainer
      */
     public static function validate($array,ValidateErrorContainer $errorContainer){
-        if(empty($array['DatiAnagrafici']['IdFiscaleIVA'])){
+        if(!empty($array['DatiAnagrafici']['IdFiscaleIVA'])){
             //todo check if CodiceFiscale is not empty, otherwise this element is required
             Fiscale::validate($array['DatiAnagrafici']['IdFiscaleIVA'],$errorContainer,'CessionarioCommittente::');
         }
