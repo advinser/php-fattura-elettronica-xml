@@ -63,7 +63,7 @@ class RappresentanteFiscale
      */
     public function setCodiceFiscale(string $CodiceFiscale): RappresentanteFiscale
     {
-        $this->CodiceFiscale = $CodiceFiscale;
+        $this->CodiceFiscale = strtoupper($CodiceFiscale);
         return $this;
     }
 

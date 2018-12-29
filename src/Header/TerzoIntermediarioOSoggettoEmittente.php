@@ -65,7 +65,7 @@ class TerzoIntermediarioOSoggettoEmittente
      */
     public function setCodiceFiscale(string $CodiceFiscale): TerzoIntermediarioOSoggettoEmittente
     {
-        $this->CodiceFiscale = $CodiceFiscale;
+        $this->CodiceFiscale = strtoupper($CodiceFiscale);
         return $this;
     }
 

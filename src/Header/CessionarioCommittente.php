@@ -133,7 +133,7 @@ class CessionarioCommittente
      */
     public function setCodiceFiscale(string $CodiceFiscale): CessionarioCommittente
     {
-        $this->CodiceFiscale = $CodiceFiscale;
+        $this->CodiceFiscale = strtoupper($CodiceFiscale);
         return $this;
     }
 

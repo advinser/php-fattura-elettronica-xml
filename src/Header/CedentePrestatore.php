@@ -162,7 +162,7 @@ class CedentePrestatore
      */
     public function setCodiceFiscale(?string $CodiceFiscale): CedentePrestatore
     {
-        $this->CodiceFiscale = $CodiceFiscale;
+        $this->CodiceFiscale = strtoupper($CodiceFiscale);
         return $this;
     }
 

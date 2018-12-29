@@ -113,7 +113,7 @@ class DatiTrasporto
      */
     public function setCodiceFiscale(?string $CodiceFiscale): DatiTrasporto
     {
-        $this->CodiceFiscale = $CodiceFiscale;
+        $this->CodiceFiscale = strtoupper($CodiceFiscale);
         return $this;
     }
 
