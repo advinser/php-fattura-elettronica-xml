@@ -503,8 +503,7 @@ class CessionarioCommittente
      */
     public static function validate($array,ValidateErrorContainer $errorContainer){
         if(empty($array['DatiAnagrafici']['IdFiscaleIVA'])){
-            $errorContainer->addError(new ValidateError('Obect',FatturaElettronica::ERROR_LEVEL_REQUIRED,"Invalid value for 'RegimeFiscale', it can't be null or empty",'CessionarioCommittente::01',__LINE__));
-        }else{
+            //todo check if CodiceFiscale is not empty, otherwise this element is required
             Fiscale::validate($array['DatiAnagrafici']['IdFiscaleIVA'],$errorContainer,'CessionarioCommittente::');
         }
 
