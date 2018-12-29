@@ -98,4 +98,24 @@ class ValidateErrorContainer
         return empty($this->errors);
     }
 
+    /**
+     * @return array
+     */
+    public function getArrayErrors(){
+        $a = [];
+
+        foreach ($this->errors as $e){
+            $a[] = $e->toArray();
+        }
+
+        return $a;
+    }
+
+    /**
+     * @return false|string
+     */
+    public function getJsonErrors(){
+        return json_encode($this->getArrayErrors());
+    }
+
 }
