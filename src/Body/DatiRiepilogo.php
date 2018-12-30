@@ -135,7 +135,7 @@ class DatiRiepilogo
      * @param float|null $ImponibileImporto
      * @return DatiRiepilogo
      */
-    public function setImponibileImporto(?float $ImponibileImporto): DatiRiepilogo
+    public function setImponibileImporto(?float $ImponibileImporto,$Precision = 8): DatiRiepilogo
     {
         $this->ImponibileImporto = number_format($ImponibileImporto, 2, '.', '');
         return $this;
