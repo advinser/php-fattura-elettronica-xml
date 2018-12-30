@@ -98,9 +98,9 @@ class DatiRiepilogo
      * @param string|null $SpeseAccessorie
      * @return DatiRiepilogo
      */
-    public function setSpeseAccessorie(?float $SpeseAccessorie): DatiRiepilogo
+    public function setSpeseAccessorie(?float $SpeseAccessorie, int $Precision = 8): DatiRiepilogo
     {
-        $this->SpeseAccessorie = number_format($SpeseAccessorie, 2, '.', '');
+        $this->SpeseAccessorie = number_format($SpeseAccessorie, $Precision, '.', '');
         return $this;
     }
 
