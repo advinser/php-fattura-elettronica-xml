@@ -348,7 +348,7 @@ class Fiscale
         'ZA',
         'ZM',
         'ZW',
-        '00' // used with IdCodice = 99999999999
+        'OO' // used with IdCodice = 99999999999
     ];
 
     /**
