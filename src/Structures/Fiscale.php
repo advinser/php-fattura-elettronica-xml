@@ -347,7 +347,8 @@ class Fiscale
         'YT',
         'ZA',
         'ZM',
-        'ZW'
+        'ZW',
+        '00' // used with IdCodice = 99999999999
     ];
 
     /**
