@@ -331,9 +331,9 @@ class DettaglioLinea
      * @param float|null $ScontoImporto
      * @return DettaglioLinea
      */
-    public function setScontoImporto(?float $ScontoImporto, $precision = 2): DettaglioLinea
+    public function setScontoImporto(?float $ScontoImporto): DettaglioLinea
     {
-        $this->ScontoImporto = number_format($ScontoImporto, $precision, '.', '');
+        $this->ScontoImporto = number_format($ScontoImporto, 2, '.', '');
         return $this;
     }
 
