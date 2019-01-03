@@ -33,7 +33,7 @@ class DettaglioLinea
      */
     private $Descrizione;
     /**
-     * @var float|null
+     * @var string|null
      */
     private $Quantita;
     /**
@@ -192,31 +192,19 @@ class DettaglioLinea
     }
 
     /**
-<<<<<<< HEAD
-     * @return float|null
-     */
-    public function getQuantita(): ?float
-=======
      * @return string|null
      */
     public function getQuantita(): ?string
->>>>>>> master
     {
         return $this->Quantita;
     }
 
     /**
      * @param float|null $Quantita
-<<<<<<< HEAD
-     * @return DettaglioLinea
-     */
-    public function setQuantita(?float $Quantita): DettaglioLinea
-=======
      * @param int $precision
      * @return DettaglioLinea
      */
     public function setQuantita(?float $Quantita, int $precision = 8): DettaglioLinea
->>>>>>> master
     {
         $this->Quantita = number_format($Quantita, $precision, '.', '');
         return $this;
