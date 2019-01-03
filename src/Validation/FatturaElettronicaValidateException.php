@@ -4,8 +4,7 @@
  * Date:         03/11/2018
  * Time:         18:56
  */
-namespace Advinser\FatturaElettronicaXml;
-use Advinser\FatturaElettronicaXml\Structures\ValidateError;
+namespace Advinser\FatturaElettronicaXml\Validation;
 use Throwable;
 
 class FatturaElettronicaValidateException extends \Exception
@@ -18,7 +17,7 @@ class FatturaElettronicaValidateException extends \Exception
      * @param int $code
      * @param Throwable|null $previous
      */
-    public function __construct(array $errorArray = [], $tag = "", $code = 0, Throwable $previous = null)
+    public function __construct(ValidateErrorContainer $errorContainer, $tag = "", $code = 0, Throwable $previous = null)
     {
         if(empty($tag)){
             $tag = 'Validate @ FatturaElettronicaXml :: ';
@@ -27,7 +26,7 @@ class FatturaElettronicaValidateException extends \Exception
         }
         $message = '';
         $isCLI = ( php_sapi_name() == 'cli' );
-        foreach ($errorArray as $error){
+        foreach ($errorContainer->getErrors() as $error){
             $message.=$error;
             if($isCLI){
                 $message.="\r\n";

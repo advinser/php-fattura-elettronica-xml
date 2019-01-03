@@ -8,6 +8,10 @@
 namespace Advinser\FatturaElettronicaXml\Structures;
 
 
+use Advinser\FatturaElettronicaXml\FatturaElettronica;
+use Advinser\FatturaElettronicaXml\Validation\ValidateError;
+use Advinser\FatturaElettronicaXml\Validation\ValidateErrorContainer;
+
 class Anagrafica
 {
     /**
@@ -175,5 +179,72 @@ class Anagrafica
         return $o;
     }
 
+    /**
+     * @param $array
+     * @param ValidateErrorContainer $errorContainer
+     * @param string $tag
+     */
+    public static function validate($array, ValidateErrorContainer $errorContainer, $tag = '')
+    {
+        $empty = true;
+        $denominazioneIsset = false;
+        $nomeIsset = false;
+        $cognomeIsset = false;
+        $titoloIsset = false;
 
+        if (!empty($array['Denominazione'])) {
+            $denominazioneIsset = true;
+            $empty = false;
+            if(strlen($array['Denominazione']) > 80){
+                $errorContainer->addError(new ValidateError('', FatturaElettronica::ERROR_LEVEL_INVALID, $tag . "'Denominazione', length max is 80", $tag . 'Anagrafica::04', __LINE__));
+            }
+        }
+
+        if (!empty($array['Nome'])) {
+            $nomeIsset = true;
+            $empty = false;
+            if(strlen($array['Nome']) > 60){
+                $errorContainer->addError(new ValidateError('', FatturaElettronica::ERROR_LEVEL_INVALID, $tag . "'Nome', length max is 60", $tag . 'Anagrafica::05', __LINE__));
+            }
+        }
+
+        if (!empty($array['Cognome'])) {
+            $cognomeIsset = true;
+            $empty = false;
+            if(strlen($array['Cognome']) > 60){
+                $errorContainer->addError(new ValidateError('', FatturaElettronica::ERROR_LEVEL_INVALID, $tag . "'Cognome', length max is 60", $tag . 'Anagrafica::06', __LINE__));
+            }
+        }
+
+        if (!empty($array['Titolo'])) {
+            $titoloIsset = true;
+            $empty = false;
+            $l = strlen($array['Titolo']);
+            if($l > 10 || $l<2){
+                $errorContainer->addError(new ValidateError('', FatturaElettronica::ERROR_LEVEL_INVALID, $tag . "'Titolo', length is wrong, must be between 2 and 10", $tag . 'Anagrafica::07', __LINE__));
+            }
+        }
+
+        if (!empty($array['CodEORI'])) {
+            $empty = false;
+            $l = strlen($array['CodEORI']);
+            if($l > 17 || $l<13){
+                $errorContainer->addError(new ValidateError('', FatturaElettronica::ERROR_LEVEL_INVALID, $tag . "'CodEORI', length is wrong, must be between 2 and 10", $tag . 'Anagrafica::08', __LINE__));
+            }
+        }
+
+        if($empty){
+            $errorContainer->addError(new ValidateError('', FatturaElettronica::ERROR_LEVEL_INVALID, $tag . "'ANAGRAFICA' IS WRONG OR EMPTY", $tag . 'Anagrafica::01', __LINE__));
+        }
+
+        if($denominazioneIsset && ($nomeIsset || $cognomeIsset)){
+            $errorContainer->addError(new ValidateError('', FatturaElettronica::ERROR_LEVEL_INVALID, $tag . "'Denominazione' can be used only if 'Nome' or 'Cognome' are not", $tag . 'Anagrafica::02', __LINE__));
+
+        }
+
+        if(!$denominazioneIsset && (!$nomeIsset || !$cognomeIsset)){
+            $errorContainer->addError(new ValidateError('', FatturaElettronica::ERROR_LEVEL_INVALID, $tag . "'ANAGRAFICA', one of 'Denominazione' or 'Nome' and 'Cognome' must be used", $tag . 'Anagrafica::03', __LINE__));
+        }
+
+    }
 }

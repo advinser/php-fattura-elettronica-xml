@@ -9,6 +9,7 @@ namespace Advinser\FatturaElettronicaXml\Body;
 
 
 use Advinser\FatturaElettronicaXml\FatturaElettronicaException;
+use Advinser\FatturaElettronicaXml\Validation\ValidateErrorContainer;
 
 class DatiPagamento
 {
@@ -39,7 +40,7 @@ class DatiPagamento
     }
 
     /**
-     * @param DettaglioPagamento[] $dettaglioPagamento
+     * @param DettaglioPagamento $dettaglioPagamento
      * @return DatiPagamento
      */
     public function addDettaglioPagamento(DettaglioPagamento $dettaglioPagamento): DatiPagamento
@@ -48,9 +49,7 @@ class DatiPagamento
         return $this;
     }
 
-
-
-
+    
     /**
      * @return mixed
      */
@@ -93,11 +92,11 @@ class DatiPagamento
 
         if (count($this->getDettaglioPagamento()) == 0) {
             throw new FatturaElettronicaException("DatiPagamento :: missed istance of DettaglioPagamento");
-        } else if(count($this->getDettaglioPagamento()) > 1) {
-                foreach ($this->getDettaglioPagamento() as $dp) {
-                    $array['DettaglioPagamento'][] = $dp->toArray();
-                }
-        }else{
+        } else if (count($this->getDettaglioPagamento()) > 1) {
+            foreach ($this->getDettaglioPagamento() as $dp) {
+                $array['DettaglioPagamento'][] = $dp->toArray();
+            }
+        } else {
             $array['DettaglioPagamento'] = $this->getDettaglioPagamento()[0]->toArray();
         }
 
@@ -129,6 +128,18 @@ class DatiPagamento
         }
 
         return $o;
+    }
+
+
+    /**
+     * @param array $array
+     * @param ValidateErrorContainer $errorContainer
+     * @param string $tag
+     */
+    public static function validate(array $array, ValidateErrorContainer $errorContainer, $tag = '')
+    {
+        //todo validation
+
     }
 
 }

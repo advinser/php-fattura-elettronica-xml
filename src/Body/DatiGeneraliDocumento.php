@@ -8,6 +8,7 @@
 namespace Advinser\FatturaElettronicaXml\Body;
 
 use Advinser\FatturaElettronicaXml\FatturaElettronicaException;
+use Advinser\FatturaElettronicaXml\Validation\ValidateErrorContainer;
 
 class DatiGeneraliDocumento
 {
@@ -238,12 +239,12 @@ class DatiGeneraliDocumento
     }
 
     /**
-     * @param null|string $ImportoRitenuta
+     * @param float|null $ImportoRitenuta
      * @return DatiGeneraliDocumento
      */
-    public function setImportoRitenuta(?string $ImportoRitenuta): DatiGeneraliDocumento
+    public function setImportoRitenuta(?float $ImportoRitenuta): DatiGeneraliDocumento
     {
-        $this->ImportoRitenuta = $ImportoRitenuta;
+        $this->ImportoRitenuta = number_format($ImportoRitenuta, 2, '.', '');
         return $this;
     }
 
@@ -310,12 +311,12 @@ class DatiGeneraliDocumento
     }
 
     /**
-     * @param null|string $ImportoBollo
+     * @param float|null $ImportoBollo
      * @return DatiGeneraliDocumento
      */
-    public function setImportoBollo(?string $ImportoBollo): DatiGeneraliDocumento
+    public function setImportoBollo(?float $ImportoBollo): DatiGeneraliDocumento
     {
-        $this->ImportoBollo = $ImportoBollo;
+        $this->ImportoBollo = number_format($ImportoBollo, 2, '.', '');
         return $this;
     }
 
@@ -364,12 +365,12 @@ class DatiGeneraliDocumento
     }
 
     /**
-     * @param null|string $ImportoContributoCassa
+     * @param float|null $ImportoContributoCassa
      * @return DatiGeneraliDocumento
      */
-    public function setImportoContributoCassa(?string $ImportoContributoCassa): DatiGeneraliDocumento
+    public function setImportoContributoCassa(?float $ImportoContributoCassa): DatiGeneraliDocumento
     {
-        $this->ImportoContributoCassa = $ImportoContributoCassa;
+        $this->ImportoContributoCassa = number_format($ImportoContributoCassa, 2, '.', '');
         return $this;
     }
 
@@ -382,12 +383,12 @@ class DatiGeneraliDocumento
     }
 
     /**
-     * @param null|string $ImponibileCassa
+     * @param float|null $ImponibileCassa
      * @return DatiGeneraliDocumento
      */
-    public function setImponibileCassa(?string $ImponibileCassa): DatiGeneraliDocumento
+    public function setImponibileCassa(?float $ImponibileCassa): DatiGeneraliDocumento
     {
-        $this->ImponibileCassa = $ImponibileCassa;
+        $this->ImponibileCassa = number_format($ImponibileCassa, 2, '.', '');
         return $this;
     }
 
@@ -405,7 +406,7 @@ class DatiGeneraliDocumento
      */
     public function setAliquotaIVA(?string $AliquotaIVA): DatiGeneraliDocumento
     {
-        $this->AliquotaIVA = $AliquotaIVA;
+        $this->AliquotaIVA = number_format($AliquotaIVA, 2, '.', '');
         return $this;
     }
 
@@ -526,12 +527,12 @@ class DatiGeneraliDocumento
     }
 
     /**
-     * @param null|string $ImportoTotaleDocumento
+     * @param float|null $ImportoTotaleDocumento
      * @return DatiGeneraliDocumento
      */
-    public function setImportoTotaleDocumento(?string $ImportoTotaleDocumento): DatiGeneraliDocumento
+    public function setImportoTotaleDocumento(?float $ImportoTotaleDocumento): DatiGeneraliDocumento
     {
-        $this->ImportoTotaleDocumento = $ImportoTotaleDocumento;
+        $this->ImportoTotaleDocumento = number_format($ImportoTotaleDocumento, 2, '.', '');
         return $this;
     }
 
@@ -544,12 +545,12 @@ class DatiGeneraliDocumento
     }
 
     /**
-     * @param null|string $Arrotondamento
+     * @param float|null $Arrotondamento
      * @return DatiGeneraliDocumento
      */
-    public function setArrotondamento(?string $Arrotondamento): DatiGeneraliDocumento
+    public function setArrotondamento(?float $Arrotondamento): DatiGeneraliDocumento
     {
-        $this->Arrotondamento = $Arrotondamento;
+        $this->Arrotondamento = number_format($Arrotondamento, 2, '.', '');
         return $this;
     }
 
@@ -570,8 +571,9 @@ class DatiGeneraliDocumento
         $this->Causale = $Causale;
         return $this;
     }
+
     /**
-     * @param null|string[] $Causale
+     * @param string $Causale
      * @return DatiGeneraliDocumento
      */
     public function addCausale(string $Causale): DatiGeneraliDocumento
@@ -649,21 +651,20 @@ class DatiGeneraliDocumento
             $array['DatiRitenuta']['TipoRitenuta'] = $this->getTipoRitenuta();
         }
         if (!empty($this->getImportoRitenuta())) {
-            $array['DatiRitenuta']['ImportoRitenuta'] = number_format($this->getImportoRitenuta(), 2, '.', '');
+            $array['DatiRitenuta']['ImportoRitenuta'] = $this->getImportoRitenuta();
         }
         if (!empty($this->getAliquotaRitenuta())) {
-            $array['DatiRitenuta']['AliquotaRitenuta'] = number_format($this->getAliquotaRitenuta(), 2, '.', '');
+            $array['DatiRitenuta']['AliquotaRitenuta'] = $this->getAliquotaRitenuta();
         }
         if (!empty($this->getCausalePagamento())) {
             $array['DatiRitenuta']['CausalePagamento'] = $this->getCausalePagamento();
         }
 
-
         if (!empty($this->getBolloVirtuale())) {
             $array['DatiBollo']['BolloVirtuale'] = $this->getBolloVirtuale();
         }
         if (!empty($this->getImportoBollo())) {
-            $array['DatiBollo']['ImportoBollo'] = number_format($this->getImportoBollo(), 2, '.', '');
+            $array['DatiBollo']['ImportoBollo'] = $this->getImportoBollo();
         }
 
 
@@ -677,10 +678,10 @@ class DatiGeneraliDocumento
             $array['DatiCassaPrevidenziale']['ImportoContributoCassa'] = $this->getImportoContributoCassa();
         }
         if (!empty($this->getImponibileCassa())) {
-            $array['DatiCassaPrevidenziale']['ImponibileCassa'] = number_format($this->getImponibileCassa(), 2, '.', '');
+            $array['DatiCassaPrevidenziale']['ImponibileCassa'] = $this->getImponibileCassa();
         }
         if (!empty($this->getAliquotaIVA())) {
-            $array['DatiCassaPrevidenziale']['AliquotaIVA'] = number_format($this->getAliquotaIVA(), 2, '.', '');
+            $array['DatiCassaPrevidenziale']['AliquotaIVA'] = $this->getAliquotaIVA();
         }
         if (!empty($this->getRitenuta())) {
             $array['DatiCassaPrevidenziale']['Ritenuta'] = $this->getRitenuta();
@@ -697,17 +698,17 @@ class DatiGeneraliDocumento
             $array['ScontoMaggiorazione']['Tipo'] = $this->getScontoTipo();
         }
         if (!empty($this->getScontoPercentuale())) {
-            $array['ScontoMaggiorazione']['Percentuale'] = number_format($this->getScontoPercentuale(), 2, '.', '');
+            $array['ScontoMaggiorazione']['Percentuale'] = $this->getScontoPercentuale();
         }
         if (!empty($this->getScontoImporto())) {
-            $array['ScontoMaggiorazione']['Importo'] = number_format($this->getScontoImporto(), 2, '.', '');
+            $array['ScontoMaggiorazione']['Importo'] = $this->getScontoImporto();
         }
 
         if ($this->getImportoTotaleDocumento() !== null) {
-            $array['ImportoTotaleDocumento'] = number_format($this->getImportoTotaleDocumento(), 2, '.', '');
+            $array['ImportoTotaleDocumento'] = $this->getImportoTotaleDocumento();
         }
         if (!empty($this->getArrotondamento())) {
-            $array['Arrotondamento'] = number_format($this->getArrotondamento(), 2, '.', '');
+            $array['Arrotondamento'] = $this->getArrotondamento();
         }
         if (!empty($this->getCausale())) {
             $array['Causale'] = $this->getCausale();
@@ -821,5 +822,14 @@ class DatiGeneraliDocumento
         }
         return $o;
     }
+    /**
+     * @param array $array
+     * @param ValidateErrorContainer $errorContainer
+     * @param string $tag
+     */
+    public static function validate(array $array, ValidateErrorContainer $errorContainer, $tag = '')
+    {
+        //todo validation
 
+    }
 }

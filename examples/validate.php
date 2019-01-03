@@ -7,4 +7,6 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
-$fxml_validate = \Advinser\FatturaElettronicaXml\FatturaElettronicaValidate::validateFromFile(__DIR__.'/fattura01_pa_from_array_full_write_WITHERROR.xml',true);
+$fxml_validate = \Advinser\FatturaElettronicaXml\Validation\ValidateXmlSchema::validateFromFile(__DIR__ . '/fattura01_pa_from_array_full_write_WITHERROR.xml');
+
+print_r($fxml_validate);

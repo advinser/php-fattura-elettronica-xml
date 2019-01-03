@@ -4,7 +4,9 @@
  * Date:         03/11/2018
  * Time:         18:56
  */
+
 namespace Advinser\FatturaElettronicaXml;
+
 use Throwable;
 
 class FatturaElettronicaException extends \Exception
@@ -18,13 +20,12 @@ class FatturaElettronicaException extends \Exception
      */
     public function __construct($message = "", $tag = "", $code = 0, Throwable $previous = null)
     {
-        if(empty($tag)){
+        if (empty($tag)) {
             $tag = 'FatturaElettronicaXml :: ';
-        }else{
-            $tag = 'FatturaElettronicaXml :: '.$tag.' :: ';
-
+        } else {
+            $tag = 'FatturaElettronicaXml :: ' . $tag . ' :: ';
         }
-        parent::__construct($tag.$message, $code, $previous);
+        parent::__construct($tag . $message, $code, $previous);
     }
 
 }

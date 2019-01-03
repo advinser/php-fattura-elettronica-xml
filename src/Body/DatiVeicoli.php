@@ -8,6 +8,8 @@
 namespace Advinser\FatturaElettronicaXml\Body;
 
 
+use Advinser\FatturaElettronicaXml\Validation\ValidateErrorContainer;
+
 class DatiVeicoli
 {
     /**
@@ -60,9 +62,9 @@ class DatiVeicoli
      */
     public function toArray()
     {
-        $array=[
-            'Data'=>$this->getData(),
-            'TotalePercorso'=>$this->getTotalePercorso(),
+        $array = [
+            'Data' => $this->getData(),
+            'TotalePercorso' => $this->getTotalePercorso(),
         ];
 
         return $array;
@@ -82,6 +84,18 @@ class DatiVeicoli
         }
 
         return $o;
+    }
+
+
+    /**
+     * @param array $array
+     * @param ValidateErrorContainer $errorContainer
+     * @param string $tag
+     */
+    public static function validate(array $array, ValidateErrorContainer $errorContainer, $tag = '')
+    {
+        //todo validation
+
     }
 
 }

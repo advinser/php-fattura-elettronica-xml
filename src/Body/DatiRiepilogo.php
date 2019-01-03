@@ -8,6 +8,8 @@
 namespace Advinser\FatturaElettronicaXml\Body;
 
 
+use Advinser\FatturaElettronicaXml\Validation\ValidateErrorContainer;
+
 class DatiRiepilogo
 {
     /**
@@ -57,12 +59,12 @@ class DatiRiepilogo
     }
 
     /**
-     * @param string|null $AliquotaIVA
+     * @param float|null $AliquotaIVA
      * @return DatiRiepilogo
      */
-    public function setAliquotaIVA(?string $AliquotaIVA): DatiRiepilogo
+    public function setAliquotaIVA(?float $AliquotaIVA): DatiRiepilogo
     {
-        $this->AliquotaIVA = $AliquotaIVA;
+        $this->AliquotaIVA = number_format($AliquotaIVA, 2, '.', '');
         return $this;
     }
 
@@ -96,9 +98,9 @@ class DatiRiepilogo
      * @param string|null $SpeseAccessorie
      * @return DatiRiepilogo
      */
-    public function setSpeseAccessorie(?string $SpeseAccessorie): DatiRiepilogo
+    public function setSpeseAccessorie(?float $SpeseAccessorie, int $Precision = 8): DatiRiepilogo
     {
-        $this->SpeseAccessorie = $SpeseAccessorie;
+        $this->SpeseAccessorie = number_format($SpeseAccessorie, $Precision, '.', '');
         return $this;
     }
 
@@ -111,12 +113,13 @@ class DatiRiepilogo
     }
 
     /**
-     * @param string|null $Arrotondamento
+     * @param float|null $Arrotondamento
+     * @param int $Precision
      * @return DatiRiepilogo
      */
-    public function setArrotondamento(?string $Arrotondamento): DatiRiepilogo
+    public function setArrotondamento(?float $Arrotondamento, int $Precision = 8): DatiRiepilogo
     {
-        $this->Arrotondamento = $Arrotondamento;
+        $this->Arrotondamento = number_format($Arrotondamento, $Precision, '.', '');
         return $this;
     }
 
@@ -129,12 +132,12 @@ class DatiRiepilogo
     }
 
     /**
-     * @param string|null $ImponibileImporto
+     * @param float|null $ImponibileImporto
      * @return DatiRiepilogo
      */
-    public function setImponibileImporto(?string $ImponibileImporto): DatiRiepilogo
+    public function setImponibileImporto(?float $ImponibileImporto,$Precision = 8): DatiRiepilogo
     {
-        $this->ImponibileImporto = $ImponibileImporto;
+        $this->ImponibileImporto = number_format($ImponibileImporto, 2, '.', '');
         return $this;
     }
 
@@ -147,12 +150,12 @@ class DatiRiepilogo
     }
 
     /**
-     * @param string|null $Imposta
+     * @param float|null $Imposta
      * @return DatiRiepilogo
      */
-    public function setImposta(?string $Imposta): DatiRiepilogo
+    public function setImposta(?float $Imposta): DatiRiepilogo
     {
-        $this->Imposta = $Imposta;
+        $this->Imposta = number_format($Imposta, 2, '.', '');
         return $this;
     }
 
@@ -211,23 +214,28 @@ class DatiRiepilogo
         ];
 
         if (!empty($this->getAliquotaIVA())) {
-            $array['AliquotaIVA'] = number_format($this->getAliquotaIVA(), 2, '.', '');
+//            $array['AliquotaIVA'] = number_format($this->getAliquotaIVA(), 2, '.', '');
+            $array['AliquotaIVA'] = $this->getAliquotaIVA();
         }
 
         if (!empty($this->getNatura())) {
             $array['Natura'] = $this->getNatura();
         }
         if (!empty($this->getSpeseAccessorie())) {
-            $array['SpeseAccessorie'] = number_format(floatval($this->getSpeseAccessorie()), 2, '.', '');
+//            $array['SpeseAccessorie'] = number_format(floatval($this->getSpeseAccessorie()), 2, '.', '');
+            $array['SpeseAccessorie'] = $this->getSpeseAccessorie();
         }
         if (!empty($this->getArrotondamento())) {
-            $array['Arrotondamento'] = number_format(floatval($this->getArrotondamento()), 2, '.', '');
+//            $array['Arrotondamento'] = number_format(floatval($this->getArrotondamento()), 2, '.', '');
+            $array['Arrotondamento'] = $this->getArrotondamento();
         }
         if (!empty($this->getImponibileImporto())) {
-            $array['ImponibileImporto'] = number_format(floatval($this->getImponibileImporto()), 2, '.', '');
+//            $array['ImponibileImporto'] = number_format(floatval($this->getImponibileImporto()), 2, '.', '');
+            $array['ImponibileImporto'] = $this->getImponibileImporto();
         }
         if (!empty($this->getImposta())) {
-            $array['Imposta'] = number_format(floatval($this->getImposta()), 2, '.', '');
+//            $array['Imposta'] = number_format(floatval($this->getImposta()), 2, '.', '');
+            $array['Imposta'] = $this->getImposta();
         }
         if (!empty($this->getEsigibilitaIVA())) {
             $array['EsigibilitaIVA'] = $this->getEsigibilitaIVA();
@@ -250,5 +258,16 @@ class DatiRiepilogo
         }
 
         return $o;
+    }
+
+    /**
+     * @param array $array
+     * @param ValidateErrorContainer $errorContainer
+     * @param string $tag
+     */
+    public static function validate(array $array, ValidateErrorContainer $errorContainer, $tag = '')
+    {
+        //todo validation
+
     }
 }

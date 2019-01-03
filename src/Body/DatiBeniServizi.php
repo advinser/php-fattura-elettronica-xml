@@ -8,6 +8,8 @@
 namespace Advinser\FatturaElettronicaXml\Body;
 
 
+use Advinser\FatturaElettronicaXml\Validation\ValidateErrorContainer;
+
 class DatiBeniServizi
 {
     /**
@@ -78,7 +80,6 @@ class DatiBeniServizi
     }
 
 
-
     /**
      * @return array
      */
@@ -115,7 +116,10 @@ class DatiBeniServizi
         return $array;
     }
 
-
+    /**
+     * @param array $array
+     * @return DatiBeniServizi
+     */
     public static function fromArray(array $array): DatiBeniServizi
     {
         $o = new DatiBeniServizi();
@@ -143,4 +147,14 @@ class DatiBeniServizi
         return $o;
     }
 
+    /**
+     * @param array $array
+     * @param ValidateErrorContainer $errorContainer
+     * @param string $tag
+     */
+    public static function validate(array $array, ValidateErrorContainer $errorContainer, $tag = '')
+    {
+        //todo validation
+
+    }
 }

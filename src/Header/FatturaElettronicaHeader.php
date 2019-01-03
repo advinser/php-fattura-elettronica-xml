@@ -115,10 +115,10 @@ class FatturaElettronicaHeader extends AbsModels
      */
     public function setCessionarioCommittente(CessionarioCommittente $cessionarioCommittente): FatturaElettronicaHeader
     {
-        if (empty($cessionarioCommittente->getIdFiscaleIVA()) && empty($cessionarioCommittente->getCodiceFiscale())) {
-            throw new FatturaElettronicaException("You must fill either the field 'Codice Fiscale' 
-                or the field 'Id Fiscale IVA'");
-        }
+//        if (empty($cessionarioCommittente->getIdFiscaleIVA()) && empty($cessionarioCommittente->getCodiceFiscale())) {
+//            throw new FatturaElettronicaException("You must fill either the field 'Codice Fiscale'
+//                or the field 'Id Fiscale IVA'");
+//        }
         $this->cessionarioCommittente = $cessionarioCommittente;
         return $this;
     }

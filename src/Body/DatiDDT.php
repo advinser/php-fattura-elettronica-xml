@@ -1,11 +1,8 @@
 <?php
-/**
- * Created by    Gabriel Andrei gabrielandrei79@gmail.com
- * Date:         04/11/2018
- * Time:         16:01
- */
 
 namespace Advinser\FatturaElettronicaXml\Body;
+
+use Advinser\FatturaElettronicaXml\Validation\ValidateErrorContainer;
 
 class DatiDDT
 {
@@ -105,5 +102,16 @@ class DatiDDT
     {
         $this->RiferimentoNumeroLinea = $RiferimentoNumeroLinea;
         return $this;
+    }
+
+    /**
+     * @param array $array
+     * @param ValidateErrorContainer $errorContainer
+     * @param string $tag
+     */
+    public static function validate(array $array, ValidateErrorContainer $errorContainer, $tag = '')
+    {
+        //todo validation
+
     }
 }

@@ -11,6 +11,7 @@ namespace Advinser\FatturaElettronicaXml\Body;
 use Advinser\FatturaElettronicaXml\Structures\Anagrafica;
 use Advinser\FatturaElettronicaXml\Structures\Fiscale;
 use Advinser\FatturaElettronicaXml\Structures\Indirizzo;
+use Advinser\FatturaElettronicaXml\Validation\ValidateErrorContainer;
 
 class DatiTrasporto
 {
@@ -39,7 +40,7 @@ class DatiTrasporto
      */
     private $CausaleTrasporto;
     /**
-     * @var string|null
+     * @var int|null
      */
     private $NumeroColli;
     /**
@@ -107,12 +108,12 @@ class DatiTrasporto
     }
 
     /**
-     * @param null|string $CodiceFiscale
+     * @param string|null $CodiceFiscale
      * @return DatiTrasporto
      */
     public function setCodiceFiscale(?string $CodiceFiscale): DatiTrasporto
     {
-        $this->CodiceFiscale = $CodiceFiscale;
+        $this->CodiceFiscale = strtoupper($CodiceFiscale);
         return $this;
     }
 
@@ -189,18 +190,18 @@ class DatiTrasporto
     }
 
     /**
-     * @return null|string
+     * @return null|int
      */
-    public function getNumeroColli(): ?string
+    public function getNumeroColli(): ?int
     {
         return $this->NumeroColli;
     }
 
     /**
-     * @param null|string $NumeroColli
+     * @param int|null $NumeroColli
      * @return DatiTrasporto
      */
-    public function setNumeroColli(?string $NumeroColli): DatiTrasporto
+    public function setNumeroColli(?int $NumeroColli): DatiTrasporto
     {
         $this->NumeroColli = $NumeroColli;
         return $this;
@@ -233,7 +234,7 @@ class DatiTrasporto
     }
 
     /**
-     * @param null|string $UnitaMisuraPeso
+     * @param string|null $UnitaMisuraPeso
      * @return DatiTrasporto
      */
     public function setUnitaMisuraPeso(?string $UnitaMisuraPeso): DatiTrasporto
@@ -251,12 +252,12 @@ class DatiTrasporto
     }
 
     /**
-     * @param null|string $PesoLordo
+     * @param float|null $PesoLordo
      * @return DatiTrasporto
      */
-    public function setPesoLordo(?string $PesoLordo): DatiTrasporto
+    public function setPesoLordo(?float $PesoLordo): DatiTrasporto
     {
-        $this->PesoLordo = $PesoLordo;
+        $this->PesoLordo = number_format($PesoLordo, 2, '.', '');
         return $this;
     }
 
@@ -269,12 +270,12 @@ class DatiTrasporto
     }
 
     /**
-     * @param null|string $PesoNetto
+     * @param float|null $PesoNetto
      * @return DatiTrasporto
      */
-    public function setPesoNetto(?string $PesoNetto): DatiTrasporto
+    public function setPesoNetto(?float $PesoNetto): DatiTrasporto
     {
-        $this->PesoNetto = $PesoNetto;
+        $this->PesoNetto = number_format($PesoNetto, 2, '.', '');
         return $this;
     }
 
@@ -504,6 +505,17 @@ class DatiTrasporto
         }
 
         return $o;
+    }
+
+    /**
+     * @param array $array
+     * @param ValidateErrorContainer $errorContainer
+     * @param string $tag
+     */
+    public static function validate(array $array, ValidateErrorContainer $errorContainer, $tag = '')
+    {
+        //todo validation
+
     }
 
 

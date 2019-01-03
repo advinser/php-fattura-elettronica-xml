@@ -8,9 +8,11 @@
 namespace Advinser\FatturaElettronicaXml\Body;
 
 
+use Advinser\FatturaElettronicaXml\FatturaElettronica;
 use Advinser\FatturaElettronicaXml\FatturaElettronicaException;
 use Advinser\FatturaElettronicaXml\Structures\DatiRiferimento;
-use Advinser\FatturaElettronicaXml\Body\DatiDDT;
+use Advinser\FatturaElettronicaXml\Validation\ValidateError;
+use Advinser\FatturaElettronicaXml\Validation\ValidateErrorContainer;
 
 class DatiGenerali
 {
@@ -50,7 +52,7 @@ class DatiGenerali
     /**
      * @var DatiDDT[] | null
      */
-    private $DatiDDT ;
+    private $DatiDDT;
 
     /**
      * @var DatiTrasporto|null
@@ -407,7 +409,7 @@ class DatiGenerali
                 $o->addDatiDDT(DatiDDT::fromArray($array['DatiDDT']));
             }
         }
-        
+
         if (!empty($array['DatiTrasporto'])) {
             $o->setDatiTrasporto(DatiTrasporto::fromArray($array['DatiTrasporto']));
         }
@@ -421,6 +423,16 @@ class DatiGenerali
 
         return $o;
 
+    }
+
+    /**
+     * @param array $array
+     * @param ValidateErrorContainer $errorContainer
+     * @param string $tag
+     */
+    public static function validate(array $array, ValidateErrorContainer $errorContainer, $tag = '')
+    {
+        //todo validation
     }
 
 }

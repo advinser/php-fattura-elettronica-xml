@@ -5,12 +5,15 @@
  * Time:         13:58
  */
 
-namespace Advinser\FatturaElettronicaXml\Structures;
+namespace Advinser\FatturaElettronicaXml\Validation;
 
 
 class ValidateError
 {
-
+    /**
+     * @var string
+     */
+    private $type;
     /**
      * @var string
      */
@@ -30,25 +33,26 @@ class ValidateError
     /**
      * @var string
      */
-    private $messageTemplate = "%s | Code: %s | Line: %d | Message: %s";
+    private $messageTemplate = "[%s] %s | Code: %s | Line: %d | Message: %s";
 
     /**
      * ValidateError constructor.
+     * @param string $type
      * @param string $level
      * @param string $message
      * @param string $code
      * @param int $line
-     * @param string $template
      */
-    public function __construct(string $level, string $message, string $code, int $line, ?string $template = null)
+    public function __construct(string $type, string $level, string $message, string $code, int $line)
     {
+        if(empty($type)){
+            $type = 'Object';
+        }
+        $this->type = $type;
         $this->level = $level;
         $this->message = $message;
         $this->code = $code;
         $this->line = $line;
-        if($template !==null){
-            $this->messageTemplate = $template;
-        }
     }
 
     /**
@@ -134,8 +138,9 @@ class ValidateError
     /**
      * @return string
      */
-    public function bMessage(){
-        return sprintf($this->messageTemplate,$this->level,$this->code,$this->line,$this->message);
+    public function bMessage()
+    {
+        return sprintf($this->messageTemplate, $this->type, $this->level, $this->code, $this->line, $this->message);
     }
 
     /**
@@ -146,12 +151,14 @@ class ValidateError
         return $this->bMessage();
     }
 
-    public function toArray(){
+    public function toArray()
+    {
         return [
-            'level'=>$this->level,
-            'code'=>$this->code,
-            'line'=>$this->line,
-            'message'=>$this->message
+            'type' => $this->type,
+            'level' => $this->level,
+            'code' => $this->code,
+            'line' => $this->line,
+            'message' => $this->message
         ];
     }
 

@@ -7,7 +7,10 @@
 
 namespace Advinser\FatturaElettronicaXml;
 
+use Advinser\FatturaElettronicaXml\Validation\FatturaElettronicaValidateException;
+use Advinser\FatturaElettronicaXml\Validation\ValidateXmlSchema;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Serializer;
 
 class FatturaElettronicaXmlWriter
 {
@@ -23,11 +26,6 @@ class FatturaElettronicaXmlWriter
     private $fatturaElettronica;
 
     /**
-     * @var FatturaElettronicaValidate|null
-     */
-    private $validate = null;
-
-    /**
      * XmlWriter constructor.
      * @param FatturaElettronica $fatturaElettronica
      */
@@ -35,15 +33,15 @@ class FatturaElettronicaXmlWriter
     {
         $this->fatturaElettronica = $fatturaElettronica;
         $this->xmlEncoder = new XmlEncoder();
+        $this->xmlEncoder->setSerializer(new Serializer());
     }
 
     /**
-     * @param bool $validate
      * @return string
      * @throws FatturaElettronicaException
      * @throws FatturaElettronicaValidateException
      */
-    public function encodeXml($validate = false): string
+    public function encodeXml(): string
     {
         $xmlData =  trim($this->xmlEncoder->encode(
             $this->fatturaElettronica->toArray(),
@@ -53,8 +51,14 @@ class FatturaElettronicaXmlWriter
                 'xml_encoding' => 'UTF-8'
             ]
         ));
-        if($validate){
-            $this->validate = FatturaElettronicaValidate::validateFromData($xmlData);
+        if($this->fatturaElettronica->isAutoValidate()){
+            foreach (ValidateXmlSchema::validateFromData($xmlData) as $error){
+                $this->fatturaElettronica->addError($error);
+            }
+        }
+
+        if($this->fatturaElettronica->isThrowValidateException() && !$this->fatturaElettronica->isValid()){
+            throw new FatturaElettronicaValidateException($this->fatturaElettronica->getErrorContainer());
         }
 
         return $xmlData;
@@ -62,25 +66,12 @@ class FatturaElettronicaXmlWriter
 
     /**
      * @param string $filePath
-     * @param bool $validate
      * @return bool
      * @throws FatturaElettronicaException
      * @throws FatturaElettronicaValidateException
      */
-    public function writeXml(string $filePath,$validate = false): bool
+    public function writeXml(string $filePath): bool
     {
-        return file_put_contents($filePath, $this->encodeXml($validate)) !== false;
+        return file_put_contents($filePath, $this->encodeXml()) !== false;
     }
-
-    /**
-     * @return FatturaElettronicaValidate|null
-     */
-    public function getValidate(): ?FatturaElettronicaValidate
-    {
-        return $this->validate;
-    }
-
-
-
-
 }

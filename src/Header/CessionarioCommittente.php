@@ -8,9 +8,13 @@
 namespace Advinser\FatturaElettronicaXml\Header;
 
 
+use Advinser\FatturaElettronicaXml\FatturaElettronica;
 use Advinser\FatturaElettronicaXml\Structures\Anagrafica;
 use Advinser\FatturaElettronicaXml\Structures\Fiscale;
 use Advinser\FatturaElettronicaXml\Structures\Indirizzo;
+use Advinser\FatturaElettronicaXml\Validation\ValidateError;
+use Advinser\FatturaElettronicaXml\Validation\ValidateErrorContainer;
+use Advinser\FatturaElettronicaXml\Validation\Validators\VCodiceFiscale;
 
 class CessionarioCommittente
 {
@@ -129,7 +133,7 @@ class CessionarioCommittente
      */
     public function setCodiceFiscale(string $CodiceFiscale): CessionarioCommittente
     {
-        $this->CodiceFiscale = $CodiceFiscale;
+        $this->CodiceFiscale = strtoupper($CodiceFiscale);
         return $this;
     }
 
@@ -423,9 +427,9 @@ class CessionarioCommittente
 
     public function toArray(){
         $array['DatiAnagrafici'] = [
-            'IdFiscaleIVA' => ($this->getIdFiscaleIVA() instanceof Fiscale) ? $this->getIdFiscaleIVA()->toArray() : null,
-            'CodiceFiscale' => $this->getCodiceFiscale(),
-            'Anagrafica' => ($this->getAnagrafica() instanceof Anagrafica) ? $this->getAnagrafica()->toArray() : null,
+            'IdFiscaleIVA' => ($this->getIdFiscaleIVA() instanceof Fiscale) ? $this->getIdFiscaleIVA()->toArray() : null,//
+            'CodiceFiscale' => $this->getCodiceFiscale(),//
+            'Anagrafica' => ($this->getAnagrafica() instanceof Anagrafica) ? $this->getAnagrafica()->toArray() : null,//
         ];
 
         $array['Sede'] = null;
@@ -491,5 +495,70 @@ class CessionarioCommittente
         }
         
         return $o;
+    }
+
+    /**
+     * @param $array
+     * @param ValidateErrorContainer $errorContainer
+     */
+    public static function validate($array,ValidateErrorContainer $errorContainer){
+        if(!empty($array['DatiAnagrafici']['IdFiscaleIVA'])){
+            //todo check if CodiceFiscale is not empty, otherwise this element is required
+            Fiscale::validate($array['DatiAnagrafici']['IdFiscaleIVA'],$errorContainer,'CessionarioCommittente::');
+        }
+
+        if(!empty($array['CodiceFiscale'])){
+            VCodiceFiscale::validate($array['CodiceFiscale'],$errorContainer,'CessionarioCommittente::');
+        }
+
+        if(empty($array['DatiAnagrafici']['Anagrafica'])){
+            $errorContainer->addError(new ValidateError('Obect',FatturaElettronica::ERROR_LEVEL_REQUIRED,"Invalid value for 'Anagrafica', it can't be null or empty",'CessionarioCommittente::03',__LINE__));
+        }else{
+            Anagrafica::validate($array['DatiAnagrafici']['Anagrafica'],$errorContainer,'CessionarioCommittente::');
+        }
+
+        if(empty($array['Sede'])){
+            $errorContainer->addError(new ValidateError('Obect',FatturaElettronica::ERROR_LEVEL_REQUIRED,"Invalid value for 'Sede', it can't be null or empty",'CessionarioCommittente::04',__LINE__));
+        }else{
+            Indirizzo::validate($array['Sede'],$errorContainer,'CessionarioCommittente::Sede::');
+        }
+
+        if(!empty($array['StabileOrganizzazione'])){
+            Indirizzo::validate($array['StabileOrganizzazione'],$errorContainer,'CessionarioCommittente::StabileOrganizzazione::');
+        }
+
+        if(!empty($array['RappresentanteFiscale']['IdFiscaleIVA'])){
+            Fiscale::validate($array['RappresentanteFiscale']['IdFiscaleIVA'],$errorContainer,'CessionarioCommittente::');
+        }
+
+        $denominazioneIsset = false;
+        $nomeIsset = false;
+        $cognomeIsset = false;
+        $tag = 'RappresentanteFiscale::';
+        if (!empty($array['RappresentanteFiscale']['Denominazione'])) {
+            $denominazioneIsset = true;
+            if(strlen($array['RappresentanteFiscale']['Denominazione']) > 80){
+                $errorContainer->addError(new ValidateError('', FatturaElettronica::ERROR_LEVEL_INVALID, $tag . "'Denominazione', length max is 80", $tag . 'CessionarioCommittente::06', __LINE__));
+            }
+        }
+
+        if (!empty($array['RappresentanteFiscale']['Nome'])) {
+            $nomeIsset = true;
+            if(strlen($array['RappresentanteFiscale']['Nome']) > 60){
+                $errorContainer->addError(new ValidateError('', FatturaElettronica::ERROR_LEVEL_INVALID, $tag . "'Nome', length max is 60", $tag . 'CessionarioCommittente::07', __LINE__));
+            }
+        }
+
+        if (!empty($array['RappresentanteFiscale']['Cognome'])) {
+            $cognomeIsset = true;
+            if(strlen($array['RappresentanteFiscale']['Cognome']) > 60){
+                $errorContainer->addError(new ValidateError('', FatturaElettronica::ERROR_LEVEL_INVALID, $tag . "'Cognome', length max is 60", $tag . 'CessionarioCommittente::08', __LINE__));
+            }
+        }
+        if($denominazioneIsset && ($nomeIsset || $cognomeIsset)){
+            $errorContainer->addError(new ValidateError('', FatturaElettronica::ERROR_LEVEL_INVALID, $tag . "'Denominazione' can be used only if 'Nome' or 'Cognome' are not", $tag . 'CessionarioCommittente::09', __LINE__));
+
+        }
+
     }
 }
