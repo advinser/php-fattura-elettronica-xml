@@ -19,7 +19,7 @@ class DatiPagamento
     /**
      * @var DettaglioPagamento[] | null
      */
-    private $dettaglioPagamento;
+    private $dettaglioPagamento = [];
 
     /**
      * @return DettaglioPagamento[] | null
