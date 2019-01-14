@@ -226,7 +226,6 @@ class DatiTrasmissione
             'ProgressivoInvio' => $this->getProgressivoInvio(),
             'FormatoTrasmissione' => $this->getFormatoTrasmissione(),
             'CodiceDestinatario' => $this->getCodiceDestinatario(),
-            'ContattiTrasmittente' => null,
             'PECDestinatario' => $this->getPECDestinatario(),
         ];
 
