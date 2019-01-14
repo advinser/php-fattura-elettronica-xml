@@ -19,9 +19,9 @@ abstract class AbsModels
     {
         foreach ($array as $key => $item) {
             is_array($item) && $array [$key] = $this->clean_array($item);
-            if ( $key!=='ContattiTrasmittente' && empty ($array [$key])){
-                unset ($array [$key]);
-            }
+//            if ( $key!=='ContattiTrasmittente' && empty ($array [$key])){
+//                unset ($array [$key]);
+//            }
         }
         return $array;
     }
