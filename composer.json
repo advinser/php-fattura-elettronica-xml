@@ -9,7 +9,7 @@
   ],
   "type": "library",
   "require": {
-    "symfony/serializer": "~2.3|3.*|4.*|^3.4-dev",
+    "symfony/serializer": "~2.3|3.*|4.*|^3.4-dev|5.2.*",
     "php": ">=7.2",
     "ext-json": "*",
     "ext-dom": "*",
