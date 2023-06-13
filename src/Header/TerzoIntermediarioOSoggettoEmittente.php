@@ -11,8 +11,6 @@ namespace Advinser\FatturaElettronicaXml\Header;
 use Advinser\FatturaElettronicaXml\FatturaElettronica;
 use Advinser\FatturaElettronicaXml\Structures\Anagrafica;
 use Advinser\FatturaElettronicaXml\Structures\Fiscale;
-use Advinser\FatturaElettronicaXml\Structures\Indirizzo;
-use Advinser\FatturaElettronicaXml\Structures\SoggettiHeader;
 use Advinser\FatturaElettronicaXml\Validation\ValidateError;
 use Advinser\FatturaElettronicaXml\Validation\ValidateErrorContainer;
 use Advinser\FatturaElettronicaXml\Validation\Validators\VCodiceFiscale;

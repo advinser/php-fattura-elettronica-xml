@@ -8,8 +8,6 @@
 namespace Advinser\FatturaElettronicaXml\Validation\Validators;
 
 
-use Advinser\FatturaElettronicaXml\FatturaElettronica;
-use Advinser\FatturaElettronicaXml\Validation\ValidateError;
 use Advinser\FatturaElettronicaXml\Validation\ValidateErrorContainer;
 
 class VCodiceFiscale

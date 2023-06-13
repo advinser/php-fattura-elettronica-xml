@@ -8,10 +8,8 @@
 namespace Advinser\FatturaElettronicaXml\Body;
 
 
-use Advinser\FatturaElettronicaXml\FatturaElettronica;
 use Advinser\FatturaElettronicaXml\FatturaElettronicaException;
 use Advinser\FatturaElettronicaXml\Structures\DatiRiferimento;
-use Advinser\FatturaElettronicaXml\Validation\ValidateError;
 use Advinser\FatturaElettronicaXml\Validation\ValidateErrorContainer;
 
 class DatiGenerali

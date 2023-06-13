@@ -43,7 +43,7 @@ class FatturaElettronicaXmlWriter
      */
     public function encodeXml(): string
     {
-        $xmlData =  trim($this->xmlEncoder->encode(
+        $xmlData = trim($this->xmlEncoder->encode(
             $this->fatturaElettronica->toArray(),
             'xml',
             [
@@ -51,13 +51,13 @@ class FatturaElettronicaXmlWriter
                 'xml_encoding' => 'UTF-8'
             ]
         ));
-        if($this->fatturaElettronica->isAutoValidate()){
-            foreach (ValidateXmlSchema::validateFromData($xmlData) as $error){
+        if ($this->fatturaElettronica->isAutoValidate()) {
+            foreach (ValidateXmlSchema::validateFromData($xmlData) as $error) {
                 $this->fatturaElettronica->addError($error);
             }
         }
 
-        if($this->fatturaElettronica->isThrowValidateException() && !$this->fatturaElettronica->isValid()){
+        if ($this->fatturaElettronica->isThrowValidateException() && !$this->fatturaElettronica->isValid()) {
             throw new FatturaElettronicaValidateException($this->fatturaElettronica->getErrorContainer());
         }
 
